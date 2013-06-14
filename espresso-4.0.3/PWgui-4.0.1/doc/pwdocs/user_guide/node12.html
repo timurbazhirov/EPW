@@ -1,0 +1,449 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>[edit] Running on parallel machines</TITLE>
+<META NAME="description" CONTENT="[edit] Running on parallel machines">
+<META NAME="keywords" CONTENT="user_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="user_guide.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="up" HREF="user_guide.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html282"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html280"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html274"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html283"
+  HREF="node13.html">[edit] Pseudopotentials</A>
+<B> Up:</B> <A NAME="tex2html281"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html275"
+  HREF="node11.html">[edit] Installation tricks and</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html284"
+  HREF="node12.html#SECTION000012100000000000000">[edit] Understanding Parallelism in Quantum-Espresso</A>
+<LI><A NAME="tex2html285"
+  HREF="node12.html#SECTION000012200000000000000">[edit] Tricks and problems</A>
+<UL>
+<LI><A NAME="tex2html286"
+  HREF="node12.html#SECTION000012210000000000000">[edit] Trouble with MPI libraries</A>
+<LI><A NAME="tex2html287"
+  HREF="node12.html#SECTION000012220000000000000">[edit] Understanding parallel I/O</A>
+<LI><A NAME="tex2html288"
+  HREF="node12.html#SECTION000012230000000000000">[edit] Trouble with input files</A>
+<LI><A NAME="tex2html289"
+  HREF="node12.html#SECTION000012240000000000000">[edit] IBM sp5</A>
+<LI><A NAME="tex2html290"
+  HREF="node12.html#SECTION000012250000000000000">[edit] Cray XT3</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION000012000000000000000">
+[edit] Running on parallel machines</A>
+</H2>
+
+<P>
+Parallel execution is strongly system- and installation-dependent. Typically
+one has to specify:
+
+<P>
+
+<OL>
+<LI>a launcher program, such as poe, mpirun, mpiexec, with or without  appropriate options
+</LI>
+<LI>the number of processors, typically as an option to the launcher program,  but in some cases to be specified after the program to be executed;
+</LI>
+<LI>the program to be executed, with the proper path if needed: for instance, pw.x, or ./pw.x, or $HOME/bin/pw.x, or whatever applies;
+</LI>
+<LI>other quantum-espresso specific parallelization options, to be read and interpreted by the running code:
+
+<OL>
+<LI>the number of “pools” into which processors are to be grouped (for pw.x);
+</LI>
+<LI>the number of “task groups” into which processors are to be grouped (for pw.x and cp.x);
+</LI>
+<LI>the number of “images” used by NEB calculations (for pw.x and cp.x);
+</LI>
+<LI>the number of processors performing iterative diagonalization (for pw.x) or orthonormalization (for cp.x).
+</LI>
+</OL>
+</LI>
+</OL>
+
+<P>
+Item 1) and 2) are machine- and installation-dependent, and may be diﬀerent for
+interactive and batch execution. Note that large parallel machines are 
+often  configured so as to disallow interactive execution: if in doubt, 
+ask your system administrator.
+Item 3) also depend on your specific configuration (shell, execution path, etc).
+Item 4) is optional: see section Understanding Parallelism for the meaning of the 
+various options.
+
+<P>
+For illustration, here’s how to run pw.x on 16 processors partitioned into
+8 pools (2 processors each), for several typical cases. For convenience, we
+also give the corresponding values of PARA PREFIX, PARA POSTFIX to be used
+in running the examples distributed with Quantum-ESPRESSO (see section
+Run examples).
+
+<P>
+<B>IBM SP machines,</B> batch:
+
+<P>
+<PRE>  pw.x -npool 8 &lt; input
+  PARA_PREFIX="", PARA_POSTFIX="-npool 8"
+</PRE>
+
+<P>
+This should also work interactively, with environment variables NPROC
+set to 16, MP HOSTFILE set to the file containing a list of processors.
+
+<P>
+<B>IBM SP machines,</B> interactive, using poe:
+
+<P>
+<PRE>  poe pw.x -procs 16 -npool 8 &lt; input
+  PARA_PREFIX="poe", PARA_POSTFIX="-procs 16 -npool 8"
+</PRE>
+
+<P>
+<B>SGI Origin and PC clusters</B> using mpirun:
+
+<P>
+<PRE>  mpirun -np 16 pw.x -npool 8 &lt; input
+  PARA_PREFIX="mpirun -np 16", PARA_POSTFIX="-npool 8"
+</PRE>
+
+<P>
+<B>PC clusters</B> using mpiexec:
+
+<P>
+<PRE>  mpiexec -n 16 pw.x -npool 8 &lt; input
+  PARA_PREFIX="mpiexec -n 16", PARA_POSTFIX="-npool 8"
+</PRE>
+<H3><A NAME="SECTION000012100000000000000">
+[edit] Understanding Parallelism in Quantum-Espresso</A>
+</H3>
+
+<P>
+Quantum-ESPRESSO uses MPI parallelization.
+Data structures are distributed across processors organized in a hierarchy
+of groups, which are identified by different MPI communicators level.
+The groups hierarchy is as follow:
+
+<P>
+<PRE> world _ images _ pools _ task groups
+               $\backslash$_ ortho groups
+</PRE>
+
+<P>
+world is the group of all processors (MPI_COMM_WORLD).
+
+<P>
+Processors can then be divided into different "images",
+corresponding to a point in configuration space (i.e. to
+a different set of atomic positions). Such partitioning 
+is used when performing Nudged Elastic band (NEB), Meta-dynamics 
+and Laio-Parrinello simulations.
+
+<P>
+When k-point sampling is used, each image group can be 
+subpartitioned into "pools", and k-points can distributed
+to pools.
+
+<P>
+Within each pool, reciprocal space basis set (plane waves)
+and real-space grids are distributed across processors.
+This is usually referred to as "plane-wave parallelization".
+All linear-algebra operations on array of  plane waves / 
+real-space grids are automatically and effectively parallelized.
+3D FFT is used to transform electronic wave functions from
+reciprocal to real space and vice versa. The 3D FFT is
+parallelized by distributing planes of the 3D grid in real
+space to processors (in reciprocal space, it is columns of
+G-vectors that are distributed to processors). 
+
+<P>
+In order to allow good parallelization of the 3D FFT when 
+the number of processors exceeds the number of FFT planes,
+data can be redistributed to "task groups" so that each group 
+can process several wavefunctions at the same time.
+
+<P>
+A further level of parallelization, independent on
+plane-wave (pool) parallelization, is the parallelization of
+subspace diagonalization (pw.x) or iterative orthonormalization
+(cp.x). Both operations required the diagonalization of 
+arrays whose dimension is the number of Kohn-Sham states
+(or a small multiple). All such arrays are distributed block-like
+across the "ortho group", a subgroup of the pool of processors,
+organized in a square 2D grid. The diagonalization is then performed
+in parallel using standard linear algebra operations. 
+(This diagonalization is used by, but should not be confused with,
+the iterative Davidson algorithm).
+
+<P>
+Images and pools are loosely coupled and processors communicate
+between different images and pools only once in a while, whereas
+processors within each pool are tightly coupled and communications
+are significant.
+
+<P>
+To control the number of images, pools and task groups,
+command line switch: -nimage -npools -ntg can be used.
+The dimension of the ortho group is set to the largest
+value compatible with the number of processors and with
+the number of electronic states. The user can choose a smaller
+value using the command line switch -ndiag (pw.x) or -northo (cp.x) .
+As an example consider the following command line:
+
+<P>
+<PRE> mpirun -np 4096 ./pw.x -nimage 8 -npool 2 -ntg 8 -ndiag 144 -input myinput.in
+</PRE>
+
+<P>
+This execute the PWscf code on 4096 processors, to simulate a system
+with 8 images, each of which is distributed across 512 processors.
+K-points are distributed across 2 pools of 256 processors each, 
+3D FFT is performed using 8 task groups (64 processors each, so
+the 3D real-space grid is cut into 64 slices), and the diagonalization
+of the subspace Hamiltonian is distributed to a square grid of 144
+processors (12x12).
+
+<P>
+Default values are: -nimage 1 -npool 1 -ntg 1 ; ndiag is chosen
+by the code as the fastest n^2 (n integer) that fits into the size
+of each pool.
+
+<P>
+
+<H3><A NAME="SECTION000012200000000000000">
+[edit] Tricks and problems</A>
+</H3>
+
+<H4><A NAME="SECTION000012210000000000000">
+[edit] Trouble with MPI libraries</A>
+</H4>
+
+<P>
+Many users of Quantum-Espresso, in particular those working on PC clusters,
+have to rely on themselves (or on less-than-adequate system managers) for 
+the correct configuration of software for 
+parallel execution. Mysterious and irreproducible crashes in parallel
+execution are very often a consequence of a bad software configuration.
+Very useful step-by-step instructions can be found in the following post
+by Javier Antonio Montoya:
+http://www.democritos.it/pipermail/pw_forum/2008April/008818.htm .
+
+<P>
+
+<H4><A NAME="SECTION000012220000000000000">
+[edit] Understanding parallel I/O</A>
+</H4>
+
+<P>
+In parallel exeution, each processor has its own slice of wavefunctions, 
+to be written to temporary files during the calculation. The way wavefunctions 
+are written by pw.x is governed by variable wf_collect, in namelist control. 
+If wf_collect=.true., the final wavefunctions are collected into a single 
+directory, written by a single processor, whose format is independent on 
+the number of processors. If wf_collect=.false. (default) each processor
+writes its own slice of the final 
+wavefunctions to disk in the internal format used by PWscf. 
+
+<P>
+The former case requires more
+disk I/O and disk space, but produces portable data files; the latter case
+requires less I/O and disk space, but the data so produced can be read only
+by a job running on the same number of processors and pools, and if all files
+are on a file system that is visible to all processors (i.e., you cannot use local
+scratch directories: there is presently no way to ensure that the distribution
+of processes on processors will follow the same pattern for diﬀerent jobs).
+
+<P>
+cp.x instead always collects the final wavefunctions into a single directory.
+Files written by pw.x can be read by cp.x only if wf_collect=.true. (and if
+produced for k=0 case). 
+
+<P>
+With the new file format (v.3.1 and later) all data (except 
+wavefunctions in pw.x if wf_collect=.false.) is written to and read from
+a single directory outdir/prefix.save. A copy of pseudopotential files
+is also written there. If some processor cannot access outdir/prefix.save,
+it reads the pseudopotential files from the pseudopotential directory
+specified in input data. Unpredictable results may follow if those files
+are not the same as those in the data directory!
+
+<P>
+Avoid I/O to network-mounted disks (via NFS) as much as you can! 
+Ideally the scratch directory (ESPRESSO_TMPDIR) should be a modern 
+Parallel File System. If you do not have any, you can use local
+scratch disks (i.e. each node is physically connected to a disk
+and writes to it) but you may run into trouble anyway if you 
+need to access your files that are scattered in an unpredictable
+way across disks residing on different nodes.
+
+<P>
+You can use option "disk_io='minimal'", or even 'none', if you run
+into trouble (or angry system managers) with eccessive I/O with pw.x. 
+Note that this will increase your memory usage and may limit or prevent 
+restarting from interrupted runs.
+
+<P>
+
+<H4><A NAME="SECTION000012230000000000000">
+[edit] Trouble with input files</A>
+</H4>
+
+<P>
+Some implementations of the MPI library have problems with input 
+redirection in parallel. This typically shows up under the form of
+mysterious errors when reading data. If this happens, use the option 
+-in (or -inp or -input), followed by the input file name. 
+Example: <I>pw.x -in inputfile npool 4 &gt; outputfile</I>. Of course the 
+input file must be accessible by the processor that must read it
+(only one processor reads the input file and subsequently broadcasts
+its contents to all other processors).
+
+<P>
+Apparently the LSF implementation of MPI libraries manages to ignore or to
+confuse even the -in/inp/input mechanism that is present in all quantum-espresso 
+codes. In this case, use the -i option of mpirun.lsf to provide an input
+file.
+
+<P>
+
+<H4><A NAME="SECTION000012240000000000000">
+[edit] IBM sp5</A>
+</H4>
+
+<P>
+A bug in the poe environment of IBM sp5 machines may cause a dramatic 
+slowdown of quantumespresso in parallel execution. Workaround: set
+environment variable MP STDINMODE to 0, as in
+
+<P>
+<PRE> export MP_STDINMODE=0
+</PRE>
+
+<P>
+for sh/bash,
+
+<P>
+<PRE> setenv MP_STDINMODE 0
+</PRE>
+
+<P>
+for csh/tcsh; or start the code with option stdinmode 0 to poe:
+
+<P>
+<PRE> poe stdinmode 0 [options] [executable code] &lt; input file
+</PRE>
+
+<P>
+(maybe obsolete)
+
+<P>
+
+<H4><A NAME="SECTION000012250000000000000">
+[edit] Cray XT3</A>
+</H4>
+
+<P>
+On the cray xt3 there is a special hack to keep files in
+memory instead of writing them without changes to the code.
+You have to do a: 
+module load iobuf
+before compiling and then add liobuf at link time.
+If you run a job you set the environment variable 
+IOBUF_PARAMS to proper numbers and you can gain a lot.
+Here is one example:
+
+<P>
+env IOBUF_PARAMS='*.wfc*:noflush:count=1:size=15M:verbose,*.dat:count=2:size=50M: <!-- MATH
+ $\backslash$
+ -->
+&#92;
+<tex2html_verbatim_mark>
+lazyflush:lazyclose:verbose,*.UPF*.xml:count=8:size=8M:verbose'<!-- MATH
+ $\backslash$
+ -->
+&#92;
+<tex2html_verbatim_mark>
+pbsyod /pwscf/pwscfcvs/bin/pw.x npool 4 in si64pw2x2x2.inp &gt; &amp; <!-- MATH
+ $\backslash$
+ -->
+&#92;
+<tex2html_verbatim_mark>
+si64pw2x2x232moreiobuf.out &amp;
+
+<P>
+This will ignore all flushes on the *wfc* (scratch files) using a
+single i/o buffer large enough to contain the whole file ( 12 MB here).
+this way they are actually never(!) written to disk.
+The *.dat files are part of the restart, so needed, but you can be
+'lazy' since they are writeonly. .xml files have a lot of accesses
+(due to iotk), but with a few rather small buffers, this can be
+handled as well. You have to pay attention not to make the buffers
+too large, if the code needs a lot of memory, too and in this example
+there is a lot of room for improvement. After you have tuned those
+parameters, you can remove the 'verboses' and enjoy the fast execution.
+Apart from the i/o issues the cray xt3 is a really nice and fast machine.
+(Info by Axel Kohlmeyer, maybe obsolete)
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html282"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html280"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html274"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html283"
+  HREF="node13.html">[edit] Pseudopotentials</A>
+<B> Up:</B> <A NAME="tex2html281"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html275"
+  HREF="node11.html">[edit] Installation tricks and</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-07-01
+</ADDRESS>
+</BODY>
+</HTML>

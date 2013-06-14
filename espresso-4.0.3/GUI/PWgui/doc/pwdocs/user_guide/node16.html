@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>[edit] Performance issues (PWscf)</TITLE>
+<META NAME="description" CONTENT="[edit] Performance issues (PWscf)">
+<META NAME="keywords" CONTENT="user_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="user_guide.css">
+
+<LINK REL="next" HREF="node17.html">
+<LINK REL="previous" HREF="node15.html">
+<LINK REL="up" HREF="user_guide.html">
+<LINK REL="next" HREF="node17.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html351"
+  HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html349"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html343"
+  HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html352"
+  HREF="node17.html">[edit] Troubleshooting (PWscf)</A>
+<B> Up:</B> <A NAME="tex2html350"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html344"
+  HREF="node15.html">[edit] Using CP</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html353"
+  HREF="node16.html#SECTION000016100000000000000">[edit] CPU time requirements</A>
+<LI><A NAME="tex2html354"
+  HREF="node16.html#SECTION000016200000000000000">[edit] Memory requirements</A>
+<LI><A NAME="tex2html355"
+  HREF="node16.html#SECTION000016300000000000000">[edit] File space requirements</A>
+<LI><A NAME="tex2html356"
+  HREF="node16.html#SECTION000016400000000000000">[edit] Parallelization issues</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION000016000000000000000">
+[edit] Performance issues (PWscf)</A>
+</H2>
+
+<H3><A NAME="SECTION000016100000000000000">
+[edit] CPU time requirements</A>
+</H3>
+
+<P>
+The following holds for code pw.x and for non-US PPs. For US PPs there
+are additional terms to be calculated, that may add from a few percent up to 30-40%
+to execution time. For phonon calculations, each of the
+3<I>N</I><I>a</I><I>t</I> modes requires a CPU time of the same order of that required by a
+self-consistent calculation in the same system. For cp.x, the required CPU time of 
+each time step is in the order of the time <I>T</I><I>h</I> + <I>T</I><I>o</I><I>r</I><I>t</I><I>h</I> + <I>T</I><I>s</I><I>u</I><I>b</I> 
+defined below.
+
+<P>
+The computer time required for the self-consistent solution at fixed ionic
+positions, <I>T</I><I>s</I><I>c</I><I>f</I> , is:
+
+<P>
+<DL>
+<DT></DT>
+<DD><I>T</I><I>s</I><I>c</I><I>f</I> = <I>N</I><I>i</I><I>t</I><I>e</I><I>r</I><I>T</I><I>i</I><I>t</I><I>e</I><I>r</I> + <I>T</I><I>i</I><I>n</I><I>i</I><I>t</I>
+</DD>
+</DL>
+
+<P>
+where <I>N</I><I>i</I><I>t</I><I>e</I><I>r</I> = niter = number of self-consistency iterations, 
+<I>T</I><I>i</I><I>t</I><I>e</I><I>r</I> = CPU
+time for a single iteration, <I>T</I><I>i</I><I>n</I><I>i</I><I>t</I> = initialization time for a single iteration.
+Usually <I>T</I><I>i</I><I>n</I><I>i</I><I>t</I> &lt;  &lt; <I>N</I><I>i</I><I>t</I><I>e</I><I>r</I><I>T</I><I>i</I><I>t</I><I>e</I><I>r</I> .
+
+<P>
+The time required for a single self-consistency iteration <I>T</I><I>i</I><I>t</I><I>e</I><I>r</I> is:
+
+<P>
+<DL>
+<DT></DT>
+<DD><I>T</I><I>i</I><I>t</I><I>e</I><I>r</I> = <I>N</I><I>k</I><I>T</I><I>d</I><I>i</I><I>a</I><I>g</I> + <I>T</I><I>r</I><I>h</I><I>o</I> + <I>T</I><I>s</I><I>c</I><I>f</I>
+</DD>
+</DL>
+
+<P>
+where <I>N</I><I>k</I> = number of k-points, <I>T</I><I>d</I><I>i</I><I>a</I><I>g</I> = CPU time per 
+hamiltonian iterative diagonalization, <I>T</I><I>r</I><I>h</I><I>o</I> = CPU time for charge density 
+calculation, <I>T</I><I>s</I><I>c</I><I>f</I> = CPU time for Hartree and exchange-correlation potential
+calculation.
+
+<P>
+The time for a Hamiltonian iterative diagonalization <I>T</I><I>d</I><I>i</I><I>a</I><I>g</I> is:
+
+<P>
+<DL>
+<DT></DT>
+<DD><I>T</I><I>d</I><I>i</I><I>a</I><I>g</I> = <I>N</I><I>h</I><I>T</I><I>h</I> + <I>T</I><I>o</I><I>r</I><I>t</I><I>h</I> + <I>T</I><I>s</I><I>u</I><I>b</I>
+</DD>
+</DL>
+
+<P>
+where <I>N</I><I>h</I> = number of H ψ products needed by iterative diagonalization, <I>T</I><I>h</I> = CPU time per H ψ product, <I>T</I><I>o</I><I>r</I><I>t</I><I>h</I> = CPU time for orthonormalization,
+<I>T</I><I>s</I><I>u</I><I>b</I> = CPU time for subspace diagonalization.
+
+<P>
+The time <I>T</I><I>h</I> required for a H ψ product is
+
+<P>
+<DL>
+<DT></DT>
+<DD><I>T</I><I>h</I> = <I>a</I>1<I>M</I><I>N</I> + <I>a</I>2<I>M</I><I>N</I>1<I>N</I>2<I>N</I>3<I>l</I><I>o</I><I>g</I>(<I>N</I>1<I>N</I>2<I>N</I>3) + <I>a</I>3<I>M</I><I>P</I><I>N</I>.
+</DD>
+</DL>
+
+<P>
+The first term comes from the kinetic term and is usually much smaller
+than the others. The second and third terms come respectively from local
+and nonlocal potential. <I>a</I>1,<I>a</I>2,<I>a</I>3 are prefactors, M = number of valence
+bands, N = number of plane waves (basis set dimension), <I>N</I>1,<I>N</I>2,<I>N</I>3 =
+dimensions of the FFT grid for wavefunctions (<I>N</I>1<I>N</I>2<I>N</I>3 ∼ 8N ), P =
+number of projectors for PPs (summed on all atoms, on all values of the
+angular momentum l, and m = 1, . . . , 2l + 1)
+
+<P>
+The time <I>T</I><I>o</I><I>r</I><I>t</I><I>h</I> required by orthonormalization is
+
+<P>
+<DL>
+<DT></DT>
+<DD>
+</DD>
+</DL>
+
+<P>
+and the time <I>T</I><I>s</I><I>u</I><I>b</I> required by subspace diagonalization is
+
+<P>
+<DL>
+<DT></DT>
+<DD>
+</DD>
+</DL>
+
+<P>
+where <I>b</I>1 and <I>b</I>2 are prefactors, <I>M</I><I>x</I> = number of trial wavefunctions (this will
+vary between M and a few times M , depending on the algorithm).
+
+<P>
+The time <I>T</I><I>r</I><I>h</I><I>o</I> for the calculation of charge density from wavefunctions is
+
+<P>
+<DL>
+<DT></DT>
+<DD><I>T</I><I>r</I><I>h</I><I>o</I> = <I>c</I>1<I>M</I><I>N</I><I>r</I>1<I>N</I><I>r</I>2<I>N</I><I>r</I>3<I>l</I><I>o</I><I>g</I>(<I>N</I><I>r</I>1<I>N</I><I>r</I>2<I>N</I><I>r</I>3) + <I>c</I>2<I>M</I><I>N</I><I>r</I>1<I>N</I><I>r</I>2<I>N</I><I>r</I>3 + <I>T</I><I>u</I><I>s</I>
+</DD>
+</DL>
+
+<P>
+where <I>c</I>1,<I>c</I>2,<I>c</I>3 are prefactors, <I>N</I><I>r</I>1,<I>N</I><I>r</I>2,<I>N</I><I>r</I>3 = dimensions of the FFT grid for charge density (<I>N</I><I>r</I>1<I>N</I><I>r</I>2<I>N</I><I>r</I>3∼ 8<I>N</I><I>g</I> , where <I>N</I><I>g</I> = number of G-vectors for the charge density), and Tus = CPU time required by ultrasoft
+contribution (if any).
+
+<P>
+The time <I>T</I><I>s</I><I>c</I><I>f</I> for calculation of potential from charge density is
+
+<P>
+<DL>
+<DT></DT>
+<DD><I>T</I><I>s</I><I>c</I><I>f</I> = <I>d</I>2<I>N</I><I>r</I>1<I>N</I><I>r</I>2<I>N</I><I>r</I>3 + <I>d</I>3<I>N</I><I>r</I>1<I>N</I><I>r</I>2<I>N</I><I>r</I>3<I>l</I><I>o</I><I>g</I>(<I>N</I><I>r</I>1<I>N</I><I>r</I>2<I>N</I><I>r</I>3)
+</DD>
+</DL>
+
+<P>
+where <I>d</I>1,<I>d</I>2 are prefactors.
+
+<P>
+
+<H3><A NAME="SECTION000016200000000000000">
+[edit] Memory requirements</A>
+</H3>
+
+<P>
+A typical self-consistency or molecular-dynamics run requires a maximum
+memory in the order of O double precision complex numbers, where
+
+<P>
+<DL>
+<DT></DT>
+<DD><I>O</I> = <I>m</I><I>M</I><I>N</I> + <I>P</I><I>N</I> + <I>p</I><I>N</I>1<I>N</I>2<I>N</I>3 + <I>q</I><I>N</I><I>r</I>1<I>N</I><I>r</I>2<I>N</I><I>r</I>3
+</DD>
+</DL>
+
+<P>
+with m, p, q = small factors; all other variables have the same meaning as
+above. Note that if the Γ-point only (q = 0) is used to sample the Brillouin
+Zone, the value of N will be cut into half.
+
+<P>
+The memory required by the phonon code follows the same patterns, with
+somewhat larger factors m, p, q .
+
+<P>
+
+<H3><A NAME="SECTION000016300000000000000">
+[edit] File space requirements</A>
+</H3>
+
+<P>
+A typical pw.x run will require an amount of temporary disk space in the
+order of O double precision complex numbers:
+
+<P>
+<DL>
+<DT></DT>
+<DD><I>O</I> = <I>N</I><I>k</I><I>M</I><I>N</I> + <I>q</I><I>N</I><I>r</I>1<I>N</I><I>r</I>2<I>N</I><I>r</I>3
+</DD>
+</DL>
+
+<P>
+where q = 2 · mixing ndim (number of iterations used in self-consistency,
+default value = 8) if disk io is set to ’high’ or not specified; q = 0 if
+disk io=’low’ or ’minimal’.
+
+<P>
+
+<H3><A NAME="SECTION000016400000000000000">
+[edit] Parallelization issues</A>
+</H3>
+
+<P>
+pw.x and cp.x can run in principle on any number of processors. The eﬀectiveness of 
+parallelization is ultimately judged by the <I>scaling</I>, i.e. how the time needed
+to perform a job scales with the number of processors, and depends upon:
+
+<P>
+
+<OL>
+<LI>the size and type of the system under study;
+</LI>
+<LI>the judicious choice of the various levels of parallelization (detailed in the Running on parallel machines sections);
+</LI>
+<LI>the availability of fast interprocess communications (or lack thereof).
+</LI>
+</OL>
+
+<P>
+Ideally one would like to have linear scaling, i.e.  for 
+<I>N</I><I>p</I> processors. In addition, one would like to have linear scaling of
+the RAM per processor: , so that large-memory systems
+fit into the RAM of each processor.
+
+<P>
+As a general rule, image parallelization:
+
+<P>
+
+<OL>
+<LI>may give good scaling, but the slowest image will determine the overall performances (<I>load balancing</I> may be a problem);
+</LI>
+<LI>requires very little communications (suitable for ethernet communications);
+</LI>
+<LI>does not reduce the required memory per processor (unsuitable for large-memory jobs).
+</LI>
+</OL>
+
+<P>
+Parallelization on k-points:
+
+<P>
+
+<OL>
+<LI>guarantees (almost) linear scaling if the number of k-points is a multiple of the number of pools;
+</LI>
+<LI>requires little communications (suitable for ethernet communications);
+</LI>
+<LI>does not reduce the required memory per processor (unsuitable for large-memory jobs).
+</LI>
+</OL>
+
+<P>
+Parallelization on plane-waves:
+
+<P>
+
+<OL>
+<LI>yields good to very good scaling, especially if the number of processors in a pool is a divisor of <I>N</I>3 and <I>N</I><I>r</I>3 (the dimensions along the z-axis of the FFT grids, which may coincide);
+</LI>
+<LI>requires heavy communications (suitable for Gigabit ethernet up to 4, 8 CPUs at most, specialized communication hardware needed for 8 or more processors );
+</LI>
+<LI>yields almost linear reduction of memory per processor with the number of processors in the pool.
+</LI>
+</OL>
+
+<P>
+A note on scaling: optimal serial performances are achieved when the data are as much as possible 
+kept into the cache. As a side eﬀect, plane-wave parallelization may yield superlinear (better than
+linear) scaling, thanks to the increase in serial speed coming from the reduction of data size 
+(makingit easier for the machine to keep data in the cache).
+
+<P>
+For each system there is an optimal range of number of processors on which to run the job. 
+A too large number of processors will yield performance degradation. If the size of pools
+is especially delicate: <I>N</I><I>p</I> should not exceed by much <I>N</I>3 and <I>N</I><I>r</I>3. For large jobs, it is convenient to further subdivide a pool of 
+processors into <I>task groups</I>. The 3D FFT grid is parallelized using ation of the 3D FFT when the number of processors exceeds the number of FFT planes, data can be redistributed to "task groups" so that each group can process several wavefunctions at the same time.
+
+<P>
+The optimal number of processors for the <I>ortho</I> (cp.x) or <I>ndiag</I> (pw.x) parallelization, 
+taking care of linear algebra operations involving  matrices, is automatically
+chosen by the code.
+
+<P>
+Actual parallel performances will also depend a lot on the available software (MPI libraries) and on the available communication hardware. For
+Beowulf-style machines (clusters of PC) the newest version 1.1 and later of the OpenMPI libraries (http://www.openmpi.org/) seems to yield better performances than other implementations (info by Kostantin Kudin). Note however that you need a decent communication hardware (at least Gigabit ethernet) in order to have acceptable performances with PW parallelization. Do not expect good scaling with cheap hardware: plane-wave calculations are by no means an “embarrassing parallel” problem.
+
+<P>
+Also note that multiprocessor motherboards for Intel Pentium CPUs typically have just one memory bus for all processors. This dramatically
+slows down any code doing massive access to memory (as most codes in the Quantum-ESPRESSO package do) that runs on processors of the same
+motherboard.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html351"
+  HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html349"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html343"
+  HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html352"
+  HREF="node17.html">[edit] Troubleshooting (PWscf)</A>
+<B> Up:</B> <A NAME="tex2html350"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html344"
+  HREF="node15.html">[edit] Using CP</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-07-01
+</ADDRESS>
+</BODY>
+</HTML>

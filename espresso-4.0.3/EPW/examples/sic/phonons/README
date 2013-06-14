@@ -1,0 +1,22 @@
+
+The file "qlist.dat" contains the phonon wavevectors (q-points) corresponding
+to a uniform grid centered at Gamma. Only the irreducible wedge of the Brilloiun 
+zone is needed. These q-points can be generated either by running a standard
+self-consistent calculation using pw.x and reading the irreducible k-points
+in output, or by running the program kpoints.x.
+
+The specific file format used in this example is only needed in order to run
+the whole process automatically using the script "job". Other formats are
+perfectly legitimate, provided the script "job" is modified accordingly.
+
+In the case of SiC, for some wavevectors q the wavevector -q does not belong 
+to the star of q. In this case the phonon code ph.x generates the missing
+vectors by using time-reversal symmetry. This feature is buggy in EPW and
+has been disabled. In order to generate the missing vectors we need to
+manually add the -q in each of these instances. We do this as follows:
+> grep "In addition there is the -q list" save/ph.out_q*
+This will provide a list of q points. We need to add the corresponding
+-q points to the list. In the present example the points in question are 
+number 2,3,6,7,8,11, and for these points we add manually the -q at the 
+bottom of the list (6 extra points).
+

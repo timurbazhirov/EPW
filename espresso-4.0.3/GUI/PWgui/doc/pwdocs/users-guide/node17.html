@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>5.3 Post-processing</TITLE>
+<META NAME="description" CONTENT="5.3 Post-processing">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="previous" HREF="node16.html">
+<LINK REL="up" HREF="node14.html">
+<LINK REL="next" HREF="node18.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html446"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html442"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html438"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html444"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html447"
+  HREF="node18.html">6 Using CP</A>
+<B> Up:</B> <A NAME="tex2html443"
+  HREF="node14.html">5 Using PWscf</A>
+<B> Previous:</B> <A NAME="tex2html439"
+  HREF="node16.html">5.2 Phonon calculations</A>
+   <B>  <A NAME="tex2html445"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00063000000000000000">
+5.3 Post-processing</A>
+</H2>
+
+<P>
+There are a number of auxiliary codes performing postprocessing tasks
+such as plotting, averaging, and so on, on the various quantities
+calculated by <TT>pw.x</TT>.
+Such quantities are saved by <TT>pw.x</TT> into the output data
+file(s).
+
+<P>
+The main postprocessing code <TT>pp.x</TT> reads data file(s),
+extracts or calculates the selected quantity, writes it into
+a format that is suitable for plotting. Quantities that can
+be read or calculated are:
+
+<P>
+<BLOCKQUOTE>
+charge density
+<BR>
+spin polarization
+<BR>
+various potentials
+<BR>
+local density of states at <I>E</I><SUB>F</SUB>
+<tex2html_verbatim_mark>
+<BR>
+local density of electronic entropy
+<BR>
+STM images
+<BR>
+wavefunction squared
+<BR>
+electron localization function
+<BR>
+planar averages
+<BR>
+integrated local density of states
+
+</BLOCKQUOTE>
+Various types of plotting (along a line, on a plane, three-dimensional,
+polar) and output formats (including the popular <TT>cube</TT> format) can
+be specified. The output files can be directly read by the free plotting
+system Gnuplot (1D or 2D plots), 
+or by code <TT>plotrho.x</TT> that comes with PWscf (2D plots), or 
+by advanced plotting software XCrySDen and gOpenMol (3D plots).
+
+<P>
+See file <TT>INPUT_PP</TT> for a detailed description of the input
+for code <TT>pp.x</TT>.
+See Example 05 for a charge density plot.
+
+<P>
+The postprocessing code <TT>bands.x</TT> reads data file(s), extracts
+eigenvalues, regroups them into bands (the algorithm used to order
+bands and to resolve crossings may not work in all circumstances,
+though).
+The output is written to a file in a simple format that can be
+directly read by plotting program <TT>plotband.x</TT>.
+Unpredictable plots may results if <B>k</B>-points are not in
+sequence along lines.
+See Example 05 for a simple band plot.
+
+<P>
+The postprocessing code <TT>projwfc.x</TT> calculates projections of
+wavefunction over atomic orbitals.
+The atomic wavefunctions are those contained in the pseudopotential
+file(s).
+The L&#246;wdin population analysis (similar to Mulliken analysis) is
+presently implemented.
+The projected DOS (PDOS, the DOS projected onto atomic orbitals) can 
+also be calculated and written to file(s).
+More details on the input data are found in the header of file
+<TT>PP/projwfc.f90</TT>. The auxiliary code <TT>sumpdos.x</TT>
+(courtesy of Andrea Ferretti) can be used to sum selected PDOS, 
+by specifiying the names of files containing the desired PDOS.
+Type <TT>sumpdos.x -h</TT> or look into the source code for
+more details.
+The total electronic DOS is instead calculated by code
+<TT>PP/dos.x</TT>.
+See Example 08 for total and projected electronic DOS calculations.
+
+<P>
+The postprocessing code <TT>path_int.x</TT> is intended to be used in
+the framework of NEB calculations.
+It is a tool to generate a new path (what is actually generated is the
+restart file) starting from an old one through interpolation (cubic
+splines).
+The new path can be discretized with a different number of images
+(this is its main purpose), images are equispaced and the
+interpolation can be also performed on a subsection of the old path.
+The input file needed by <TT>path_int.x</TT> can be easily set up
+with the help of the self explanatory <TT>path_int.sh</TT> shell
+script.
+
+<P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html446"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html442"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html438"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html444"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html447"
+  HREF="node18.html">6 Using CP</A>
+<B> Up:</B> <A NAME="tex2html443"
+  HREF="node14.html">5 Using PWscf</A>
+<B> Previous:</B> <A NAME="tex2html439"
+  HREF="node16.html">5.2 Phonon calculations</A>
+   <B>  <A NAME="tex2html445"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

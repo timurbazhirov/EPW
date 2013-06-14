@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>[edit] Download</TITLE>
+<META NAME="description" CONTENT="[edit] Download">
+<META NAME="keywords" CONTENT="user_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="user_guide.css">
+
+<LINK REL="next" HREF="node7.html">
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="user_guide.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html201"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html199"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html193"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html202"
+  HREF="node7.html">[edit] Installation</A>
+<B> Up:</B> <A NAME="tex2html200"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html194"
+  HREF="node5.html">[edit] Terms of use</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00006000000000000000">
+[edit] Download</A>
+</H2>
+
+<P>
+Presently, the Quantum-ESPRESSO package is only distributed in source form; some precompiled executables (binary files) are provided only for PWgui. Providing binaries would require too 
+much eﬀort and would work only for a small number of machines anyway.
+
+<P>
+Stable releases of the Quantum-ESPRESSO source package (current version is 4.0) can be downloaded from this URL: http://www.pwscf.org/download.htm.
+
+<P>
+Uncompress and unpack the distribution using the command:
+
+<P>
+<PRE>    tar zxvf espresso-4.0.tar.gz
+</PRE>
+
+<P>
+(a hyphen before "zxvf" is optional). If your version of "tar" doesn’t recognize the "z" ﬂag:
+
+<P>
+<PRE>    gunzip -c espresso-4.0.tar.gz | tar xvf -
+</PRE>
+
+<P>
+A directory espresso-4.0/ , containing the distribution, will be created. 
+Occasionally, patches for the current version, fixing some errors and bugs,
+may be distributed as a "diff" file. In order to install a patch (for instance):
+
+<P>
+<PRE>  cd espresso-4.0/
+  patch -p1 &lt; /path/to/the/diff/file/espresso-4.0.1.diff
+</PRE>
+
+<P>
+If more than one patch is present, they should be applied in the correct order.
+
+<P>
+The bravest may access the (unstable) development version via anonymous CVS 
+(Concurrent Version System): see the developer manual, section
+Developer_Manual#Using CVS.
+
+<P>
+Directory structure of the common part for all packages:
+
+<P>
+<PRE> Modules/    Source file for modules that are common to all programs
+ include/    files *.h included by fortran source files
+ clib/       external libraries written in C
+ flib/       external libraries written in Fortran
+ install/    machine-dependent makefiles and tools for compilation and installation
+ pseudo/     pseudopotential files used by examples
+ upftools/   Source files for converters to unified pseudopotential format (UPF)
+ examples/   Contains sample input and output files
+ tests/      Contains automated tests (since v.4)
+ Doc/        Documentation
+</PRE>
+
+<P>
+Directory structure of the PWscf package:
+
+<P>
+<PRE> PW/         Source files for scf calculations (pw.x)
+ PP/         Source files for post-processing of pw.x data file
+ PH/         Source files for phonon calculations (ph.x) and analysis programs
+ Gamma/      Source files for Gamma-only phonon calculation (phcg.x)
+ D3/         Source files for third-order derivative calculations (d3.x)
+ PWCOND/     Source files for conductance calculations (pwcond.x)
+ pwtools/    Source files for miscellaneous analysis programs
+ vdW/        Source files for calculation of the molecular polarizability 
+             at finite (imaginary) frequency using approximated Thomas-Fermi
+             + von Weizacker scheme
+</PRE>
+<PRE> CPV/        Source files for Car-Parrinello code CP/FPMD
+</PRE>
+<PRE> atomic/     Source files for the pseudopotential generation package
+ atomic_doc/ Documentation, tests and examples for the above
+</PRE>
+<PRE> iotk/       Input/Output Toolkit
+</PRE>
+<PRE> GUI/        Graphical User Interface (PWgui)
+</PRE><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html201"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html199"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html193"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html202"
+  HREF="node7.html">[edit] Installation</A>
+<B> Up:</B> <A NAME="tex2html200"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html194"
+  HREF="node5.html">[edit] Terms of use</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-07-01
+</ADDRESS>
+</BODY>
+</HTML>

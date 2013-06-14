@@ -1,0 +1,299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>[edit] Pseudopotentials</TITLE>
+<META NAME="description" CONTENT="[edit] Pseudopotentials">
+<META NAME="keywords" CONTENT="user_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="user_guide.css">
+
+<LINK REL="next" HREF="node14.html">
+<LINK REL="previous" HREF="node12.html">
+<LINK REL="up" HREF="user_guide.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html299"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html297"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html291"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html300"
+  HREF="node14.html">[edit] Using PWscf</A>
+<B> Up:</B> <A NAME="tex2html298"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html292"
+  HREF="node12.html">[edit] Running on parallel</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html301"
+  HREF="node13.html#SECTION000013100000000000000">[edit] Supported format</A>
+<LI><A NAME="tex2html302"
+  HREF="node13.html#SECTION000013200000000000000">[edit] Obtaining a pseudopotential</A>
+<LI><A NAME="tex2html303"
+  HREF="node13.html#SECTION000013300000000000000">[edit] Generating a pseudopotential</A>
+<LI><A NAME="tex2html304"
+  HREF="node13.html#SECTION000013400000000000000">[edit] References</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION000013000000000000000">
+[edit] Pseudopotentials</A>
+</H2>
+
+<H3><A NAME="SECTION000013100000000000000">
+[edit] Supported format</A>
+</H3>
+
+<P>
+Currently PWscf and CP support both Ultrasoft (US) Vanderbilt pseudopotentials (PPs) and Norm-Conserving (NC) Hamann-Schluter-Chiang 
+PPs in separable Kleinman-Bylander form. Calculation of third-order 
+derivatives is not (yet) implemented with US PPs. The Gamma-only phonon
+code is also restricted to NC PPs.
+
+<P>
+The Quantum-ESPRESSO package uses a unified pseudopotential format (UPF [1]) for all types of PPs, but still accepts a number of other formats:
+
+<P>
+
+<UL>
+<LI>the “old PWscf ” format for NC PPs (PWscf only!),
+</LI>
+<LI>the “new PWscf ” format for NC and US PPs,
+</LI>
+<LI>the “Vanderbilt” format (formatted, not binary) for NC and US PPs.
+</LI>
+</UL>
+
+<P>
+Support for the “old CP” and “old FPMD” formats for NC PPs (CP only) is discontinued 
+in v.4 and later. See also http://www.pwscf.org/oldformat.htm.
+
+<P>
+
+<H3><A NAME="SECTION000013200000000000000">
+[edit] Obtaining a pseudopotential</A>
+</H3>
+
+<P>
+A large collection of PPs (currently about 75 elements covered) can be
+downloaded from the Pseudopotentials Page of the Quantum-ESPRESSO
+web site (http://www.pwscf.org/pseudo.htm). Check the naming convention for the pseudopotential files.
+
+<P>
+Other electronic-structure packages  provide
+tables of PPs that can be freely downloaded,
+but need to be converted into
+a suitable format for use with Quantum-ESPRESSO:
+
+<P>
+
+<UL>
+<LI>CAMPOS: https://wiki.fysik.dtu.dk/dacapo/Pseudopotential_Library
+</LI>
+</UL>
+
+<P>
+Binary Vanderbilt format, can be converted using the uspp2upf.x utility in the upftools/
+directory. In case of trouble with binary files read this:
+<BR>
+http://www.theochem.ruhr-uni-bochum.de/ axel.kohlmeyer/cpmd-linux.html#endian 
+
+<P>
+
+<UL>
+<LI>ABINIT: http://www.abinit.org/Psps/?text=psps
+</LI>
+</UL>
+
+<P>
+Some of these pseudopotentials can be converted using the fhi2upf.x utility in the upftools/
+directory
+
+<P>
+
+<H3><A NAME="SECTION000013300000000000000">
+[edit] Generating a pseudopotential</A>
+</H3>
+
+<P>
+If you do not find there the PP you need (because there is no PP for the
+atom you need or you need a diﬀerent exchange-correlation functional or a
+diﬀerent core-valence partition or for whatever reason may apply), it may be
+taken, if available, from published tables, such as e.g.:
+
+<P>
+
+<UL>
+<LI>G.B. Bachelet, D.R. Hamann and M. Schluter, Phys. Rev. B 26, 4199 (1982)
+</LI>
+<LI>X. Gonze, R. Stumpf, and M. Scheﬄer, Phys. Rev. B 44, 8503 (1991)
+</LI>
+<LI>S. Goedecker, M. Teter, and J. Hutter, Phys. Rev. B 54, 1703 (1996)
+</LI>
+</UL>
+
+<P>
+or otherwise it must be generated. Since version 2.1, Quantum-ESPRESSO
+includes a PP generation package, in the directory <TT>atomic/</TT> (sources) and
+<TT>atomic_doc/</TT> (documentation, tests and examples). The package can generate
+both NC and US PPs in UPF format. We refer to its documentation for
+instructions on how to generate PPs with the <TT>atomic/</TT> code.
+
+<P>
+Other PP generation packages are available on-line:
+
+<P>
+
+<UL>
+<LI>David Vanderbilt’s code (UltraSoft PPs): http://www.physics.rutgers.edu/ dhv/uspp/index.html
+</LI>
+<LI>OPIUM (Norm-Conserving PPs): http://opium.sourceforge.net
+</LI>
+<LI>Fritz Haber’s code (Norm-Conserving PPs): http://www.fhi-berlin.mpg.de/th/fhi98md/fhi98PP
+</LI>
+<LI>Jose´-Luis Martins’ code (Norm-Conserving PPs): http://bohr.inesc-mn.pt/ jlm/pseudo.html
+</LI>
+</UL>
+
+<P>
+The first two codes produce PPs in one of the acceptable formats; the
+third, in a format that can be converted to unified format using the
+utilities of directory <TT>upftools/</TT>.
+
+<P>
+<B>Remember:</B> always test the PPs on simple test systems before proceeding
+to serious calculations.
+
+<P>
+
+<H3><A NAME="SECTION000013400000000000000">
+[edit] References</A>
+</H3>
+
+<P>
+This section contains an extended list of references for NC PPs.
+<BR>
+<P>
+Here is the very basic and essential:
+
+<P>
+
+<UL>
+<LI>D. R. Hamann, M. Schluter, and C. Chiang, Phys. Rev. Lett. 43, 1494 (1979)
+</LI>
+<LI>L. Kleinmann and D. M. Bylander, Phys. Rev. Lett. 48, 1425 (1982) 
+</LI>
+</UL>
+
+<P>
+The second reference discusses the fully seperable Kleinman-Bylander (KB) form of the NC PP.
+This is what is implemented in Quantum Espresso and most PW-based DFT codes. The reference
+below contains a more comprehensive discussion and is highly recommended.
+
+<P>
+
+<UL>
+<LI>X. Gonze, R. Stumpf, M. Scheffler, Phys. Rev. B 44, 8503 (1991)
+</LI>
+</UL>
+
+<P>
+It is often necessary to include unbound high angular momentum states in the NC PP. For example,
+d states in silicon. D. R. Hamann generalized this procedure to states of arbitrary energy:
+
+<P>
+
+<UL>
+<LI>D. R. Hamann, Phys. Rev. B 40, 2980 (1989) 
+</LI>
+</UL>
+
+<P>
+The construction of the NC PP within the r_c is not unique and so there are several prescriptions
+with that of Troullier-Martins (TM) and Rappe-Rabe-Kaxiras-Joannopoulos (RRKJ) being the
+most frequently used:
+
+<P>
+
+<UL>
+<LI>A. M. Rappe, K. M. Rabe, E. Kaxiras, and J. D. Joannopoulos, Phys. Rev. B 41, 1227 (1990)
+</LI>
+<LI>N. Troullier and J. L. Martins, Phys. Rev. B 43, 1993 (1991) 
+</LI>
+</UL>
+
+<P>
+When there is a significant overlap of the valence and core charge density, it is often necessary
+to use nonlinear core corrections (NLCC):
+
+<P>
+
+<UL>
+<LI>S. G. Louie, S. Froyen, and M. L. Cohen, Phys. Rev. B 26, 1738 (1982)
+</LI>
+<LI>D. Porezag, M. R. Pederson, and A. Y. Liu, Phys. Rev. B 60, 14312 (1999)
+</LI>
+</UL>
+
+<P>
+Finally here are advanced topics in NC PP, mostly for the very ambitious:
+
+<P>
+
+<UL>
+<LI>E. L. Shirley, D. C. Allan, R. M. Martin, and J. D. Joannopoulos, Phys. Rev. B 40, 3652 (1989) 
+</LI>
+<LI>M. Teter, Phys. Rev. B 48, 5031 (1993) 
+</LI>
+<LI>N. J. Ramer and A. M. Rappe, Phys. Rev. B, 12471 (1999)
+</LI>
+</UL><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html299"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html297"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html291"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html300"
+  HREF="node14.html">[edit] Using PWscf</A>
+<B> Up:</B> <A NAME="tex2html298"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html292"
+  HREF="node12.html">[edit] Running on parallel</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-07-01
+</ADDRESS>
+</BODY>
+</HTML>

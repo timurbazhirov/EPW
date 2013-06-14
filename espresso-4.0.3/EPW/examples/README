@@ -1,0 +1,13 @@
+
+In order to run these examples on a serial machine:
+
+> cd EXAMPLEDIR; ./run_example
+
+where EXAMPLEDIR is any of "diamond", "pb", "pb_small", "sic"
+
+In order to run them in parallel:
+
+> cd EXAMPLEDIR; cd phonons; QSUB_COMMAND job; cd ../epw; QSUB_COMMAND job
+
+where QSUB_COMMAND is your batch job sumbission command (e.g. qsub).
+

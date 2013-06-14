@@ -1,0 +1,692 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>2.4 Installation Issues</TITLE>
+<META NAME="description" CONTENT="2.4 Installation Issues">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="node7.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html347"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html343"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html339"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html345"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html348"
+  HREF="node12.html">3 Running on parallel</A>
+<B> Up:</B> <A NAME="tex2html344"
+  HREF="node7.html">2 Installation</A>
+<B> Previous:</B> <A NAME="tex2html340"
+  HREF="node10.html">2.3 Run examples</A>
+   <B>  <A NAME="tex2html346"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><UL>
+<LI><A NAME="tex2html349"
+  HREF="node11.html#SECTION00034010000000000000">2.4.0.1 All machines</A>
+<LI><A NAME="tex2html350"
+  HREF="node11.html#SECTION00034020000000000000">2.4.0.2 IBM AIX</A>
+<LI><A NAME="tex2html351"
+  HREF="node11.html#SECTION00034030000000000000">2.4.0.3 SGI machines with IRIX/MIPS compiler</A>
+<LI><A NAME="tex2html352"
+  HREF="node11.html#SECTION00034040000000000000">2.4.0.4 Linux Alphas with Compaq compiler</A>
+<LI><A NAME="tex2html353"
+  HREF="node11.html#SECTION00034050000000000000">2.4.0.5 Linux PC</A>
+<LI><A NAME="tex2html354"
+  HREF="node11.html#SECTION00034060000000000000">2.4.0.6 Linux PCs with g95 compiler</A>
+<LI><A NAME="tex2html355"
+  HREF="node11.html#SECTION00034070000000000000">2.4.0.7 Linux PCs with Portland Group compiler (pgf90)</A>
+<LI><A NAME="tex2html356"
+  HREF="node11.html#SECTION00034080000000000000">2.4.0.8 Linux PCs with Pathscale compiler</A>
+<LI><A NAME="tex2html357"
+  HREF="node11.html#SECTION00034090000000000000">2.4.0.9 Linux PCs (Pentium) with Intel compiler (ifort, formerly
+ifc)</A>
+<LI><A NAME="tex2html358"
+  HREF="node11.html#SECTION000340100000000000000">2.4.0.10 ifort v.9</A>
+<LI><A NAME="tex2html359"
+  HREF="node11.html#SECTION000340110000000000000">2.4.0.11 ifort v.8</A>
+<LI><A NAME="tex2html360"
+  HREF="node11.html#SECTION000340120000000000000">2.4.0.12 ifc v.7</A>
+<LI><A NAME="tex2html361"
+  HREF="node11.html#SECTION000340130000000000000">2.4.0.13 MKL</A>
+<LI><A NAME="tex2html362"
+  HREF="node11.html#SECTION000340140000000000000">2.4.0.14 Fun with precompiled libraries</A>
+<LI><A NAME="tex2html363"
+  HREF="node11.html#SECTION000340150000000000000">2.4.0.15 AMD CPUs, Intel Itanium</A>
+<LI><A NAME="tex2html364"
+  HREF="node11.html#SECTION000340160000000000000">2.4.0.16 Linux PC clusters with MPI</A>
+<LI><A NAME="tex2html365"
+  HREF="node11.html#SECTION000340170000000000000">2.4.0.17 Mac OS X</A>
+<LI><A NAME="tex2html366"
+  HREF="node11.html#SECTION000340180000000000000">2.4.0.18 T3E</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION00034000000000000000"></A>
+  <A NAME="installissues"></A>
+<BR>
+2.4 Installation Issues
+</H2>
+
+<P>
+The main development platforms are IBM SP and Intel/AMD PC with Linux
+and Intel compiler.  For other machines, we rely on user's feedback.
+
+<P>
+
+<H4><A NAME="SECTION00034010000000000000">
+2.4.0.1 All machines</A>
+</H4>
+
+<P>
+Working fortran-95 and C compilers are needed in order to compile 
+Quantum-ESPRESSO. Most so-called ``fortran-90'' compilers implement the 
+fortran-95 standard, but older versions may not be fortran-95
+compliant.
+
+<P>
+If you get ``Compiler Internal Error'' or similar messages, try to
+lower the optimization level, or to remove optimization, just for the
+routine that has problems.  If it doesn't work, or if you experience
+weird problems, try to install patches for your version of the
+compiler (most vendors release at least a few patches for free), or to
+upgrade to a more recent version.
+
+<P>
+If you get an error in the loading phase that looks like ``ld: file
+XYZ.o: unknown (unrecognized, invalid, wrong, missing, ...) file
+type'', or ``While processing relocatable file XYZ.o, no relocatable
+objects were found'', one of the following things have happened:
+
+<P>
+
+<OL>
+<LI>you have leftover object files from a compilation with another 
+        compiler: run <TT>make clean</TT> and recompile.
+</LI>
+<LI><TT>make</TT> does not stop at the first compilation error (it
+        happens with some compilers).
+        Remove file XYZ.o and look for the compilation error.
+</LI>
+</OL>
+
+<P>
+If many symbols are missing in the loading phase, you did not specify
+the location of all needed libraries (LAPACK, BLAS, FFTW,
+machine-specific optimized libraries).  If you did, but symbols are
+still missing, see below (for Linux PC).
+
+<P>
+
+<H4><A NAME="SECTION00034020000000000000">
+2.4.0.2 IBM AIX</A>
+</H4>
+
+<P>
+On IBM machines running AIX, there is a potential conflict between 
+a few LAPACK routines that are also part of ESSL, but with a different
+calling sequence. The appearence of run-time errors like
+<PRE>
+ON ENTRY TO ZHPEV  PARAMETER NUMBER  1 HAD AN ILLEGAL VALUE
+</PRE>
+is a signal that you are calling the bad routine. If you have 
+defined <TT>-D__ESSL</TT> you should load ESSL before LAPACK.
+
+<P>
+
+<H4><A NAME="SECTION00034030000000000000">
+2.4.0.3 SGI machines with IRIX/MIPS compiler</A>
+</H4>
+
+<P>
+The script <TT>moduldep.sh</TT> used by <TT>configure</TT> doesn't
+work properly on old SGI machines: some strings are truncated
+(likely a IRIX weirdness). A workaround by Andrea Ferretti: 
+<A NAME="tex2html30"
+  NAME="http://www.democritos.it/pipermail/pw_forum/2006-May/004200.html"><TT>http://www.democritos.it/pipermail/pw_forum/2006-May/004200.html</TT></A>.
+
+<P>
+Many versions of the MIPS compiler yield compilation errors in
+conjunction with with <TT>FORALL</TT> constructs. There is no
+known solution other than editing the <TT>FORALL</TT> construct
+that gives a problem, or to replace it with an equivalent 
+<TT>DO...END DO</TT> construct.
+
+<P>
+Some versions of the MIPS compiler are confused by the presence of
+multiple variable renaming in modules, i.e. by constructs like:
+<PRE>
+ USE mymodule, newname =&gt; oldname
+</PRE>
+in the same file. Workaround: don't use twice the same <TT>newname</TT>.
+
+<P>
+
+<H4><A NAME="SECTION00034040000000000000">
+2.4.0.4 Linux Alphas with Compaq compiler</A>
+</H4>
+
+<P>
+If at linking stage you get error messages like: ``undefined reference
+to `for_check_mult_overflow64' '' with Compaq/HP fortran compiler
+on Linux Alphas, check the following page:
+<A NAME="tex2html31"
+  NAME="http://linux.iol.unh.edu/linux/fortran/faq/cfal-X1.0.2.html"><TT>http://linux.iol.unh.edu/linux/fortran/faq/cfal-X1.0.2.html</TT></A>.
+
+<P>
+
+<H4><A NAME="SECTION00034050000000000000">
+2.4.0.5 Linux PC</A>
+</H4>
+
+<P>
+The web site of Axel Kohlmeyer contains a very informative section 
+on compiling and running CPMD on Linux.
+Most of its contents applies to the Quantum-ESPRESSO code as well:
+<BR>
+<A NAME="tex2html32"
+  NAME="http://www.theochem.rub.de/~axel.kohlmeyer/cpmd-linux.html"><TT>http://www.theochem.rub.de/~axel.kohlmeyer/cpmd-linux.html</TT></A>.
+In particular, there is a set of ATLAS libraries, containing 
+all of LAPACK and no external reference to fortran libraries:
+<BR>
+<A NAME="tex2html33"
+  NAME="http://www.theochem.rub.de/~axel.kohlmeyer/cpmd-linux.html#atlas"><FONT SIZE="-1"><TT>http://www.theochem.rub.de/~axel.kohlmeyer/cpmd-linux.html#atlas</TT></FONT></A>
+<P>
+It is convenient to create semi-statically linked executables
+(with only libc/libm/libpthread linked dynamically). If you want
+to produce a binary that runs on different machines, compile it
+on the oldest machine you have (i.e. the one with the oldest verison
+of the operating system).
+
+<P>
+
+<H4><A NAME="SECTION00034060000000000000">
+2.4.0.6 Linux PCs with g95 compiler</A>
+</H4>
+
+<P>
+If you get messages about missing routines with strange names 
+(like <TT>s_wsfe, do_fio</TT>...) at linking stage, you
+have most likely used g77 (or f77) as fortran-77 compiler.
+Use g95 instead.
+
+<P>
+
+<H4><A NAME="SECTION00034070000000000000">
+2.4.0.7 Linux PCs with Portland Group compiler (pgf90)</A>
+</H4>
+<BR>
+Quantum-ESPRESSO does not work reliably, or not at all, with many
+versions of the Portland Group compiler (in particular, v.5.2
+and 6.0). Version 5.1 used to work, v.6.1 is reported to work
+(info from Paolo Cazzato). Use the latest version of each release 
+of the compiler, with patches if available: see the Portland Group 
+web site,
+<BR>
+<A NAME="tex2html34"
+  NAME="http://www.pgroup.com/faq/install.htm#release_info"><TT>http://www.pgroup.com/faq/install.htm#release_info</TT></A>
+<P>
+
+<H4><A NAME="SECTION00034080000000000000">
+2.4.0.8 Linux PCs with Pathscale compiler</A>
+</H4>
+
+<P>
+Versions 2.3 ad 2.4 of the Pathscale compiler crash when compiling
+<TT>CPV/phasefactors.f90</TT>. Workaround: replace <TT>SUM(na(1:nsp))</TT>
+with <TT>nat</TT> (info by Paolo Cazzato; fixed since version 3.1.1).
+
+<P>
+
+<H4><A NAME="SECTION00034090000000000000">
+2.4.0.9 Linux PCs (Pentium) with Intel compiler (ifort, formerly
+ifc)</A>
+</H4>
+
+<P>
+<BR>
+If <TT>configure</TT> doesn't find the compiler, or if you get ``Error
+loading shared libraries...'' at run time, you may have forgotten to
+execute the script that sets up the correct path and library path.
+Unless your system manager has done this for you, you should execute
+the appropriate script -- located in the directory containing the
+compiler executable -- in your initialization files.
+Consult the documentation provided by Intel. 
+
+<P>
+Starting from the latests v 8.1 patchlevels, the recommended way to
+build semi-statically linked binaries is to use the <TT>-i-static</TT>
+flag; for multi-threaded libraries the linker flag would be
+<TT>-i-static -openmp</TT> (linking <TT>libguide</TT> is no longer 
+needed and the compiler will pick the correct one). For previous 
+versions, try <TT>-static-libcxa</TT> (this will
+give an incomplete semi-static link on newer versions).
+
+<P>
+Each major release of the Intel compiler differs a lot from
+the previous one. Do not mix compiled objects from different releases: 
+they are incompatible. 
+
+<P>
+In case of trouble, update your version with the most recent
+patches, available via Intel Premier support (registration free 
+of charge for Linux): 
+<A NAME="tex2html35"
+  NAME="http://developer.intel.com/software/products/support/#premier"><TT>http://developer.intel.com/software/products/support/#premier</TT></A>.
+
+<P>
+
+<H4><A NAME="SECTION000340100000000000000">
+2.4.0.10 ifort v.9</A>
+</H4>
+
+<P>
+The latest (July 2006) 32-bit version of ifort 9.1 works flawlessy.
+Earlier versions yielded ``Compiler Internal Error''.
+
+<P>
+At least some versions of ifort 9.0 have a buggy preprocessor that 
+either prevents compilation of <TT>iotk</TT>, or produces runtime 
+errors in <TT>cft3</TT>. Update to a more patched version, or
+modify <TT>make.sys</TT> to explicitly perform preprocessing 
+using <TT>/lib/cpp</TT>, as in the following example (courtesy 
+from Sergei Lisenkov):
+<PRE>
+.f90.o:
+        $(CPP) $(CPPFLAGS) $&lt; -o $*.F90
+        $(MPIF90) $(F90FLAGS) -c $*.F90 -o $*.o
+
+CPP            = /lib/cpp
+CPPFLAGS       = -P -C -traditional $(DFLAGS) $(IFLAGS)
+</PRE>
+
+<P>
+On some versions of RedHat Linux, you may get an obscure error: 
+<TT>IPO link: can not find "(" ... </TT>, due to a bad system
+configuration. Add option <TT>-no-ipo</TT> to <TT>LDFLAGS</TT> 
+in file <TT>make.sys</TT>.
+
+<P>
+
+<H4><A NAME="SECTION000340110000000000000">
+2.4.0.11 ifort v.8</A>
+</H4>
+
+<P>
+Some releases of ifort 8 yield ``Compiler Internal Error''. 
+Update to a more patched version: 8.0.046 for v. 8.0,
+8.1.018 for v. 8.1.
+
+<P>
+There is a well known problem with ifort 8 and pthreads 
+(that are used both in Debian Woody and Sarge) that causes
+``segmentation fault'' errors (info from Lucas Fernandez Seivane). 
+Version 7 did not have this problem.
+
+<P>
+
+<H4><A NAME="SECTION000340120000000000000">
+2.4.0.12 ifc v.7</A>
+</H4>
+
+<P>
+Some releases of ifc 7.0 and 7.1 yield ``Compiler Internal 
+Error''. Update to the last version (should be 7.1.41).
+
+<P>
+Warnings ``size of symbol ... changed ...'' are produced by ifc 7.1 at
+the loading stage.
+These seem to be harmless, but they may cause the loader to stop,
+depending on your system configuration.
+If this happens and no executable is produced, add the following to
+<TT>LDFLAGS</TT>: <TT>-Xlinker -noinhibit-exec</TT>.
+
+<P>
+Linux distributions using glibc 2.3 or later (such as e.g. RedHat 9)
+may be incompatible with ifc 7.0 and 7.1.
+The incompatibility shows up in the form of messages ``undefined
+reference to `errno' '' at linking stage.
+A workaround is available: see
+<A NAME="tex2html36"
+  NAME="http://newweb.ices.utexas.edu/misc/ctype.c"><TT>http://newweb.ices.utexas.edu/misc/ctype.c</TT></A>.
+
+<P>
+
+<H4><A NAME="SECTION000340130000000000000">
+2.4.0.13 MKL</A>
+</H4>
+
+<P>
+On Intel CPUs, it is very convenient to use Intel MKL libraries.
+If <TT>configure</TT> doesn't find them, try
+<TT>configure -enable-shared</TT>.
+MKL also contains optimized FFT routines, whose support is presently
+at an experimental stage (MKL v.8 and later). Intel separately
+distributes a FFTW interface using MKL FFT routines, giving a nice
+speedup with respect to compiled FFTW.
+Note that ifort 8 fails to load with MKL v. 5.2 or earlier versions,
+because some symbols that are referenced by MKL are missing. There
+is a fix for this (info from Konstantin Kudin): add libF90.a from 
+ifc 7.1 at the linking stage, as the last library.
+Note that some combinations of not-so-recent versions of MKL 
+and ifc may yield a lot of ``undefined references'' when statically 
+loaded: use <TT>configure -enable-shared</TT>, 
+or remove the <TT>-static</TT> option in <TT>make.sys</TT>.
+Note that <TT>pwcond.x</TT> works only with recent versions
+(v.7 or later) of MKL.
+
+<P>
+When using/testing/benchmarking MKL on SMP (multiprocessor)
+machines, one should set the environmental variable 
+<TT>OMP_NUM_THREADS</TT> to 1, unless the OpenMP 
+parallelization is desired (do not confuse OpenMP and OpenMPI!!!
+they refer to different parallelization paradigms). 
+MKL by default sets the variable to the number of CPUs installed and 
+thus gives the impression of a much better performance, as the CPU time
+is only measured for the master thread (info from Axel Kohlmeyer).
+
+<P>
+
+<H4><A NAME="SECTION000340140000000000000">
+2.4.0.14 Fun with precompiled libraries</A>
+</H4>
+
+<P>
+Since there is no standard fortran compiler for Linux, different compilers
+have different ideas about the right way to call external libraries.
+As a consequence you may have a mismatch between what your compiler
+calls (``symbols'') and the actual name of the required library call.
+Use the <TT>nm</TT> command to determine the name of a library call,
+as in the following examples:<PRE>
+    nm /usr/local/lib/libblas.a | grep -i 'T daxpy'
+    nm /usr/local/lib/liblapack.a | grep -i 'T zhegv'
+</PRE>
+where typical location and name of libraries is assumed.
+Most precompiled libraries have lowercase names with one or two
+underscores (_) appended. <TT>configure</TT> should select the 
+appropriate preprocessing options in <TT>make.sys</TT>, but in
+case of trouble, be aware that:
+
+<UL>
+<LI>the Absoft compiler is case-sensitive (like C and unlike
+        other Fortran compilers) and does not add an underscore
+        to symbol names (note that if your libraries contain 
+        uppercase or mixed case names, you are out of luck:
+        You must either recompile your own libraries, or change 
+        the <TT>#define</TT>'s in <TT>include/f_defs.h</TT>);
+</LI>
+<LI>both Portland compiler (pgf90) and Intel compiler (ifort/ifc)
+        are case insensitive and add an underscore to symbol names.
+</LI>
+</UL>
+
+<P>
+Another potential source of trouble is the incompatibility
+between I/O libraries used by different fortran compilers.
+This manifests itself under the form of missing routines with 
+strange names (like <TT>s_wsfe, do_fio</TT>...) at linking stage. 
+Possible workarounds include
+
+<UL>
+<LI>loading the missing routines; it is often sufficient to load
+<TT>-lg2c</TT> (sometimes <TT>-lm</TT> may also be needed); or
+</LI>
+<LI>(better) to replace the BLAS routine <TT>xerbla</TT> (it should
+be the only one containing I/O calls) with a recompiled object. 
+Locate the library containing this routine using <TT>nm</TT>, 
+for instance:
+<BLOCKQUOTE>
+<TT>nm /path/to/your/libs/libf77blas.a | grep 'T xerbla'</TT>
+
+</BLOCKQUOTE>
+and replace the object  <TT>xerbla.o</TT> in the library with the 
+one you will compile. In <TT>flib/</TT>:
+<BLOCKQUOTE>
+<TT>make xerbla.o</TT> 
+<BR><TT>ar rv /path/to/your/libs/libf77blas.a xerbla.o</TT>
+
+</BLOCKQUOTE>
+</LI>
+</UL>
+If nothing works, you may need to recompile the libraries with 
+your fortran compiler, or to use the internal (slow) copy.
+
+<P>
+
+<H4><A NAME="SECTION000340150000000000000">
+2.4.0.15 AMD CPUs, Intel Itanium</A>
+</H4>
+
+<P>
+AMD Athlon CPUs can be basically treated like Intel Pentium CPUs.
+You can use the Intel compiler and MKL with Pentium-3 optimization.
+
+<P>
+For AMD Opterons, you can use the optimized ACML (Core Math Library)
+replacement for BLAS/LAPACK. ACML can be freely downloaded from AMD 
+web site. Beware: some versions of ACML - i.e. the GCC version with 
+SSE2 - crash PWscf. The ``_nosse2'' version appears to be stable. 
+
+<P>
+The best performances have been reported with the optimized BLAS 
+by Kazushige Goto:
+<A NAME="tex2html37"
+  NAME="http://www.cs.utexas.edu/users/flame/goto/"><TT>http://www.cs.utexas.edu/users/flame/goto/</TT></A>.
+
+<P>
+One can also get good performances with ATLAS, using ACML for the
+missing libraries (info by K. Kudin). Load first ATLAS, then ACML, 
+then <TT>-lg2c</TT>, as in the following example (replace what 
+follows <TT>-L</TT> with something appropriate to your configuration):
+<PRE>
+ -L/location/of/fftw/lib/ -lfftw \
+ -L/location/of/atlas/lib -lf77blas -llapack -lcblas -latlas \
+ -L/location/of/gnu32_nosse2/lib -lacml -lg2c
+</PRE>
+
+<P>
+64-bit CPUs like the AMD Opteron and the Intel Itanium are
+supported and should work both in 32-bit emulation and in
+64-bit mode (in the latter case, <TT>-D__LINUX64</TT> is 
+needed among the preprocessing flags). Both the Portland and the
+Intel compiler (v8.1 EM64T-edition, available via Intel Premier 
+support) should work. 64-bit executables can address a 
+much larger memory space, but apparently they are not especially
+faster than 32-bit executables. The Intel compiler has been 
+reported to be more reliable and to produce faster executables 
+wrt the Portland compiler. You may also try g95.
+
+<P>
+
+<H4><A NAME="SECTION000340160000000000000">
+2.4.0.16 Linux PC clusters with MPI</A>
+</H4>
+
+<P>
+PC clusters running some version of MPI are a very popular 
+computational platform nowadays. Quantum-ESPRESSO is known to work
+with at least two of the major MPI implementations (MPICH, LAM-MPI), 
+plus with the newer OpenMPI implementation. 
+The number of possible configurations, in terms of type and version of 
+the MPI libraries, kernels, system libraries, compilers, is very large. 
+Quantum-ESPRESSO compiles and works on all non-buggy, properly configured 
+hardware and software combinations. 
+See Axel Kohlmeyer's web site for precompiled versions of the MPI libraries, 
+and consider the following advice from Axel:
+"Please make sure that your MPI package is compatible with or compiled
+for the fortran compiler you want to use to compiled quantum-espresso with.
+Precompiled packages may be compiled for a different compiler and thus
+need special flags or environment variables set to use the compiler of
+your choice."
+
+<P>
+If Quantum-ESPRESSO does not work for some reason on a PC cluster, try first 
+if it works in serial execution. A frequent problem with parallel execution
+is that Quantum-ESPRESSO does not read from standard input, due to a bad 
+configuration of MPI libraries: see section ``Running on parallel machines''.
+See also Axel Kohlmeyer's web site for more info.      
+
+<P>
+If you are dissatisfied with the performances in parallel 
+execution, read the ``Parallelization issues'' section.
+
+<P>
+
+<H4><A NAME="SECTION000340170000000000000">
+2.4.0.17 Mac OS X</A>
+</H4>
+
+<P>
+Compilation with <TT>xlf</TT> under Mac OSX 10.4 (``Tiger'') may produce
+the following linkage error:
+<PRE>
+ ld: Undefined symbols:
+ _sprintf$LDBLStub
+ _fprintf$LDBLStub
+ _printf$LDBLStub
+</PRE>
+Workaround: add <TT>-lSystemStubs</TT> to <TT>LDFLAGS</TT> in 
+<TT>make.sys</TT> (information by Fabrizio Cleri, May 2006). 
+
+<P>
+Other workaround: Set gcc version to 3.3. This is done with the command
+<PRE>
+sudo gcc_select 3.3
+</PRE>
+If you get the message ``Error trying to determine current cc version (got)'' 
+change the order of directory in your <TT>PATH</TT> variable in order to make
+<TT>/opt/ibm/...</TT> to appear at its end. The <TT>xlc</TT> alias to 
+<TT>cc</TT> will stop working, but as soon you have set gcc version,
+you can change PATH to its normal directory order (information by Cesar 
+Da Silva, May 2006).
+
+<P>
+Because of an upgrade to a new release of GCC (4.0.1) with MacOSX 10.4.5, 
+the IBM fortran compiler does not work correctly with an error message
+such as
+<PRE>
+/usr/bin/ld: warning -L: directory name 
+    (/usr/lib/gcc/powerpc-apple-darwin8/4.0.0) does not exist
+/usr/bin/ld: can't locate file for: -lgcc
+</PRE>
+and fails to run configure properly. The easiest way to correct this bug 
+is to help the XLF compiler to find the correct location of gcc. Do the
+following:
+
+<OL>
+<LI><TT>sudo mv /etc/opt/ibmcmp/xlf/8.1/xlf.cfg 
+<BR>                   /etc/opt/ibmcmp/xlf/8.1/xlf.cfg.2006.MM.DD.HH.MM.SS</TT> 
+<BR>
+with MM.DD.HH.MM.SS is the current date (MM=month, DD=day etc...), then
+</LI>
+<LI><TT>sudo /opt/ibmcmp/xlf/8.1/bin/xlf_configure -gcc /usr -install -smprt 
+    /opt/ibmcmp/xlsmp/1.4 -xlf /opt/ibmcmp/xlf/8.1 -xlfrt 
+    /opt/ibmcmp/xlf/8.1 -xlflic /opt/ibmcmp/xlf/8.1  
+<BR>   /opt/ibmcmp/xlf/8.1/etc/xlf.base.cfg</TT>
+</LI>
+</OL>
+replaces the xlf.cfg with the correct location (info by Pascal 
+Thibaudeau, April 2006).
+
+<P>
+The Absoft 9.1 compiler on Mac OS-X does not work (info by Axel
+Kohlmeyer, June 2006).
+
+<P>
+Due to bugs in XLF v.8.1, the <TT>libiotk.a</TT> library does not work 
+if generated as a static library. Workaround: replace
+<TT>../iotk/src/libiotk.a</TT> with <TT>../iotk/src/*.o</TT> in
+<TT>make.sys</TT>. Versions later than 3.1.1 generate a dynamical 
+library. In order to run the executables, the environment variable 
+<TT>DYLD_LIBRARY_PATH</TT> must be set to point to the library. 
+With sh/bash, define:
+<PRE>
+   export DYLD_LIBRARY_PATH=$TOPDIR/iotk/src
+</PRE>
+and with csh, tcsh:
+<PRE>
+   setenv DYLD_LIBRARY_PATH $TOPDIR/iotk/src
+</PRE>
+(info by Pascal Thibaudeau, September 2006).
+
+<P>
+Newer Mac OS-X machines with Intel CPUs  are supported by <TT>configure</TT>,
+at least with gcc4+g95. With the Intel compiler <TT>ifort</TT> and 
+MKL libraries, you may try <TT>install/Make.macos-intel</TT> 
+(info by Matteo Coccoccioni, Aug. 2006).
+
+<P>
+
+<H4><A NAME="SECTION000340180000000000000">
+2.4.0.18 T3E</A>
+</H4>
+
+<P>
+T3D/T3E is no longer supported since v.3.
+
+<P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html347"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html343"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html339"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html345"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html348"
+  HREF="node12.html">3 Running on parallel</A>
+<B> Up:</B> <A NAME="tex2html344"
+  HREF="node7.html">2 Installation</A>
+<B> Previous:</B> <A NAME="tex2html340"
+  HREF="node10.html">2.3 Run examples</A>
+   <B>  <A NAME="tex2html346"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

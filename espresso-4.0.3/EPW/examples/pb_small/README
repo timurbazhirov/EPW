@@ -1,0 +1,10 @@
+
+This dir "pb_small" contains a *non-converged* example calculation for Pb
+for a serial run.
+
+The purpose of this dir is to perform a quick test in order to 
+make sure that the code runs smoothly until the end. None of
+the results are reliable, and proper convergence tests should
+be performed.
+
+ 

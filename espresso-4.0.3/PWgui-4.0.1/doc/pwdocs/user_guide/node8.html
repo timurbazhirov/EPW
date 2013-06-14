@@ -1,0 +1,381 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>[edit] Configure</TITLE>
+<META NAME="description" CONTENT="[edit] Configure">
+<META NAME="keywords" CONTENT="user_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="user_guide.css">
+
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="user_guide.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html221"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html219"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html213"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html222"
+  HREF="node9.html">[edit] Compile</A>
+<B> Up:</B> <A NAME="tex2html220"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html214"
+  HREF="node7.html">[edit] Installation</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html223"
+  HREF="node8.html#SECTION00008100000000000000">[edit] Libraries</A>
+<LI><A NAME="tex2html224"
+  HREF="node8.html#SECTION00008200000000000000">[edit] Manual configurations</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION00008000000000000000">
+[edit] Configure</A>
+</H2>
+
+<P>
+To configure the Quantum-ESPRESSO source package, run the configure script. It will (try to) detect compilers and libraries available on your machine, and set up things accordingly. Presently it is expected to work on most Linux 32- and 64-bit PCs (all Intel and AMD CPUs), PC clusters, IBM SP
+machines, SGI Origin and Altix, some HP-Compaq Alpha machines, NEC SX, Cray X1, Mac
+OS X, MS-Windows PCs. It may work with some assistance also on other architectures (see below).
+
+<P>
+For cross-compilation, you have to specify the target machine with the - 
+<tex2html_verbatim_mark>-host option (see below). This feature has not been extensively tested, but we had at least one successful report (compilation for NEC SX6 on a PC).
+
+<P>
+Specifically, configure generates the following files:
+
+<P>
+<PRE>   make.sys:           compilation rules and ﬂags
+   configure.msg:      a report of the configuration run
+   include/fft_defs.h: defines the type of fortran variable containing a C pointer
+   include/c_defs.h:   defines C to fortran calling convention and a few more things
+                       (used by C files)
+</PRE>
+
+<P>
+configure.msg is only used by configure to print its final report. It isn’t
+needed for compilation. NOTA BENE: unlike previous versions, configure
+no longer runs the makedeps.sh shell script that updates dependencies. If
+you modify the program sources, run makedeps.sh or type make depend to
+update files make.depend in the various subdirectories.
+
+<P>
+You should always be able to compile the Quantum-ESPRESSO suite
+of programs without having to edit any of the generated files. However you
+may have to tune configure by specifying appropriate environment variables
+and/or command-line options. Usually the most tricky part is to get external
+libraries recognized and used: see the  Libraries
+section for details and hints.
+
+<P>
+Environment variables may be set in any of these ways:
+
+<P>
+<PRE>    export VARIABLE=value               # sh, bash, ksh
+    ./configure
+    setenv VARIABLE value               # csh, tcsh
+    ./configure
+    ./configure VARIABLE=value          # any shell
+</PRE>
+
+<P>
+Some environment variables that are relevant to configure are:
+
+<P>
+<PRE>    ARCH:         label identifying the machine type (see below)
+    F90, F77, CC: names of Fortran 95, Fortran 77, and C compilers
+    MPIF90:       name of parallel Fortran 95 compiler (using MPI)
+    CPP:          source file preprocessor (defaults to \$CC -E)
+    LD:           linker (defaults to \$MPIF90)
+    CFLAGS, FFLAGS, F90FLAGS, CPPFLAGS, LDFLAGS: compilation ﬂags
+    LIBDIRS:      extra directories to search for libraries (see below)
+</PRE>
+
+<P>
+For example, the following command line:
+
+<P>
+<PRE>    ./configure MPIF90=mpf90 FFLAGS="-O2 -assume byterecl" $\backslash$
+                 CC=gcc CFLAGS=-O3 LDFLAGS=-static
+</PRE>
+
+<P>
+instructs configure to use mpf90 as Fortran 95 compiler with ﬂags -O2
+-assume byterecl, gcc as C compiler with ﬂags -O3, and to link with ﬂags
+-static. Note that the value of FFLAGS must be quoted, because it contains
+spaces.
+
+<P>
+If your machine type is unknown to configure, you may use the ARCH
+variable to suggest an architecture among supported ones. Try the one that
+looks more similar to your machine type; you’ll probably have to do some
+additional tweaking. Currently supported architectures are:
+
+<P>
+<PRE>     ia32:   Intel 32-bit machines (x86) running Linux
+     ia64:   Intel 64-bit (Itanium) running Linux
+     amd64:  AMD 64-bit (Opteron) running Linux
+     aix:    IBM AIX machines
+     mips:   SGI MIPS machines
+     alpha:  HP-Compaq alpha machines
+     alinux: HP-Compaq alpha running Linux
+     sparc:  Sun SPARC machines
+     solaris:PC's running SUN-Solaris
+     crayx1: Cray X1 machines
+     macppc: Apple PowerPC machines running Mac OS X
+     mac686: Apple Intel machines running Mac OS X
+     cygwin: MS-Windows PCs with Cygwin
+     necsx:  NEC SX-6 and SX-8 machines
+     ppc64:  Linux PowerPC machines, 64 bits
+     ppc64-mn:as above, with IBM xlf compiler
+</PRE>
+
+<P>
+Finally, configure recognizes the following command-line options:
+
+<P>
+<PRE>     -$\,$-disable-parallel: compile serial code, even if parallel environment is available
+     -$\,$-disable-shared: don’t use shared libraries: generate static executables
+     -$\,$-enable-shared: use shared libraries.
+     -$\,$-host=target~: specify target machine for cross-compilation.
+                     Target must be a string identifying the architecture that you want
+                     to compile for; you can obtain it by running config.guess on
+                     the target machine.
+</PRE>
+
+<P>
+If you want to modify the configure script (advanced users only!), see the 
+Developer Manual,  How to edit the configure script section. You will need GNU Autoconf (http://www.gnu.org/software/autoconf/)
+installed.
+
+<P>
+
+<H3><A NAME="SECTION00008100000000000000">
+[edit] Libraries</A>
+</H3>
+
+<P>
+Quantum-ESPRESSO makes use of the following external libraries:
+
+<P>
+
+<UL>
+<LI>BLAS (http://www.netlib.org/blas/) and LAPACK (http://www.netlib.org/lapack/) for linear algebra
+</LI>
+<LI>FFTW (http://www.fftw.org/) for Fast Fourier Transforms
+</LI>
+</UL>
+
+<P>
+A copy of the needed routines is provided with the distribution. However,
+when available, optimized vendor-specific libraries can be used instead: this
+often yields huge performance gains.
+
+<P>
+<B>BLAS and LAPACK</B> Quantum-ESPRESSO can use the following architecture-
+specific replacements for BLAS and LAPACK:
+
+<P>
+<PRE>     MKL for Intel Linux PCs
+     ACML for AMD Linux PCs
+     ESSL for IBM machines
+     complib.sgimath for SGI Origin
+     SCSL for SGI Altix
+     SUNperf for Sun
+     cxml for HP-Compaq Alphas.
+</PRE>
+
+<P>
+If none of these is available, we suggest that you use the optimized ATLAS
+library (http://math-atlas.sourceforge.net/). Note that ATLAS is not
+a complete replacement for LAPACK: it contains all of the BLAS, plus the
+LU code, plus the full storage Cholesky code. Follow the instructions in the
+ATLAS distributions to produce a full LAPACK replacement.
+
+<P>
+Sergei Lisenkov reported success and good performances with optimized
+BLAS by Kazushige Goto. They can be freely downloaded  (but not redistributed):
+http://www.cs.utexas.edu/users/flame/goto/
+
+<P>
+<B>FFT</B> Quantum-ESPRESSO can use the following vendor-specific FFT 
+libraries:
+
+<P>
+<PRE>     IBM ESSL
+     SGI SCSL
+     SUN sunperf
+     NEC ASL.
+</PRE>
+
+<P>
+If you use FFTW, you have to choose before compilation whether to
+load the built-in copy (v.2) of FFTW or a precompiled v.2 or v.3 FFTW
+library. This is done using preprocessing options: -D__FFTW 
+(for precompiled v.2), -D__FFTW -D__USE_INTERNAL_FFTW 
+(for internal v.2), -D__FFTW3 (for precompiled v.3). 
+Presently, configure only recognizes external FFTW v.2; if not found, 
+it falls back to the internal copy. If you have recent
+versions of MKL installed, you may use the 
+FFTW interface provided with MKL, but you will have to compile it
+and to modify the make.sys accordingly.
+
+<P>
+ 
+<BR>
+If you want to link to a precompiled FFTW v.&lt;3 library, you will need
+the corresponding fftw.h include file. That may or may not have been
+installed on your system together with the library: in particular, most Linux
+distributions split libraries into “base” and “development” packages, include
+files normally belonging to the latter. Thus if you can’t find fftw.h on your
+machine, chances are you must install the FFTW development package (how
+to do this and what it is exactly called depends on your operating system
+version).
+
+<P>
+If instead the file is there, but configure doesn’t find it, you may specify
+its location in the INCLUDEFFTW environment variable. For example:
+
+<P>
+<PRE>  ./configure INCLUDEFFTW="/usr/lib/fftw-2.1.3/fftw"
+</PRE>
+
+<P>
+If everything else fails, you’ll have to modify the make.sys file manually: see
+the section on  manual configuration. 
+
+<P>
+<B>MPI libraries</B> For parallel execution, Quantum-ESPRESSO uses the MPI libraries.
+In well-configured machine, configure should find the appropriate parallel compiler
+for you, and this should find the appropriate libraries. Since often this doesn't 
+happen, especially on PC clusters, see the section on 
+ Linux PC clusters with MPI.
+
+<P>
+<B>Other libraries</B> Quantum-ESPRESSO can use the MASS vector math
+library from IBM, if available (only on AIX).
+
+<P>
+The configure script attempts to find optimized libraries, but may fail
+if they have been installed in non-standard places. You should examine
+the final value of BLAS_LIBS, LAPACK_LIBS, FFT_LIBS, MPI_LIBS (if needed),
+MASS_LIBS (IBM only), either in the output of configure or in the generated
+make.sys, to check whether it found all the libraries that you intend to use.
+
+<P>
+If some library was not found, you can specify a list of directories to search
+in the environment variable LIBDIRS, and rerun configure; directories in the
+list must be separated by spaces. For example:
+
+<P>
+<PRE>  ./configure LIBDIRS="/opt/intel/mkl70/lib/32 /usr/lib/math"
+</PRE>
+
+<P>
+If this still fails, you may set some or all of the *_LIBS variables manually
+and retry. For example:
+
+<P>
+<PRE>  ./configure BLAS_LIBS="-L/usr/lib/math -lf77blas -latlas_sse"
+</PRE>
+
+<P>
+Beware that in this case, configure will blindly accept the specified value,
+and won’t do any extra search. This is so that if configure finds any library
+that you don’t want to use, you can override it.
+
+<P>
+<B>Please note:</B> If you change any settings after a previous (successful or
+failed) compilation, you must run "make clean" before recompiling, unless you
+know exactly which routines are aﬀected by the changed settings and how to
+force their recompilation.
+
+<P>
+
+<H3><A NAME="SECTION00008200000000000000">
+[edit] Manual configurations</A>
+</H3>
+
+<P>
+If "configure" stops before the end, and you don't find a way to fix
+it, you have to write working "make.sys", "include/fft_defs.h" and
+"include/c_defs.h" files. 
+For the latter two files, follow the explanations in 
+"include/defs.h.README". 
+
+<P>
+If "configure" has run till the end, you should need only to
+edit "make.sys". A few templates (each for a diﬀerent machine type)
+are provided in the install/ directory: they have names of the
+form Make.system, where "system" is a string identifying the 
+architecture and compiler.
+
+<P>
+If you have the Intel compiler ifc v.6 or earlier, you will have to 
+run the script ifcmods.sh.
+
+<P>
+Most likely (and even more so if there isn’t an exact match to your 
+machine type), you’ll have to tweak make.sys by hand. In particular, 
+you must
+specify the full list of libraries that you intend to link to.
+
+<P>
+<B>NOTA BENE:</B> If you modify the program sources, run the script makedeps.sh
+or type make depend to update files make.depend in the various subdirectories.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html221"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html219"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html213"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html222"
+  HREF="node9.html">[edit] Compile</A>
+<B> Up:</B> <A NAME="tex2html220"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html214"
+  HREF="node7.html">[edit] Installation</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-07-01
+</ADDRESS>
+</BODY>
+</HTML>

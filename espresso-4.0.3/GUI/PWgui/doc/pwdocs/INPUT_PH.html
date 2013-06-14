@@ -1,0 +1,455 @@
+
+<html>
+  <body>
+    <pre>
+
+------------------------------------------------------------------------
+INPUT FILE DESCRIPTION
+
+Program: ph.x / PWscf / Quantum Espresso
+------------------------------------------------------------------------
+
+
+Input data format: { } = optional, [ ] = it depends, # = comment
+
+Structure of the input data:
+===============================================================================
+
+title_line
+
+&INPUTPH
+   ...
+/
+
+xq(1) xq(2) xq(3)
+[ irrep(1) irrep(2) ... irrep(nrapp)   ]     # if "nrapp" was specified
+[ atom(1)  atom(2)  ... atom(nat_todo) ]     # if "nat_todo" was specified
+
+
+
+========================================================================
+Line of input:
+
+      title_ph
+   
+   
+   DESCRIPTION OF ITEMS:
+   
+      +--------------------------------------------------------------------
+      Variable:       title_ph
+      
+      Type:           CHARACTER
+      Description:    Title of the job, i.e., a line that is reprinted on output.
+      +--------------------------------------------------------------------
+      
+===End of line-of-input=================================================
+
+
+========================================================================
+NAMELIST: &INPUTPH
+
+   +--------------------------------------------------------------------
+   Variable:       amass(i), i=1,ntyp
+   
+   Type:           REAL
+   Default:        0.0
+   Description:    Atomic mass [amu] of each atomic type.
+                   If not specified, masses are read from data file
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       outdir
+   
+   Type:           CHARACTER
+   Default:        './'
+   Description:    Scratch directory.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       prefix
+   
+   Type:           CHARACTER
+   Default:        'pwscf'
+   Description:    Prepended to input/output filenames;  must be the same
+                   used in the calculation of unperturbed system.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       niter_ph
+   
+   Type:           INTEGER
+   Default:        50
+   Description:    Maximum number of iterations in a scf step.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       tr2_ph
+   
+   Type:           REAL
+   Description:    Threshold for selfconsistency.
+   Default:        1e-10
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       alpha_mix(niter)
+   
+   Type:           REAL
+   Default:        alpha_mix(1)=0.7
+   Description:    Mixing factor (for each iteration) for updating the scf potential:
+                   
+                   vnew(in) = alpha_mix*vold(out) + (1-alpha_mix)*vold(in)
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       nmix_ph
+   
+   Type:           INTEGER
+   Description:    Number of iterations used in potential mixing.
+   Default:        4
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       iverbosity
+   
+   Type:           INTEGER
+   Default:        0
+   Description:    0 = short output
+                   1 = verbose output
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       reduce_io
+   
+   Type:           LOGICAL
+   Description:    Reduce I/O to the strict minimum.
+   Default:        .false.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       max_seconds
+   
+   Type:           REAL
+   Description:    Maximum allowed run time before the job stops smoothly.
+   Default:        1.d7
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       fildyn
+   
+   Type:           CHARACTER
+   Description:    File where the dynamical matrix is written.
+   Default:        'matdyn'
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       fildrho
+   
+   Type:           CHARACTER
+   Description:    File where the charge density responses are written.
+   Default:        ' '
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       fildvscf
+   
+   Type:           CHARACTER
+   Description:    File where the the potential variation is written
+                   (for later use in electron-phonon calculation).
+   Default:        ' '
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       epsil
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    If .true. in a q=0 calculation for a non metal the
+                   macroscopic dielectric constant of the system is
+                   computed. Do not set epsil to .true. if you have a
+                   metallic system or q/=0: the code will complain and stop
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       lrpa
+   
+   Type:           LOGICAL
+   Description:    If .true. the dielectric constant is calculated at the
+                   RPA level with DV_xc=0.
+   Default:        .false.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       lnoloc
+   
+   Type:           LOGICAL
+   Description:    If .true. the dielectric constant is calculated without
+                   local fields, i.e. by setting DV_H=0 and DV_xc=0.
+   Default:        .false.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       trans
+   
+   Type:           LOGICAL
+   Description:    if .true. the phonons are computed
+                   if trans .and. epsil effective charges are calculated
+   Default:        .true.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       lraman
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    if .true. calculate nonresonant Raman coefficients
+                   using second-order response as in:
+                   M. Lazzeri and F. Mauri, Phys. Rev. Lett. 90, 036401 (2003)
+   +--------------------------------------------------------------------
+   
+   ///---
+      OPTIONAL VARIABLES FOR RAMAN:
+      
+      +--------------------------------------------------------------------
+      Variable:       eth_rps
+      
+      Type:           REAL
+      Description:    threshold for calculation of  Pc R |psi&gt;
+      Default:        1.0d-9
+      +--------------------------------------------------------------------
+      
+      +--------------------------------------------------------------------
+      Variable:       eth_ns
+      
+      Type:           REAL
+      Description:    threshold for non-scf wavefunction calculation
+      Default:        1.0e-12
+      +--------------------------------------------------------------------
+      
+      +--------------------------------------------------------------------
+      Variable:       dek
+      
+      Type:           REAL
+      Description:    delta_xk used for wavefunction derivation wrt k
+      Default:        1.0e-3
+      +--------------------------------------------------------------------
+      
+   \\\---
+   
+   +--------------------------------------------------------------------
+   Variable:       recover
+   
+   Type:           LOGICAL
+   Description:    if .true. restart from an interrupted run
+   Default:        .false.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       elph
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    if .true. electron-phonon lambda coeffs are computed
+                   
+                   For metals only, requires gaussian smearing.
+                   
+                   If elph .and. trans, the lambdas are calculated in the same
+                   run, using the same k-point grid for phonons and lambdas
+                   If elph.and..not.trans, the lambdas are calculated using
+                   previously saved DeltaVscf in fildvscf, previously saved
+                   dynamical matrix, and the present punch file. This allows
+                   the use of a different (larger) k-point grid.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       zue
+   
+   Type:           LOGICAL
+   Description:    if .true. in a q=0 calculation for a non metal the
+                   effective charges are computed from the phonon
+                   density responses. Note that if trans.and.epsil
+                   effective charges are calculated using a different
+                   algorithm. The results should be the same within
+                   numerical noise.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       elop
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    if true calculate electro-optic tensor
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       fpol
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    if .true. calculate dynamic polarizabilities
+                   ( experimantal stage, see example33 for calculation
+                     of methane )
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       lnscf
+   
+   Type:           LOGICAL
+   Description:    If .TRUE. the run makes first a nscf calculation.
+   Default:        .false.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       ldisp
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    If .TRUE. the run calculates phonons for a grid of
+                   q-points specified by nq1, nq2, nq3  - for direct
+                   calculation of the entire phonon dispersion.
+                   The pw.x data file should not be produced using
+                   "calculation='phonon'" in this case.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variables:      nq1, nq2, nq3
+   
+   Type:           INTEGER
+   Default:        0
+   Description:    Parameters of the Monkhorst-Pack grid (no offset) used
+                   when ldisp=.true. Same meaning as for nk1, nk2, nk3
+                   in the input of pw.x.
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variables:      iq1, iq2, iq3
+   
+   Type:           INTEGER
+   Description:    These go together with nq1, nq2, nq3 and allow to choose
+                   just one point out of the Monkhorst-Pack grid with ldisp=.true.
+                   Note the the actual point chosen is something like
+                   (iq1-1)/nq1, (iq2-1)/nq2, (iq3-1)/nq3 (so, check the
+                                                          output for what you get). Also make sure that PW left *.wfc
+                   files behind (no 'phonon' is needed though).
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       nrapp
+   
+   Type:           INTEGER
+   Default:        0, i.e. use all irreps
+   Description:    Choose the subset of irreducible representations (irreps)
+                   for which the linear response calculation is performed:
+                   "nrapp" irreps, specified in input (see below) are used.
+                   
+                   IMPORTANT:
+                      * nrapp must be &lt;= 3*nat
+                      * do not specify "nat_todo" together with "nrapp"
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       maxirr
+   
+   Type:           INTEGER
+   Default:        0, i.e.  use all irreps
+   Description:    Perform calculations only up to the first "maxirr" irreps.
+                   
+                   IMPORTANT:
+                      * maxirr must be &lt;= 3*nat
+                      * do not specify "nat_todo" or "nrapp" together with "maxirr"
+   +--------------------------------------------------------------------
+   
+   +--------------------------------------------------------------------
+   Variable:       nat_todo
+   
+   Type:           INTEGER
+   Default:        0, i.e. displace all atoms
+   Description:    Choose the subset of atoms to be used in the linear response
+                   calculation: "nat_todo" atoms, specified in input (see below)
+                   are displaced.
+                   
+                   IMPORTANT:
+                       * nat_todo &lt;= nat
+                       * do not specify "nrapp" together with "nat_todo"
+   +--------------------------------------------------------------------
+   
+===END OF NAMELIST======================================================
+
+
+///---
+   ========================================================================
+   Line of input:
+   
+         xq(1)  xq(2)  xq(3)
+      
+      
+      DESCRIPTION OF ITEMS:
+      
+         +--------------------------------------------------------------------
+         Variables:      xq(1)  xq(2)  xq(3)
+         
+         Type:           REAL
+         Description:    The phonon wavevector; must be equal to the one used
+                         in the non-selfconsistent calculation (not read if
+                         ldisp is true).
+         +--------------------------------------------------------------------
+         
+         
+   ===End of line-of-input=================================================
+   
+   
+\\\---
+
+________________________________________________________________________
+* IF nrapp was specified : 
+
+   ========================================================================
+   Line of input:
+   
+         irrep(1) irrep(2) ... irrep(nrapp)
+      
+      
+      DESCRIPTION OF ITEMS:
+      
+         +--------------------------------------------------------------------
+         Variables:      irrep(1) irrep(2) ... irrep(nrapp)
+         
+         Type:           INTEGER
+         Description:    The list of indices of irreps used in the  calculation
+                         if  "nrapp" is specified.
+         +--------------------------------------------------------------------
+         
+         
+   ===End of line-of-input=================================================
+   
+   
+    
+* ELSE IF nat_todo was specified : 
+
+   ========================================================================
+   Line of input:
+   
+         atom(1)  atom(2) ... atom(nat_todo)
+      
+      
+      DESCRIPTION OF ITEMS:
+      
+         +--------------------------------------------------------------------
+         Variables:      atom(1)  atom(2) ... atom(nat_todo)
+         
+         Type:           INTEGER
+         Description:    Contains the list of indices of atoms used in the
+                         calculation if "nat_todo" is specified.
+         +--------------------------------------------------------------------
+         
+         
+   ===End of line-of-input=================================================
+   
+   
+    
+ENDIF
+________________________________________________________________________
+
+
+    </pre>
+  </body>
+</html>

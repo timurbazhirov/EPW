@@ -1,0 +1,511 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>2.1 Configure</TITLE>
+<META NAME="description" CONTENT="2.1 Configure">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="node7.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html306"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html302"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html296"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html304"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html307"
+  HREF="node9.html">2.2 Compile</A>
+<B> Up:</B> <A NAME="tex2html303"
+  HREF="node7.html">2 Installation</A>
+<B> Previous:</B> <A NAME="tex2html297"
+  HREF="node7.html">2 Installation</A>
+   <B>  <A NAME="tex2html305"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html308"
+  HREF="node8.html#SECTION00031100000000000000">2.1.1 Libraries</A>
+<UL>
+<LI><A NAME="tex2html309"
+  HREF="node8.html#SECTION00031110000000000000">2.1.1.1 BLAS and LAPACK</A>
+<LI><A NAME="tex2html310"
+  HREF="node8.html#SECTION00031120000000000000">2.1.1.2 FFT</A>
+<LI><A NAME="tex2html311"
+  HREF="node8.html#SECTION00031130000000000000">2.1.1.3 Other libraries</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html312"
+  HREF="node8.html#SECTION00031200000000000000">2.1.2 Manual configuration</A>
+<UL>
+<LI><A NAME="tex2html313"
+  HREF="node8.html#SECTION00031210000000000000">2.1.2.1 Note for HP PA-RISC users:</A>
+<LI><A NAME="tex2html314"
+  HREF="node8.html#SECTION00031220000000000000">2.1.2.2 Note for MS-Windows users:</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION00031000000000000000">
+2.1 Configure</A>
+</H2>
+
+<P>
+To configure the Quantum-ESPRESSO source package, run the <TT>configure</TT>
+script.  It will (try to) detect compilers and libraries available on
+your machine, and set up things accordingly.
+Presently it is expected to work on most Linux 32- and 64-bit (Itanium
+and Opteron) PCs and clusters, IBM SP machines, SGI Origin, some
+HP-Compaq Alpha machines, Cray X1, Mac OS X, MS-Windows PCs. 
+It may work with 
+some assistance also on other architectures (see below).
+
+<P>
+For cross-compilation, you have to specify the target machine with the
+<TT>-host</TT> option (see below).  This feature has not been 
+extensively tested, but we had at least one successful report 
+(compilation for NEC SX6 on a PC).
+
+<P>
+Specifically, <TT>configure</TT> generates the following files: 
+<BLOCKQUOTE>
+<TT>make.sys</TT>: compilation rules and flags
+<BR>  <TT>configure.msg</TT>: a report of the configuration run
+<BR>  <TT>include/fft_defs.h</TT>: contains the type of fortran variable
+     containing a C pointer.
+
+</BLOCKQUOTE>
+
+<P>
+<TT>configure.msg</TT> is only used by <TT>configure</TT> to print its
+final report.  It isn't needed for compilation.
+NOTA BENE: unlike previous versions, <TT>configure</TT> no longer 
+runs the <TT>makedeps.sh</TT> shell script that updates dependencies.
+If you modify the program sources, run <TT>makedeps.sh</TT> or type 
+<TT>make depend</TT> to update files <TT>make.depend</TT> in the various 
+subdirectories.
+
+<P>
+You should always be able to compile the Quantum-ESPRESSO suite of programs
+without having to edit any of the generated files.  However you may
+have to tune <TT>configure</TT> by specifying appropriate environment
+variables and/or command-line options.
+Usually the most tricky part is to get external libraries recognized
+and used: see section <A HREF="#libraries">2.1.1</A>, ``Libraries'', for details and
+hints.
+
+<P>
+Environment variables may be set in any of these ways:
+<PRE>
+  export VARIABLE=value         # sh, bash, ksh
+  ./configure
+
+  setenv VARIABLE value         # csh, tcsh
+  ./configure
+
+  ./configure VARIABLE=value    # any shell
+</PRE>
+Some environment variables that are relevant to <TT>configure</TT> are:
+<BLOCKQUOTE>
+<TT>ARCH</TT>:
+    label identifying the machine type (see below)
+<BR>  <TT>F90</TT>, <TT>F77</TT>, <TT>CC</TT>:
+    names of Fortran 95, Fortran 77, and C compilers
+<BR>  <TT>MPIF90</TT>, <TT>MPIF77</TT>, <TT>MPICC</TT>:
+    names of parallel compilers
+<BR>  <TT>CPP</TT>:
+    source file preprocessor (defaults to <TT>$CC -E</TT>)
+<BR>  <TT>LD</TT>: linker (defaults to <TT>$MPIF90</TT>)
+<BR>  <TT>CFLAGS</TT>, <TT>FFLAGS</TT>, <TT>F90FLAGS</TT>,
+    <TT>CPPFLAGS</TT>, <TT>LDFLAGS</TT>:
+    compilation flags
+<BR>  <TT>LIBDIRS</TT>:
+    extra directories to search for libraries (see below)
+
+</BLOCKQUOTE>
+For example, the following command line:
+<PRE>
+  ./configure MPIF90=mpf90 FFLAGS="-O2 -assume byterecl" \
+              CC=gcc CFLAGS=-O3 LDFLAGS=-static
+</PRE>
+instructs <TT>configure</TT> to use <TT>mpf90</TT> as Fortran 95
+compiler with flags <TT>-O2 -assume byterecl</TT>,
+<TT>gcc</TT> as C compiler with flags <TT>-O3</TT>, and to link with
+flags <TT>-static</TT>.  Note that the value of <TT>FFLAGS</TT> must
+be quoted, because it contains spaces.
+
+<P>
+If your machine type is unknown to <TT>configure</TT>, you may use the
+<TT>ARCH</TT> variable to suggest an architecture among supported
+ones.  Try the one that looks more similar to your machine type;
+you'll probably have to do some additional tweaking.
+Currently supported architectures are:
+<BLOCKQUOTE>
+<TT>ia32</TT>:    Intel 32-bit machines (x86) running Linux
+<BR>  <TT>ia64</TT>:    Intel 64-bit (Itanium) running Linux
+<BR>  <TT>amd64</TT>:   AMD 64-bit (Opteron) running Linux
+<BR>  <TT>aix</TT>:     IBM AIX machines
+<BR>  <TT>mips</TT>:    SGI MIPS machines
+<BR>  <TT>alpha</TT>:   HP-Compaq alpha machines
+<BR>  <TT>alinux</TT>:  HP-Compaq alpha running Linux
+<BR>  <TT>sparc</TT>:   Sun SPARC machines
+<BR>  <TT>crayx1</TT>:  Cray X1 machines
+<BR>  <TT>macppc</TT>:  Apple PowerPC machines running Mac OS X
+<BR>  <TT>mac686</TT>:  Apple Intel machines running Mac OS X
+<BR>  <TT>cygwin</TT>:  MS-Windows PCs with Cygwin
+
+</BLOCKQUOTE>
+Finally, <TT>configure</TT> recognizes the following command-line
+options:
+<BLOCKQUOTE>
+<TT>-disable-parallel</TT>:
+    compile serial code, even if parallel environment is available.
+<BR>  <TT>-disable-shared</TT>:
+    don't use shared libraries: generate static executables.
+<BR>  <TT>-enable-shared</TT>:
+    use shared libraries.
+<BR>  <TT>-host=</TT><I>target</I>:
+    specify target machine for cross-compilation.
+<BR>
+    <I>Target</I> must be a string identifying the architecture that
+    you want to compile for; you can obtain it by running
+    <TT>config.guess</TT> on the target machine.
+
+</BLOCKQUOTE>
+If you want to modify the <TT>configure</TT> script (advanced users
+only!), read the instructions in <TT>README.configure</TT> first.
+You'll need GNU Autoconf
+(<A NAME="tex2html19"
+  NAME="http://www.gnu.org/software/autoconf/"><TT>http://www.gnu.org/software/autoconf/</TT></A>).
+
+<P>
+
+<H3><A NAME="SECTION00031100000000000000"></A>
+  <A NAME="libraries"></A>
+<BR>
+2.1.1 Libraries
+</H3>
+
+<P>
+Quantum-ESPRESSO makes use of the following external libraries:
+
+<UL>
+<LI>BLAS
+        (<A NAME="tex2html20"
+  NAME="http://www.netlib.org/blas/"><TT>http://www.netlib.org/blas/</TT></A>)
+
+and LAPACK
+<BR>
+        (<A NAME="tex2html21"
+  NAME="http://www.netlib.org/lapack/"><TT>http://www.netlib.org/lapack/</TT></A>)
+
+for linear algebra
+</LI>
+<LI>FFTW
+        (<A NAME="tex2html22"
+  NAME="http://www.fftw.org/"><TT>http://www.fftw.org/</TT></A>)
+
+for Fast Fourier Transforms
+</LI>
+</UL>
+A copy of the needed routines is provided with the distribution.
+However, when available, optimized vendor-specific libraries can be
+used instead: this often yields huge performance gains.
+
+<P>
+
+<H4><A NAME="SECTION00031110000000000000">
+2.1.1.1 BLAS and LAPACK</A>
+</H4>
+
+<P>
+Quantum-ESPRESSO can use the following architecture-specific replacements for
+BLAS and LAPACK:
+<BLOCKQUOTE>
+<TT>MKL</TT> for Intel Linux PCs
+<BR>  <TT>ACML</TT> for AMD Linux PCs
+<BR>  <TT>ESSL</TT> for IBM machines
+<BR>  <TT>complib.sgimath</TT> for SGI Origin
+<BR>  <TT>SCSL</TT> for SGI Altix
+<BR>  <TT>SUNperf</TT> for Sun
+<BR>  <TT>cxml</TT> for HP-Compaq Alphas.
+
+</BLOCKQUOTE>
+If none of these is available, we suggest that you use the optimized
+ATLAS library
+(<A NAME="tex2html23"
+  NAME="http://math-atlas.sourceforge.net/"><TT>http://math-atlas.sourceforge.net/</TT></A>).
+Note that ATLAS is not a complete replacement for LAPACK: it contains
+all of the BLAS, plus the LU code, plus the full storage Cholesky
+code.  Follow the instructions in the ATLAS distributions to produce a
+full LAPACK replacement.
+
+<P>
+Sergei Lisenkov reported success and good performances with
+optimized BLAS by Kazushige Goto.
+They can be downloaded freely (but not redistributed!) from:
+<A NAME="tex2html24"
+  NAME="http://www.cs.utexas.edu/users/flame/goto/"><TT>http://www.cs.utexas.edu/users/flame/goto/</TT></A>
+<P>
+
+<H4><A NAME="SECTION00031120000000000000">
+2.1.1.2 FFT</A>
+</H4>
+
+<P>
+Quantum-ESPRESSO can use the following vendor-specific FFT 
+libraries: IBM ESSL; SCSL and COMPLIB scientific libraries from SGI; 
+sunperf from SUN Intel MKL v.8 (experimental, not recognized by 
+<TT>configure</TT>).
+
+<P>
+If you use FFTW, you have to choose before compilation whether to load
+the built-in copy (v.2) of FFTW or a precompiled v.2 or v.3 FFTW library. 
+This is done using preprocessing options: 
+<TT>-D__FFTW</TT> (for precompiled v.2), 
+<TT>-D__FFTW __USE_INTERNAL_FFTW</TT> (for internal v.2),
+<TT>-D__FFTW3</TT> (for v.3) (for precompiled v.3).
+Beware: FFTW v.3 gives mysterious crashes in some cases. For this
+reason <TT>configure</TT> will look for FFTW v.2 only.
+
+<P>
+If you want to link to a precompiled FFTW v.&lt;
+<tex2html_verbatim_mark>3 library, you will need 
+the corresponding <TT>fftw.h</TT> include file. That may or may not 
+have been installed on your system together with the library: in
+particular, most Linux distributions split libraries into ``base'' 
+and ``development'' packages, include files normally belonging to the 
+latter. Thus if you can't find <TT>fftw.h</TT> on your machine, chances
+are you must install the FFTW development package (how to do this and
+what it is exactly called depends  on your operating system version).
+
+<P>
+If instead the file is there, but <TT>configure</TT> doesn't find it,
+you may specify its location in the <TT>INCLUDEFFTW</TT> environment
+variable.
+For example:
+<PRE>
+  ./configure INCLUDEFFTW="/usr/lib/fftw-2.1.3/fftw"
+</PRE>
+If everything else fails, you'll have to modify the <TT>make.sys</TT>
+file manually: see section <A HREF="#manualconf">2.1.2</A>, ``Manual configuration''.
+
+<P>
+
+<H4><A NAME="SECTION00031130000000000000">
+2.1.1.3 Other libraries</A>
+</H4>
+
+<P>
+Quantum-ESPRESSO can use the MASS vector math library from
+IBM, if available (only on AIX).
+
+<P>
+The <TT>configure</TT> script attempts to find optimized libraries,
+but may fail if they have been installed in non-standard places.
+You should examine the final value of <TT>BLAS_LIBS</TT>,
+<TT>LAPACK_LIBS</TT>, <TT>FFT_LIBS</TT>, <TT>MPI_LIBS</TT> (if
+needed), <TT>MASS_LIBS</TT> (IBM only), either in the output of
+<TT>configure</TT> or in the generated <TT>make.sys</TT>, to check
+whether it found all the libraries that you intend to use.
+
+<P>
+If any libraries weren't found, you can specify a list of directories
+to search in the environment variable <TT>LIBDIRS</TT>, and rerun
+<TT>configure</TT>; directories in the list must be separated by
+spaces.  For example:
+<PRE>
+  ./configure LIBDIRS="/opt/intel/mkl70/lib/32 /usr/lib/math"
+</PRE>
+If this still fails, you may set some or all of the <TT>*_LIBS</TT>
+variables manually and retry.  For example:
+<PRE>
+  ./configure BLAS_LIBS="-L/usr/lib/math -lf77blas -latlas_sse"
+</PRE>
+Beware that in this case, <TT>configure</TT> will blindly accept the
+specified value, and won't do any extra search.  This is so that if
+<TT>configure</TT> finds any library that you don't want to use, you
+can override it.
+
+<P>
+<B>Please note:</B>
+If you change any settings after a previous (successful or failed)
+compilation, you must run <TT>make clean</TT> before recompiling,
+unless you know exactly which routines are affected by the changed
+settings and how to force their recompilation.
+
+<P>
+
+<H3><A NAME="SECTION00031200000000000000"></A>
+  <A NAME="manualconf"></A>
+<BR>
+2.1.2 Manual configuration
+</H3>
+
+<P>
+To configure Quantum-ESPRESSO manually, you have to write a working
+<TT>make.sys</TT> yourself. You may also need to generate file
+<TT>include/fft_defs.h</TT>.
+
+<P>
+For <TT>make.sys</TT>, several templates (each for a different machine
+type) to start with are provided in the <TT>install/</TT> directory:
+they have names of the form <TT>Make.</TT><I>system</I>, where
+<I>system</I> is a string identifying the architecture and compiler.
+Currently available systems are:
+<BLOCKQUOTE>
+<TT>alpha</TT>:     HP-Compaq alpha workstations
+<BR>  <TT>alphaMPI</TT>:  HP-Compaq alpha parallel machines
+<BR>  <TT>altix</TT>:     SGI Altix 350/3000 with Linux, Intel compiler
+<BR>  <TT>beo_ifc</TT>:  Linux clusters of PCs, Intel compiler
+<BR>  <TT>beowulf</TT>:   Linux clusters of PCs, Portland compiler
+<BR>  <TT>bgl</TT>:       IBM Blue Gene/L machines
+<BR>  <TT>cray-xd1</TT>:  CRAY XD1
+<BR>  <TT>cray-xt3</TT>:  CRAY XT3
+<BR>  <TT>cygwin</TT>:    Windows PC, Intel compiler
+<BR>  <TT>fujitsu</TT>:   Fujitsu vector machines
+<BR>  <TT>gfortran</TT>:  GNU gfortran
+<BR>  <TT>hitachi</TT>:   Hitachi SR8000
+<BR>  <TT>hp</TT>:        HP PA-RISC workstations
+<BR>  <TT>hpMPI</TT>:     HP PA-RISC parallel machines
+<BR>  <TT>ia64</TT>:      HP Itanium workstations
+<BR>  <TT>ibm</TT>:       IBM RS6000 workstations
+<BR>  <TT>ibmsp</TT>:     IBM SP machines
+<BR>  <TT>irix</TT>:      SGI workstations
+<BR>  <TT>macos-xlf</TT>: MAC OS-X for PPC machines with xlf
+<BR>  <TT>macos-intel</TT>: MAC OS-X for Intel CPUs with ifort compiler and mkl
+<BR>  <TT>origin</TT>:    SGI Origin 2000/3000
+<BR>  <TT>pc_abs</TT>:   Linux PCs, Absoft compiler
+<BR>  <TT>pc_ifc</TT>:   Linux PCs, Intel compiler
+<BR>  <TT>pc_lahey</TT>: Linux PCs, Lahey compiler
+<BR>  <TT>pc_pgi</TT>:   Linux PCs, Portland compiler
+<BR>  <TT>power5-aix-serial</TT>: IBM Power5, serial
+<BR>  <TT>power5-aix-parallel</TT>:IBM Power5, parallel
+<BR>  <TT>sun</TT>:       Sun workstations
+<BR>  <TT>sunMPI</TT>:    Sun parallel machines
+<BR>  <TT>sxcross</TT>:   NEC SX-6 (cross-compilation)
+
+</BLOCKQUOTE>
+<B>Please note:</B>
+Most of these files are old and haven't been tested for a long time.
+They may or may not work.
+
+<P>
+Copy <TT>Make.</TT><I>system</I> to <TT>make.sys</TT>. If you
+have the Intel compiler <TT>ifc</TT> v.6 or earlier, you will have
+to run the script <TT>ifcmods.sh</TT>. Finally, run
+<TT>makedeps.sh</TT> to generate <TT>*/make.depend</TT> files.
+
+<P>
+Most likely (and even more so if there isn't an exact match to your
+machine type), you'll have to tweak <TT>make.sys</TT> by hand.
+In particular, you must specify the full list of libraries that
+you intend to link to.
+
+<P>
+If <TT>configure</TT> didn't manage to create the file 
+<TT>include/fft_defs.h</TT>, copy and edit the template 
+<TT>include/fft_defs.h.in</TT>. 
+Set the kind of integer to 4 (8) for compilers producing
+32-bit (64-bit) executables.
+
+<P>
+NOTA BENE: If you modify the program sources, run the script
+<TT>makedeps.sh</TT> or type <TT>make depend</TT> to update
+files <TT>make.depend</TT> in the various subdirectories. 
+
+<P>
+
+<H4><A NAME="SECTION00031210000000000000">
+2.1.2.1 Note for HP PA-RISC users:</A>
+</H4> 
+
+<P>
+The Makefile for HP PA-RISC workstations and parallel machines is
+based on a Makefile contributed by Sergei Lisenkov.
+It assumes that you have HP compiler with MLIB libraries installed on
+a machine running HP-UX.
+
+<P>
+
+<H4><A NAME="SECTION00031220000000000000">
+2.1.2.2 Note for MS-Windows users:</A>
+</H4> 
+
+<P>
+The Makefile for Windows PCs is based on a Makefile written for an
+earlier version of PWscf (1.2.0), contributed by Lu Fu-Fa, CCIT,
+Taiwan. You will need the Cygwin package. The provided Makefile
+assumes that you have the Intel compiler with MKL libraries installed.
+It is untested.
+
+<P>
+If you run into trouble, a possibility is to install Linux in 
+dual-boot mode. You need to create a partition for Linux, 
+install it, install a boot loader (LILO, GRUB). The latter step
+is not needed if you boot from floppy or CD-ROM. In principle 
+one could avoid installation altogether using a distribution 
+like Knoppix that runs directly from CD-ROM, but for serious use 
+disk access is needed.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html306"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html302"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html296"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html304"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html307"
+  HREF="node9.html">2.2 Compile</A>
+<B> Up:</B> <A NAME="tex2html303"
+  HREF="node7.html">2 Installation</A>
+<B> Previous:</B> <A NAME="tex2html297"
+  HREF="node7.html">2 Installation</A>
+   <B>  <A NAME="tex2html305"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

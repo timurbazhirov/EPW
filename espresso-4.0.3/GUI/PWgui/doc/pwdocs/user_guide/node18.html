@@ -1,0 +1,735 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>[edit] Frequently Asked Questions (FAQ)</TITLE>
+<META NAME="description" CONTENT="[edit] Frequently Asked Questions (FAQ)">
+<META NAME="keywords" CONTENT="user_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="user_guide.css">
+
+<LINK REL="next" HREF="node19.html">
+<LINK REL="previous" HREF="node17.html">
+<LINK REL="up" HREF="user_guide.html">
+<LINK REL="next" HREF="node19.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html412"
+  HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html410"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html404"
+  HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html413"
+  HREF="node19.html">About this document ...</A>
+<B> Up:</B> <A NAME="tex2html411"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html405"
+  HREF="node17.html">[edit] Troubleshooting (PWscf)</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html414"
+  HREF="node18.html#SECTION000018100000000000000">[edit] Installation</A>
+<UL>
+<LI><A NAME="tex2html415"
+  HREF="node18.html#SECTION000018110000000000000">[edit]  <I>What Fortran compiler do I need to compile Q-E?</I></A>
+<LI><A NAME="tex2html416"
+  HREF="node18.html#SECTION000018120000000000000">[edit]  <I>Why is configure saying that I have no fortran compiler?</I></A>
+<LI><A NAME="tex2html417"
+  HREF="node18.html#SECTION000018130000000000000">[edit]  <I>Why is configure saying that my fortran compiler doesn't work?</I></A>
+<LI><A NAME="tex2html418"
+  HREF="node18.html#SECTION000018140000000000000">[edit]  <I>configure says 'unsupported architecture', what should I do?</I></A>
+<LI><A NAME="tex2html419"
+  HREF="node18.html#SECTION000018150000000000000">[edit]  <I>Why doesn't configure recognize that I have a parallel machine?</I></A>
+<LI><A NAME="tex2html420"
+  HREF="node18.html#SECTION000018160000000000000">[edit]  <I>Compilation fails with "internal error", what should I do?</I></A>
+<LI><A NAME="tex2html421"
+  HREF="node18.html#SECTION000018170000000000000">[edit]  <I>Compilation fails at linking stage: "symbol ... not found"</I></A>
+</UL>
+<BR>
+<LI><A NAME="tex2html422"
+  HREF="node18.html#SECTION000018200000000000000">[edit] Input data</A>
+<UL>
+<LI><A NAME="tex2html423"
+  HREF="node18.html#SECTION000018210000000000000">[edit]  <I>Where can I find the crystal structure/atomic positions of XYZ?</I></A>
+<LI><A NAME="tex2html424"
+  HREF="node18.html#SECTION000018220000000000000">[edit]  <I>Where can I find the Brillouin Zone/high-symmetry points/irreps for XYZ?</I></A>
+<LI><A NAME="tex2html425"
+  HREF="node18.html#SECTION000018230000000000000">[edit]  <I>Why is the code saying "Wrong atomic coordinates"?</I></A>
+<LI><A NAME="tex2html426"
+  HREF="node18.html#SECTION000018240000000000000">[edit]  <I>The code stops with an "error reading namelist xxxx"</I></A>
+<LI><A NAME="tex2html427"
+  HREF="node18.html#SECTION000018250000000000000">[edit]  <I>How can I choose parameters for variable-cell molecular dynamics?</I></A>
+<LI><A NAME="tex2html428"
+  HREF="node18.html#SECTION000018260000000000000">[edit]  <I>What are the nr1b, nr2b, nr3b?</I></A>
+</UL>
+<BR>
+<LI><A NAME="tex2html429"
+  HREF="node18.html#SECTION000018300000000000000">[edit] Self Consistency</A>
+<UL>
+<LI><A NAME="tex2html430"
+  HREF="node18.html#SECTION000018310000000000000">[edit]  <I>How is the charge density (the potential, etc.) stored? What position in real space corresponds to an array value?</I></A>
+<LI><A NAME="tex2html431"
+  HREF="node18.html#SECTION000018320000000000000">[edit]  <I>What is the difference between total and absolute magnetization?</I></A>
+<LI><A NAME="tex2html432"
+  HREF="node18.html#SECTION000018330000000000000">[edit]  <I>How can I calculate magnetic moments for each atom?</I></A>
+<LI><A NAME="tex2html433"
+  HREF="node18.html#SECTION000018340000000000000">[edit]  <I>How do I perform a calculation with spin-orbit interactions?</I></A>
+<LI><A NAME="tex2html434"
+  HREF="node18.html#SECTION000018350000000000000">[edit]  <I>What is the order of <I>Y</I><I>l</I><I>m</I> components in projected DOS / projection of atomic wavefunctions?</I></A>
+</UL>
+<BR>
+<LI><A NAME="tex2html435"
+  HREF="node18.html#SECTION000018400000000000000">[edit]  Phonons </A>
+<UL>
+<LI><A NAME="tex2html436"
+  HREF="node18.html#SECTION000018410000000000000">[edit]  Is there a simple way to determine the symmetry of a given phonon mode?</A>
+<LI><A NAME="tex2html437"
+  HREF="node18.html#SECTION000018420000000000000">[edit]  I am not getting zero acoustic mode frequencies, why? </A>
+<LI><A NAME="tex2html438"
+  HREF="node18.html#SECTION000018430000000000000">[edit]  Why do I get negative phonon frequencies? </A>
+<UL>
+<LI><A NAME="tex2html439"
+  HREF="node18.html#SECTION000018431000000000000">Views</A>
+<LI><A NAME="tex2html440"
+  HREF="node18.html#SECTION000018432000000000000">Personal tools</A>
+<LI><A NAME="tex2html441"
+  HREF="node18.html#SECTION000018433000000000000">Navigation</A>
+<LI><A NAME="tex2html442"
+  HREF="node18.html#SECTION000018434000000000000">Search</A>
+<LI><A NAME="tex2html443"
+  HREF="node18.html#SECTION000018435000000000000">Toolbox</A>
+</UL></UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION000018000000000000000">
+[edit] Frequently Asked Questions (FAQ)</A>
+</H2>
+
+<H3><A NAME="SECTION000018100000000000000">
+[edit] Installation</A>
+</H3>
+
+<P>
+Most installation problems have obvious origins and can be solved by reading
+error messages and acting accordingly. Sometimes the reason for a failure
+is less obvious. In such a case, you should look into the 
+Installation#Installation_issues
+section of the User Guide, and into the pw_forum archive to see if a similar
+problem (with solution) is described. If you get really weird error messages
+during installation, look for them with your preferred Internet search engine
+(such as Google).
+
+<P>
+
+<H4><A NAME="SECTION000018110000000000000">
+[edit]  <I>What Fortran compiler do I need to compile Q-E?</I></A>
+</H4>
+
+<P>
+<B>A:</B> Any non-buggy, or not-too-buggy, fortran-95 compiler should work,
+with minimal or no changes to the code. configure may not be able to
+recognize your system, though.
+
+<P>
+
+<H4><A NAME="SECTION000018120000000000000">
+[edit]  <I>Why is configure saying that I have no fortran compiler?</I></A>
+</H4>
+
+<P>
+<B>A:</B>You haven’t one. Really! More exactly, you have none of the fortran compilers
+configure is trying in your execution path. If your hardware/software combination
+is supported, fix your execution path.
+
+<P>
+
+<H4><A NAME="SECTION000018130000000000000">
+[edit]  <I>Why is configure saying that my fortran compiler doesn't work?</I></A>
+</H4>
+
+<P>
+<B>A:</B> Because it doesn't. Really! More exactly, configure has tried to compile a
+small test program and didn't succeed. Your compiler may not be properly 
+installed. For Intel compiler on PC's: you may have forgotten to run the
+required initialization script for the compiler.
+
+<P>
+
+<H4><A NAME="SECTION000018140000000000000">
+[edit]  <I>configure says 'unsupported architecture', what should I do?</I></A>
+</H4>
+
+<P>
+<B>A:</B> If compilation/linking still works, never mind, Otherwise, supply a suitable 
+supported architecture to configure: see instructions in README.configure on 
+what to do. Note that in most cases you may use configure to produce dependencies, 
+then edit the file make.sys.
+
+<P>
+
+<H4><A NAME="SECTION000018150000000000000">
+[edit]  <I>Why doesn't configure recognize that I have a parallel machine?</I></A>
+</H4>
+
+<P>
+<B>A:</B>You need a properly configured complete parallel environment. If any piece 
+is missing, configure will revert to serial compilation. In particular:
+
+<P>
+
+<UL>
+<LI>configure tries to locate a parallel compiler in a logical  place with a logical name,  but if it has a strange names or it is located  in a strange location, you will have to instruct configure to find it. Note that in most PC clusters (Beowulf), there is no parallel Fortran-95 compiler:  you have to configure an appropriate script, such as mpif90.
+</LI>
+<LI>configure tries to locate libraries (both mathematical and parallel libraries) in logical places with logical names, but if they have strange names or strange locations, you will have to rename/move them, or to instruct configure to find them (see subsection “Libraries”). Note that if MPI libraries are not found, parallel compilation is disabled.
+</LI>
+<LI>configure tests that the compiler and the libraries are compatible (i.e. the compiler may link the libraries without conflicts and without missing symbols). If they aren't and the compilation fail, configure will revert to serial compilation.
+</LI>
+</UL>
+<H4><A NAME="SECTION000018160000000000000">
+[edit]  <I>Compilation fails with "internal error", what should I do?</I></A>
+</H4>
+
+<P>
+<B>A:</B> Any message saying something like "internal compiler error" means
+that your compiler is buggy. If you paid real money for your compiler,
+complain with the software vendor. If not: sometimes reducing the optimization
+level will do the trick, sometimes rearranging the code solves the problem,
+but most often you will need to update your compiler to a less buggy version. 
+
+<P>
+
+<H4><A NAME="SECTION000018170000000000000">
+[edit]  <I>Compilation fails at linking stage: "symbol ... not found"</I></A>
+</H4>
+
+<P>
+<B>A:</B> If the missing symbols (i.e. routines that are called but not found)
+are in the code itself: most likely the fortran-to-C conventions used
+in file include/c_defs.h are not appropriate. Change them and retry.
+
+<P>
+If the missing symbols are in external libraries (Blas, Lapack, FFT, MPI libraries):
+there is a name mismatch between what the compiler expects and what the
+library provides. This case is described in detail in the User Guide.
+
+<P>
+If the missing symbols aren't found anywhere either in the code or in the
+libraries: they are system library symbols. i) If they are called by external 
+libraries, you need to add a missing system library, or to use a different 
+set of external libraries, compiled with the same compiler you are using. 
+ii) If you are using no external libraries and still getting missing symbols, 
+your compiler and compiler libraries are not correctly installed.
+
+<P>
+
+<H3><A NAME="SECTION000018200000000000000">
+[edit] Input data</A>
+</H3>
+
+<H4><A NAME="SECTION000018210000000000000">
+[edit]  <I>Where can I find the crystal structure/atomic positions of XYZ?</I></A>
+</H4>
+
+<P>
+<B>A:</B> The following site contains a lot of crystal structures: http://cst-www.nrl.navy.mil/lattice .
+"Since this seems to come up often, I'd like to point out that the American Mineralogist Crystal Structure Database (http://rruff.geo.arizona.edu/AMS/amcsd) is another excellent place to find structures, though you will have to use it in conjunction with Bilbao (http://www.cryst.ehu.es), 
+and have some understanding of space groups and Wyckoff positions".
+
+<P>
+
+<H4><A NAME="SECTION000018220000000000000">
+[edit]  <I>Where can I find the Brillouin Zone/high-symmetry points/irreps for XYZ?</I></A>
+</H4>
+
+<P>
+<B>A:</B> "You might find this web site useful:
+http://www.cryst.ehu.es/cryst/get_kvec.html" (info by Cyrille Barreteau, nov. 2007).
+Or else: in textbooks, such as e.g. "The mathematical theory of symmetry 
+in solids", by Bradley and Cracknell.
+
+<P>
+
+<H4><A NAME="SECTION000018230000000000000">
+[edit]  <I>Why is the code saying "Wrong atomic coordinates"?</I></A>
+</H4>
+
+<P>
+<B>A:</B> Because they are: two or more atoms in the list of atoms have
+overlapping, or anyway too close, positions. Can't you see why? look better, 
+and remember that the code cheks periodic images as well.
+
+<P>
+
+<H4><A NAME="SECTION000018240000000000000">
+[edit]  <I>The code stops with an "error reading namelist xxxx"</I></A>
+</H4>
+
+<P>
+<B>A:</B> Most likely there is a misspelled variable in namelist xxxx.
+If there isn't any (have you looked carefully? really??
+REALLY???), beware control 
+characters like DOS ^M (control-M): they can confuse
+the namelist-reading code. 
+
+<P>
+If this message concerns the first namelist to be read
+(usually "&amp;control"), and if you are running 
+in parallel: try "code -inp input_file" instead of "code &lt; input_file". 
+Some MPI libraries do not properly handle input redirection.
+
+<P>
+
+<H4><A NAME="SECTION000018250000000000000">
+[edit]  <I>How can I choose parameters for variable-cell molecular dynamics?</I></A>
+</H4>
+
+<P>
+<B>A</B>: “A common mistake many new users make is to set the time step dt
+improperly to the same order of magnitude as for CP algorithm, or
+not setting dt at all. This will produce a ‘not evolving dynamics’.
+Good values for the original RMW (RM Wentzcovitch) dynamics are dt= 50 ÷ 70.
+The choice of the cell mass is a delicate matter. An off-optimal mass will
+make convergence slower. Too small masses, as well as too long time
+steps, can make the algorithm unstable. A good cell mass will make
+the oscillation times for internal degrees of freedom comparable to cell
+degrees of freedom in non-damped Variable-Cell MD. Test calculations
+are advisable before extensive calculation.
+I have tested the damping algorithm that I have developed and it has
+worked well so far. It allows for a much longer time step (dt=100 ÷ 150)
+than the RMW one and is much more stable with very small cell masses,
+which is useful when the cell shape, not the internal degrees of freedom,
+is far out of equilibrium. It also converges in a smaller number of steps
+than RMW.” (Info from Cesar Da Silva: the new damping algorithm is the default
+since v. 3.1).
+
+<P>
+
+<H4><A NAME="SECTION000018260000000000000">
+[edit]  <I>What are the nr1b, nr2b, nr3b?</I></A>
+</H4>
+
+<P>
+<B>A:</B> <I>ecutrho</I> defines the resolution on the real space FFT mesh (as expressed 
+by nr1, nr2 and nr3, that the code left on its own sets automatically).
+In the ultrasoft case we refer to this mesh as the ‘hard’ mesh, since it 
+is denser than the smooth mesh that is needed to represent the square 
+of the non-norm-conserving wavefunctions.
+
+<P>
+On this ‘hard’, fine-spaced mesh, you need to determine the size of the
+cube that will encompass the largest of the augmentation charges - this
+is what nr1b, nr2b, nr3b are.
+
+<P>
+So, nr1b is independent of the system size, but dependent on the size
+of the augmentation charge (that doesn’t vary that much) and on the
+real-space resolution needed by augmentation charges (rule of thumb:
+ecutrho is between 6 and 12 times ecutwfc).
+
+<P>
+In practice, nr1b et al. are often in the region of 20-24-28; testing seems
+again a necessity (unless the code started automagically to estimate these).
+
+<P>
+The core charge is in principle finite only at the core region (as defined
+by rcut ) and vanishes out side the core. Numerically the charge is
+represented in a Fourier series which may give rise to small charge
+oscillations outside the core and even to negative charge density, but
+only if the cut-oﬀ is too low. Having these small boxes removes the
+charge oscillations problem (at least outside the box) and also oﬀers
+some numerical advantages in going to higher cut-offs.
+
+<P>
+The small boxes should be set as small as possible, but large enough
+to contain the core of the largest element in your system.
+The formula for determining the box size is quite simple: 
+
+<P>
+<PRE>  nr1b = (2 ∗ rcut )/Lx ∗ nr1
+</PRE>
+
+<P>
+where rcut is the cut-off radius for the largest element and Lx is the
+physical length of your box along the x axis. You have to round your
+result to the nearest larger integer.” (info by Nicola Marzari)
+
+<P>
+
+<H3><A NAME="SECTION000018300000000000000">
+[edit] Self Consistency</A>
+</H3>
+
+<H4><A NAME="SECTION000018310000000000000">
+[edit]  <I>How is the charge density (the potential, etc.) stored? What position in real space corresponds to an array value?</I></A>
+</H4>
+
+<P>
+<B>A:</B> The index of arrays used to store functions defined on 3D meshes is
+actually a shorthand for three indeces, following the FORTRAN convention (“leftmost index runs faster”). An example will explain this better. Suppose you have a 3D array of dimension (nr1,nr2,nr3), say psi(nr1,nr2,nr3). FORTRAN compilers store this array sequentially in the computer RAM in the following way:
+
+<P>
+<PRE>       psi(1,1,1)
+       psi(2,1,1)
+       ...
+       psi(nr1,1,1)
+       psi(1,2,1)
+       psi(2,2,1)
+       ...
+       psi(nr1,2,1)
+       ...
+       psi(nr1,nr2,1)
+       psi(1,1,nr3)
+</PRE>
+
+<P>
+etc
+Let ind be the position of the (i,j,k) element in the above list: the
+relation between ind and (i,j,k) is:
+
+<P>
+<PRE>            ind = i + (j − 1) ∗ nr1 + (k − 1) ∗ nr2 ∗ nr1
+</PRE>
+
+<P>
+This should clarify the relation between 1D and 3D indexing. In real
+space, the (i,j,k) point of the mesh is
+
+<P>
+<PRE>
+</PRE>
+
+<P>
+where the τ ’s are the basis vectors of the Bravais lattice. The latter
+are stored row-wise in the “AT” array:
+
+<P>
+<PRE>            τ1 = at(:, 1), τ2 = at(:, 2), τ3 = at(:, 3)
+</PRE>
+
+<P>
+(info by Stefano Baroni)
+
+<P>
+
+<H4><A NAME="SECTION000018320000000000000">
+[edit]  <I>What is the difference between total and absolute magnetization?</I></A>
+</H4>
+
+<P>
+<B>A:</B> The total magnetization is the integral of the magnetization in the cell:
+
+<P>
+.
+
+<P>
+The absolute magnetization is the integral of the absolute value of the magnetization 
+in the cell:
+
+<P>
+In a simple feromagnetic material they should be equal (except possibly for an overall sign)
+In simple antiferromagnets (like FeO, NiO) <I>M</I><I>T</I> is zero and <I>M</I><I>A</I> is 
+twice the magnetization of each of the two atoms. (info by Stefano de Gironcoli)
+
+<P>
+
+<H4><A NAME="SECTION000018330000000000000">
+[edit]  <I>How can I calculate magnetic moments for each atom?</I></A>
+</H4>
+
+<P>
+<B>A:</B> There is no 'right' way of defining the local magnetic moment
+around an atom in a multi-atom system. However an approximate way to define
+it is via the projected density of states on the atomic orbitals (code
+projwfc.x, see example08 for its use as a postprocessing tool). This
+code generate many files with the density of states projected on each
+atomic wavefunction of each atom and a BIG amount of data on the
+standard output, the last few lines of which contain the decomposition
+of Lowdin charges on angular momentum and spin component of each
+atom.
+
+<P>
+
+<H4><A NAME="SECTION000018340000000000000">
+[edit]  <I>How do I perform a calculation with spin-orbit interactions?</I></A>
+</H4>
+
+<P>
+<B>A:</B>  The following input variables are relevant for a spin-orbit calculation:
+
+<P>
+<PRE>     noncolin=.true./.false.
+     lspinorb=.true./.false.
+     starting_magnetization (one for each type of atoms)
+</PRE>
+
+<P>
+To make a spin-orbit calculation noncolin must be true. 
+If starting_magnetization is set to zero (or not given)  the code makes a spin orbit calculation without spin magnetization (it assumes that time reversal symmetry holds and it does not calculate the magnetization). The states are still two component spinors but the total magnetization is zero.
+
+<P>
+If starting_magnetization is different from zero it makes a non collinear spin polarized calculation with spin orbit. The final spin magnetization might be zero or different from zero depending on the system.
+
+<P>
+Furthermore to make a spin-orbit calculation you must use fully relativistic pseudopotentials at least for the atoms in which you think that spin orbit is large. If all the pseudopotentials are scalar relativistic the calculation becomes equivalent to a noncolinear calculation without spin orbit.
+(Andrea Dal Corso, 2007-07-27)
+
+<P>
+
+<H4><A NAME="SECTION000018350000000000000">
+[edit]  <I>What is the order of <I>Y</I><I>l</I><I>m</I> components in projected DOS / projection of atomic wavefunctions?</I></A>
+</H4>
+
+<P>
+<B>A:</B> "The order is, I think:
+
+<P>
+<PRE>   1   \textit{P}0,0(\textit{t})
+   2   \textit{P}1,0(\textit{t})
+   3   \textit{P}1,1(\textit{t})\textit{c}\textit{o}\textit{s}φ
+   4   \textit{P}1,1(\textit{t})\textit{s}\textit{i}\textit{n}φ 
+   5   \textit{P}2,0(\textit{t})
+   6   \textit{P}2,1(\textit{t})\textit{c}\textit{o}\textit{s}φ 
+   7   \textit{P}2,1(\textit{t})\textit{s}\textit{i}\textit{n}φ
+   8   \textit{P}2,2(\textit{t})\textit{c}\textit{o}\textit{s}2φ
+   9   \textit{P}2,2(\textit{t})\textit{s}\textit{i}\textit{n}2φ
+</PRE>
+
+<P>
+and so on; <I>P</I><I>l</I>,<I>m</I>=Legendre Polynomials, <I>t</I> = <I>c</I><I>o</I><I>s</I>θ  = z /r, φ= atan(y /x). No warranty. Anybody really interested in knowing 
+<I>for sure</I> which spherical harmonic combination is which should look into routine 
+ylmr2 in flib/ylmr2.f90".
+
+<P>
+
+<H3><A NAME="SECTION000018400000000000000">
+[edit]  Phonons </A>
+</H3>
+
+<H4><A NAME="SECTION000018410000000000000">
+[edit]  Is there a simple way to determine the symmetry of a given phonon mode?</A>
+</H4>
+
+<P>
+<B>A:</B> A symmetry analyzer was added in v.3.2 by Andrea Dal Corso. The following info may still be of interest to somebody, though:
+
+<P>
+See the ISOTROPY package: http://stokes.byu.edu/iso/isotropy.html.
+
+<P>
+“Please follow http://dx.doi.org/10.1016/0010-4655(94)00164-W and
+http://dx.doi.org/10.1016/0010-4655(74)90057-5. These are connected to some 
+programs found in the Computer Physics Communications Program Library 
+(http://www.cpc.cs.qub.ac.uk ) which are described in the articles:
+<BR>
+ACKJ v1.0 Normal coordinate analysis of crystals, J.Th.M. de Hosson.
+<BR>
+ACMI v1.0 Group-theoretical analysis of lattice vibrations, T.G. Worlton, J.L. Warren. See erratum Comp. Phys. Commun. 4(1972)382.
+<BR>
+ACMM v1.0 Improved version of group-theoretical analysis of lattice dynamics, J.L. Warren, T.G. Worlton.” (Info from Pascal Thibaudeau)
+
+<P>
+
+<H4><A NAME="SECTION000018420000000000000">
+[edit]  I am not getting zero acoustic mode frequencies, why? </A>
+</H4>
+
+<P>
+<B>A:</B> "If you treat, e.g., a molecule, the first six frequencies should vanish. 
+However, due to convergence (number of plane waves, size of the supercell, 
+etc. ) they often appear as imaginary or small real, even if all other 
+frequencies are converged with respect to ecut and celldm.
+
+<P>
+If you have a bulk structure, then imaginary frequencies indicate a 
+lattice instability. However, they can appear also as a result of a 
+non-converged groundstate (Ecut, #k, ...).
+
+<P>
+Recently I also found that the parameters tr2_ph for the phonons and 
+conv_thr for the groundstate can affect the quality of the phonon 
+calculation, especially the "vanishing" frequencies for molecules."
+(Info from Katalyn Gaal-Nagy)
+
+<P>
+
+<H4><A NAME="SECTION000018430000000000000">
+[edit]  Why do I get negative phonon frequencies? </A>
+</H4>
+
+<P>
+<B>A:</B> If these occur for acoustic frequencies at Gamma point, see above.
+If these occur for rotational modes in a molecule into a supercell: 
+it is a fictitious effect of the finite supercell size. If these
+occur in other cases, it depends. It may be a problem of bad
+convergence (see above) or it may signal a real instability.
+
+<P>
+An example: large negative phonon frequencies in 1-dimensional chains.
+"It is because probably some of atoms are sitting on the saddle points 
+of the energy surface. Since QE symmetrizes charge density to avoid small 
+numerical oscillation, the system cannot break the symmetry with the help 
+of numerical noise. Check your system's stability by displacing one or more 
+atoms a little bit along the direction of eigen-vector which has negative 
+frequency. The eigen-vector can be found in the output of dynamical matrices 
+of ph.x. One example here is: for 1d aluminum chain, the LO mode will be 
+negative if you place two atoms at (0.0,0.0,0.0) and (0.0,0.0,0.5) of crystal 
+coordinates. To break the symmetry enforced by QE code, change the second atom 
+coordinate to (0.0,0.0,0.505). Relax the system. You will find the atom will 
+get itself a comfortable place at (0.0,0.0,0.727), showing a typical dimerization 
+effect." (info by Nicola Marzari).
+
+<P>
+Retrieved from "http://www.quantum-espresso.org/wiki/index.php/Printable_Quantum-Espresso_Documentation"
+
+<P>
+
+<H5><A NAME="SECTION000018431000000000000">
+Views</A>
+</H5>
+	  
+<UL>
+<LI>Article
+</LI>
+<LI>Discussion
+</LI>
+<LI>Edit
+</LI>
+<LI>History	  
+</LI>
+</UL>
+
+<P>
+
+<H5><A NAME="SECTION000018432000000000000">
+Personal tools</A>
+</H5>
+
+<P>
+
+<UL>
+<LI>Log in / create account	    
+</LI>
+</UL>
+
+<P>
+if (window.isMSIE55) fixalpha(); 
+
+<P>
+
+<H5><A NAME="SECTION000018433000000000000">
+Navigation</A>
+</H5>
+
+<P>
+
+<UL>
+<LI>Main Page
+</LI>
+<LI>Community portal
+</LI>
+<LI>Current events
+</LI>
+<LI>Recent changes
+</LI>
+<LI>Random page
+</LI>
+<LI>Help
+</LI>
+<LI>Donations
+	     	    
+</LI>
+</UL>
+
+<P>
+
+<H5><A NAME="SECTION000018434000000000000">
+Search</A>
+</H5>
+
+<P>
+ 
+
+<P>
+
+<H5><A NAME="SECTION000018435000000000000">
+Toolbox</A>
+</H5>
+
+<P>
+
+<UL>
+<LI>What links here
+</LI>
+<LI>Related changes
+</LI>
+<LI>Upload file
+</LI>
+<LI>Special pages
+</LI>
+<LI>Printable version
+	      	    
+</LI>
+</UL>
+
+<P>
+
+<UL>
+<LI>This page was last modified 17:29, 10 May 2008.
+</LI>
+<LI>This page has been accessed 87 times.
+</LI>
+<LI>About QuantumEspresso
+</LI>
+<LI>Disclaimers	  	
+</LI>
+</UL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html412"
+  HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html410"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html404"
+  HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html413"
+  HREF="node19.html">About this document ...</A>
+<B> Up:</B> <A NAME="tex2html411"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html405"
+  HREF="node17.html">[edit] Troubleshooting (PWscf)</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-07-01
+</ADDRESS>
+</BODY>
+</HTML>

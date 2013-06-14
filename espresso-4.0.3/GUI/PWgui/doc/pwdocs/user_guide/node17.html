@@ -1,0 +1,799 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>[edit] Troubleshooting (PWscf)</TITLE>
+<META NAME="description" CONTENT="[edit] Troubleshooting (PWscf)">
+<META NAME="keywords" CONTENT="user_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="user_guide.css">
+
+<LINK REL="next" HREF="node18.html">
+<LINK REL="previous" HREF="node16.html">
+<LINK REL="up" HREF="user_guide.html">
+<LINK REL="next" HREF="node18.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html365"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html363"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html357"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html366"
+  HREF="node18.html">[edit] Frequently Asked Questions</A>
+<B> Up:</B> <A NAME="tex2html364"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html358"
+  HREF="node16.html">[edit] Performance issues (PWscf)</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html367"
+  HREF="node17.html#SECTION000017100000000000000">[edit] pw.x says 'error while loading shared libraries' or 'cannot open shared object file' and does not start</A>
+<LI><A NAME="tex2html368"
+  HREF="node17.html#SECTION000017200000000000000">[edit] syntax errors when running examples</A>
+<LI><A NAME="tex2html369"
+  HREF="node17.html#SECTION000017300000000000000">[edit] errors in examples with parallel execution</A>
+<LI><A NAME="tex2html370"
+  HREF="node17.html#SECTION000017400000000000000">[edit] pw.x prints the first few lines and then nothing happens (parallel execution)</A>
+<LI><A NAME="tex2html371"
+  HREF="node17.html#SECTION000017500000000000000">[edit] pw.x stops with error in reading</A>
+<LI><A NAME="tex2html372"
+  HREF="node17.html#SECTION000017600000000000000">[edit] pw.x mumbles something like 'cannot recover' or 'error reading recover file'</A>
+<LI><A NAME="tex2html373"
+  HREF="node17.html#SECTION000017700000000000000">[edit] pw.x stops with 'inconsistent DFT' error</A>
+<LI><A NAME="tex2html374"
+  HREF="node17.html#SECTION000017800000000000000">[edit] pw.x stops with error in cdiaghg or rdiaghg</A>
+<LI><A NAME="tex2html375"
+  HREF="node17.html#SECTION000017900000000000000">[edit] pw.x crashes with 'ﬂoating invalid' or 'ﬂoating divide by zero'</A>
+<LI><A NAME="tex2html376"
+  HREF="node17.html#SECTION0000171000000000000000">[edit] pw.x crashes with no error message at all</A>
+<LI><A NAME="tex2html377"
+  HREF="node17.html#SECTION0000171100000000000000">[edit] pw.x crashes with 'segmentation fault' or similarly obscure messages</A>
+<LI><A NAME="tex2html378"
+  HREF="node17.html#SECTION0000171200000000000000">[edit] pw.x works for simple systems, but not for large systems or whenever more RAM is needed</A>
+<LI><A NAME="tex2html379"
+  HREF="node17.html#SECTION0000171300000000000000">[edit] pw.x crashes in parallel execution with an obscure message related to MPI errors</A>
+<LI><A NAME="tex2html380"
+  HREF="node17.html#SECTION0000171400000000000000">[edit] pw.x runs but nothing happens</A>
+<LI><A NAME="tex2html381"
+  HREF="node17.html#SECTION0000171500000000000000">[edit] pw.x yields weird results</A>
+<LI><A NAME="tex2html382"
+  HREF="node17.html#SECTION0000171600000000000000">[edit] pw.x stops with error message “the system is metallic, specify occupations”</A>
+<LI><A NAME="tex2html383"
+  HREF="node17.html#SECTION0000171700000000000000">[edit] pw.x stops with “internal error: cannot braket Ef ” in efermig</A>
+<LI><A NAME="tex2html384"
+  HREF="node17.html#SECTION0000171800000000000000">[edit] pw.x yields 'internal error: cannot braket Ef' message in efermit, then stops because 'charge is incorrect'</A>
+<LI><A NAME="tex2html385"
+  HREF="node17.html#SECTION0000171900000000000000">[edit] pw.x yields 'internal error: cannot braket Ef' message in efermit but doesn’t stop</A>
+<LI><A NAME="tex2html386"
+  HREF="node17.html#SECTION0000172000000000000000">[edit] in parallel execution, pw.x stops complaining that 'some processors have no planes' or 'smooth planes' or similar strange errors</A>
+<LI><A NAME="tex2html387"
+  HREF="node17.html#SECTION0000172100000000000000">[edit] the FFT grids in pw.x are machine-dependent</A>
+<LI><A NAME="tex2html388"
+  HREF="node17.html#SECTION0000172200000000000000">[edit] warning: 'symmetry operation # N not allowed'</A>
+<LI><A NAME="tex2html389"
+  HREF="node17.html#SECTION0000172300000000000000">[edit] pw.x doesn’t find all the symmetries you expected</A>
+<LI><A NAME="tex2html390"
+  HREF="node17.html#SECTION0000172400000000000000">[edit] I don’t get the same results in diﬀerent machines!</A>
+<LI><A NAME="tex2html391"
+  HREF="node17.html#SECTION0000172500000000000000">[edit] the CPU time is time-dependent!</A>
+<LI><A NAME="tex2html392"
+  HREF="node17.html#SECTION0000172600000000000000">[edit] 'warning : N eigenvectors not converged ...'</A>
+<LI><A NAME="tex2html393"
+  HREF="node17.html#SECTION0000172700000000000000">[edit] 'warning : negative or imaginary charge...', or '...core charge ...', or 'npt with rhoup&lt;0...' or 'rho dw&lt;0...'</A>
+<LI><A NAME="tex2html394"
+  HREF="node17.html#SECTION0000172800000000000000">[edit] self-consistency is slow or does not converge</A>
+<LI><A NAME="tex2html395"
+  HREF="node17.html#SECTION0000172900000000000000">[edit] structural optimization is slow or does not converge</A>
+<LI><A NAME="tex2html396"
+  HREF="node17.html#SECTION0000173000000000000000">[edit] pw.x stops during variable-cell optimization in checkallsym with 'non orthogonal operation' error</A>
+<LI><A NAME="tex2html397"
+  HREF="node17.html#SECTION0000173100000000000000">[edit] some codes in PP/ complain that they do not find some files</A>
+<LI><A NAME="tex2html398"
+  HREF="node17.html#SECTION0000173200000000000000">[edit] ph.x stops with 'error reading file'</A>
+<LI><A NAME="tex2html399"
+  HREF="node17.html#SECTION0000173300000000000000">[edit] ph.x mumbles something like 'cannot recover' or 'error reading recover file'</A>
+<LI><A NAME="tex2html400"
+  HREF="node17.html#SECTION0000173400000000000000">[edit] ph.x says 'occupation numbers probably wrong' and continues; or 'phonon + tetrahedra not implemented' and stops</A>
+<LI><A NAME="tex2html401"
+  HREF="node17.html#SECTION0000173500000000000000">[edit] ph.x does not yield acoustic modes with ω(q=0)=0 </A>
+<LI><A NAME="tex2html402"
+  HREF="node17.html#SECTION0000173600000000000000">[edit] ph.x yields really lousy phonons, with bad or negative frequencies or wrong symmetries or gross ASR violations</A>
+<LI><A NAME="tex2html403"
+  HREF="node17.html#SECTION0000173700000000000000">[edit] 'Wrong degeneracy' error in star_q</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION000017000000000000000">
+[edit] Troubleshooting (PWscf)</A>
+</H2>
+
+<P>
+Almost all problems in PWscf arise from incorrect input data and result in
+error stops. Error messages should be self-explanatory, but unfortunately
+this is not always true. If the code issues a warning messages and continues,
+pay attention to it but do not assume that something is necessarily wrong in
+your calculation: most warning messages signal harmless problems.
+
+<P>
+Typical pw.x and/or ph.x (mis-)behavior:
+
+<P>
+
+<H3><A NAME="SECTION000017100000000000000">
+[edit] pw.x says 'error while loading shared libraries' or 'cannot open shared object file' and does not start</A>
+</H3>
+
+<P>
+Possible reasons:
+
+<P>
+
+<UL>
+<LI>If you are running on the same machines on which the code was compiled, this is a library configuration problem. The solution is machine-dependent. On Linux, find the path to the missing libraries; then either add it to file /etc/ld.so.conf and run ldconfig (must be done as root), or add it to variable LD_LIBRARY_PATH and export it. Another possibility is to load non-shared version of libraries (ending with .a)  instead of shared ones (ending with .so).
+</LI>
+<LI>If you are <I>not</I> running on the same machines on which the code was compiled: you need either to have the same shared libraries installed on both machines, or to load statically all libraries (using appropriate configure or loader options). The same applies to Beowulf-style parallel machines: the needed shared libraries must be present on all PC’s.
+</LI>
+</UL>
+<H3><A NAME="SECTION000017200000000000000">
+[edit] syntax errors when running examples</A>
+</H3>
+
+<P>
+The scripts used by examples assume that /bin/sh is a standard Bourne shell.
+In some versions of Ubuntu Linux, /bin/sh is linked to something else. If
+you get strange errors like:
+<I>../check_failure.sh: 2: Syntax error: "(" unexpected</I>, edit the scripts
+and change /bin/sh to /bin/bash, or modify /bin/sh in such a way that it points 
+to a standard Bourne shell. Then complain with the maintainers of the
+Linux distribution for their ill-conceived choice.
+
+<P>
+
+<H3><A NAME="SECTION000017300000000000000">
+[edit] errors in examples with parallel execution</A>
+</H3>
+
+<P>
+If you get error messages in
+the example scripts – i.e. not errors in the codes – on a parallel machine, such
+as e.g. : “run example: -n: command not found” you have forgotten
+the ‘”‘ in the definitions of PARA_PREFIX and PARA_POSTFIX.
+
+<P>
+
+<H3><A NAME="SECTION000017400000000000000">
+[edit] pw.x prints the first few lines and then nothing happens (parallel execution)</A>
+</H3>
+
+<P>
+If the code looks like it is not reading from input, maybe
+it isn’t: the MPI libraries need to be properly configured to accept input
+redirection. See section “Running on parallel machines”, or inquire with
+your local computer wizard (if any).
+
+<P>
+
+<H3><A NAME="SECTION000017500000000000000">
+[edit] pw.x stops with error in reading</A>
+</H3>
+
+<P>
+There is an error in the input data.
+Usually it is a misspelled namelist variable, or an empty input file. Note that
+out-of-bound indices in dimensioned variables read in the namelist may cause
+the code to crash with really mysterious error messages. Also note that input
+data files containing ^M (Control-M) characters at the end of lines (typically,
+files coming from Windows PC) may yield error in reading. If none of the
+above applies and the code stops at the first namelist (“control”) and you are
+running in parallel: your MPI libraries might not be properly configured to
+allow input redirection, so that what you are eﬀectively reading is an empty
+file. See above.
+
+<P>
+
+<H3><A NAME="SECTION000017600000000000000">
+[edit] pw.x mumbles something like 'cannot recover' or 'error reading recover file'</A>
+</H3>
+
+<P>
+You are trying to restart from a previous job that either
+produced corrupted files, or did not do what you think it did. No luck: you
+have to restart from scratch.
+
+<P>
+
+<H3><A NAME="SECTION000017700000000000000">
+[edit] pw.x stops with 'inconsistent DFT' error</A>
+</H3>
+
+<P>
+As a rule, the ﬂavor of
+DFT used in the calculation should be the same as the one used in the
+generation of PP’s, and all PP’s should be generated using the same ﬂavor
+of DFT. This is actually enforced: the type of DFT is read from PP files and
+it is checked that the same DFT is read from all PP’s. If this does not hold,
+the code stops with the above error message.
+
+<P>
+If you really want to use PP’s generated with diﬀerent DFT, or to perform
+a calculation with a DFT that diﬀers from what used in PP generation,
+change the appropriate field in the PP file(s), at your own risk.
+
+<P>
+
+<H3><A NAME="SECTION000017800000000000000">
+[edit] pw.x stops with error in cdiaghg or rdiaghg</A>
+</H3>
+
+<P>
+Possible reasons for such
+behavior are not always clear, but they typically fall into one of the following
+cases:
+
+<P>
+
+<UL>
+<LI>serious error in data, such as bad atomic positions or bad crystal structure/supercell;
+</LI>
+<LI>a bad PP, typicall with a ghost, but also a US-PP with non-positive charge density, leading to a violation of positiveness of the S matrix appearing in the US-PP formalism; 
+</LI>
+<LI>a failure of the algorithm performing subspace diagonalization. The LAPACK algorithms used by cdiaghg/rdiaghg are very robust and extensively tested. Still, it may seldom happen that such algorithms fail. Try to use conjugate-gradient diagonalization (diagonalization=’cg’), a slower but very robust algorithm, and see what happens.
+</LI>
+<LI>buggy libraries. Machine-optimized mathematical libraries are very fast but sometimes not so robust from a numerical point of view.  Suspicious behavior: you get an error that is not reproducible on other architectures or that disappears if the calculation is repeated with even minimal changes in parameters. Known cases: HP-Compaq alphas with cxml libraries, Mac OS-X with system blas/lapack. Try to use compiled BLAS and LAPACK (or better, ATLAS) instead of machine-optimized libraries.
+</LI>
+</UL>
+<H3><A NAME="SECTION000017900000000000000">
+[edit] pw.x crashes with 'ﬂoating invalid' or 'ﬂoating divide by zero'</A>
+</H3>
+
+<P>
+If this happens on HP-Compaq True64 Alpha machines with an old version
+of the compiler: the compiler is most likely buggy. Otherwise, move to next
+item.
+
+<P>
+
+<H3><A NAME="SECTION0000171000000000000000">
+[edit] pw.x crashes with no error message at all</A>
+</H3>
+
+<P>
+This happens quite often
+in parallel execution, or under a batch queue, or if you are writing the output
+to a file. When the program crashes, part of the output, including the error
+message, may be lost, or hidden into error files where nobody looks into. It
+is the fault of the operating system, not of the code. Try to run interactively
+and to write to the screen. If this doesn’t help, move to next point.
+
+<P>
+
+<H3><A NAME="SECTION0000171100000000000000">
+[edit] pw.x crashes with 'segmentation fault' or similarly obscure messages</A>
+</H3>
+
+<P>
+Possible reasons:
+
+<P>
+
+<UL>
+<LI>too much RAM memory requested, or too much stack memory requested (see next item).
+</LI>
+<LI>if you are using highly optimized mathematical libraries, verify that they are designed for your hardware. In particular, for Intel compiler  and MKL libraries, verify that you loaded the correct set of CPU-specifiic MKL libraries.
+</LI>
+<LI>buggy compiler. If you are using Portland or Intel compilers on Linux PC’s or clusters, see the Installation section.
+</LI>
+</UL>
+<H3><A NAME="SECTION0000171200000000000000">
+[edit] pw.x works for simple systems, but not for large systems or whenever more RAM is needed</A>
+</H3>
+
+<P>
+Possible solutions:
+
+<P>
+
+<UL>
+<LI>increase the amount of RAM you are authorized to use (which may be much smaller than the available RAM). Ask your system administrator if you don’t know what to do. 
+</LI>
+<LI>reduce nbnd to the strict minimum, or reduce the cutoﬀs, or the cell size
+</LI>
+<LI>use conjugate-gradient (diagonalization=’cg’: slow but very robust): it requires less memory than the default Davidson algorithm.
+</LI>
+<LI>in parallel execution, use more processors, or use the same number of processors with less pools. Remember that parallelization with respect to k-points (pools) does not distribute memory: parallelization with respect to R- (and G-) space does.
+</LI>
+<LI>IBM only (32-bit machines): if you need more than 256 MB you must specify it at link time (option -bmaxdata).
+</LI>
+<LI>buggy or weird-behaving compiler. Some versions of the Portland and Intel compilers on Linux PC’s or clusters have this problem. For Intel ifort 8.1 and later, the problem seems to be due to the allocation of large automatic arrays that exceeds the available stack. Increasing the stack size (with commands limits or ulimit) may (or may not) solve the problem. Versions &gt; 3.2 try to avoid this problem by removing the stack size limit at startup. See: http://www.democritos.it/pipermail/pw_forum/2007-September/007176.html , http://www.democritos.it/pipermail/pw_forum/2007-September/007179.html
+</LI>
+</UL>
+<H3><A NAME="SECTION0000171300000000000000">
+[edit] pw.x crashes in parallel execution with an obscure message related to MPI errors</A>
+</H3>
+
+<P>
+Random crashes due to MPI errors have often been reported in Linux
+PC clusters. We cannot rule out the possibility that bugs in Quantum-ESPRESSO 
+cause such behavior, but we are quite confident that the likely
+explanation is a hardware problem (defective RAM for instance) or a software
+bug (in MPI libraries, compiler, operating system).
+
+<P>
+See also info from Axel Kohlmeyer: http://www.democritos.it/pipermail/pw_forum/2005-April/002338.html
+
+<P>
+
+<H3><A NAME="SECTION0000171400000000000000">
+[edit] pw.x runs but nothing happens</A>
+</H3>
+
+<P>
+Possible reasons:
+
+<P>
+
+<UL>
+<LI>in parallel execution, the code died on just one processor. Unpredictable behavior may follow.
+</LI>
+<LI>in serial execution, the code encountered a ﬂoating-point error and goes on producing NaN’s (Not a Number) forever unless exception handling is on (and usually it isn’t). In both cases, look for one of the reasons given above.
+</LI>
+<LI>maybe your calculation will take more time than you expect.
+</LI>
+</UL>
+<H3><A NAME="SECTION0000171500000000000000">
+[edit] pw.x yields weird results</A>
+</H3>
+
+<P>
+Possible solutions:
+
+<P>
+
+<UL>
+<LI>if this happens after a change in the code or in compilation or preprocessing options, try 'make clean', recompile. The 'make' command should take care of all dependencies, but do not rely too heavily on it. If the problem persists, 'make clean', recompile with reduced optimization level. 
+</LI>
+<LI>maybe your input data are weird.
+</LI>
+</UL>
+<H3><A NAME="SECTION0000171600000000000000">
+[edit] pw.x stops with error message “the system is metallic, specify occupations”</A>
+</H3>
+
+<P>
+You did not specify state occupations, but you need to, since your system appears to have an odd number of electrons. The variable
+controlling how metallicity is treated is occupations in namelist &amp;SYSTEM.
+The default, occupations=’fixed’, occupies the lowest nelec/2 states and
+works only for insulators with a gap. In all other cases, use ’smearing’ or
+’tetrahedra’. See file INPUT_PW for more details.
+
+<P>
+
+<H3><A NAME="SECTION0000171700000000000000">
+[edit] pw.x stops with “internal error: cannot braket Ef ” in efermig</A>
+</H3>
+
+<P>
+Possible reasons:
+
+<P>
+
+<UL>
+<LI>serious error in data, such as bad number of electrons, insuﬃcient number of bands, absurd value of broadening;
+</LI>
+<LI>the Fermi energy is found by bisection assuming that the integrated DOS N(E ) is an increasing function of the energy. This is not guaranteed for Methfessel-Paxton smearing of order 1 and can give problems when very few k-points are used. Use some other smearing function: simple Gaussian broadening or, better, Marzari-Vanderbilt 'cold smearing'.
+</LI>
+</UL>
+<H3><A NAME="SECTION0000171800000000000000">
+[edit] pw.x yields 'internal error: cannot braket Ef' message in efermit, then stops because 'charge is incorrect'</A>
+</H3>
+
+<P>
+There is either a serious error in data (bad number of electrons, insuﬃcient number of bands), or too
+few tetrahedra (i.e. k-points). The tetrahedron method may become unstable
+in the latter case, especially if the bands are very narrow. Remember that
+tetrahedra should be used only in conjunction with uniform k-point grids.
+
+<P>
+
+<H3><A NAME="SECTION0000171900000000000000">
+[edit] pw.x yields 'internal error: cannot braket Ef' message in efermit but doesn’t stop</A>
+</H3>
+
+<P>
+This may happen under special circumstances when you are calculating the band structure for selected high-symmetry lines. The message signals that occupations and Fermi energy are not correct (but eigen values and eigenvectors are). Remove occupations=’tetrahedra’ in the input data to get rid of the message.
+
+<P>
+
+<H3><A NAME="SECTION0000172000000000000000">
+[edit] in parallel execution, pw.x stops complaining that 'some processors have no planes' or 'smooth planes' or similar strange errors</A>
+</H3>
+
+<P>
+Your system does not require that many processors: reduce the number of
+processors to a more sensible value. In particular, both <I>N</I>3 and Nr3 must
+be ≥ Npr (see section 7, “Performance Issues”, and in particular section 7.4,
+“Parallelization issues”, for the meaning of these variables).
+
+<P>
+
+<H3><A NAME="SECTION0000172100000000000000">
+[edit] the FFT grids in pw.x are machine-dependent</A>
+</H3>
+
+<P>
+Yes, they are! The
+code automatically chooses the smallest grid that is compatible with the
+specified cutoﬀ in the specified cell, and is an allowed value for the FFT
+library used. Most FFT libraries are implemented, or perform well, only
+with dimensions that factors into products of small numers (2, 3, 5 typically,
+sometimes 7 and 11). Diﬀerent FFT libraries follow diﬀerent rules and thus
+diﬀerent dimensions can result for the same system on diﬀerent machines (or
+even on the same machine, with a diﬀerent FFT). See function allowed in
+Modules/fft scalar.f90.
+
+<P>
+As a consequence, the energy may be slightly diﬀerent on diﬀerent machines. 
+The only piece that explicitly depends on the grid parameters is
+the XC part of the energy that is computed numerically on the grid. The
+differences should be small, though, expecially for LDA calculations.
+
+<P>
+Manually setting the FFT grids to a desired value is possible, but slightly
+tricky, using input variables nr1, nr2, nr3 and nr1s, nr2s, nr3s. The
+code will still increase them if not acceptable. Automatic FFT grid 
+dimensions are slightly overestimated, so one may try — very carefully — to reduce
+them a little bit. The code will stop if too small values are required, it will
+waste CPU time and memory for too large values.
+
+<P>
+Note that in parallel execution, it is very convenient to have FFT grid
+dimensions along <I>z</I> that are a multiple of the number of processors.
+
+<P>
+
+<H3><A NAME="SECTION0000172200000000000000">
+[edit] warning: 'symmetry operation # N not allowed'</A>
+</H3>
+
+<P>
+This is not an error. pw.x determines first the symmetry operations (rotations) of the Bravais lattice; then checks which of these are symmetry operations of the system
+(including if needed fractional translations). This is done by rotating (and
+translating if needed) the atoms in the unit cell and verifying if the rotated
+unit cell coincides with the original one.
+
+<P>
+If a symmetry operation contains a fractional translation that is incompatible with the FFT grid, it is discarded in order to prevent problems with
+symmetrization. Typical fractional translations are 1/2 or 1/3 of a lattice
+vector. If the FFT grid dimension along that direction is not divisible respectively by 2 or by 3, the symmetry operation will not transform the FFT
+grid into itself.
+
+<P>
+
+<H3><A NAME="SECTION0000172300000000000000">
+[edit] pw.x doesn’t find all the symmetries you expected</A>
+</H3>
+
+<P>
+See above to
+learn how PWscf finds symmetry operations. Some of them might be missing
+because:
+
+<P>
+
+<UL>
+<LI>the number of significant figures in the atomic positions is not large enough. In file PW/eqvect.f90, the variable accep is used to decide whether a rotation is a symmetry operation. Its current value (10−5) is quite strict: a rotated atom must coincide with another atom to 5 significant digits. You may change the value of accep and recompile.
+</LI>
+<LI>they are not acceptable symmetry operations of the Bravais lattice. This is the case for C60, for instance: the Ih icosahedral group of C60 contains 5-fold rotations that are incompatible with translation symmetry.
+</LI>
+<LI>the system is rotated with respect to symmetry axis. For instance: a C60 molecule in the fcc lattice will have 24 symmetry operations (Th group) only if the double bond is aligned along one of the crystal axis; if C60 is rotated in some arbitrary way, pw.x may not find any symmetry, apart from inversion.
+</LI>
+<LI>they contain a fractional translation that is incompatible with the FFT grid (see previous paragraph). Note that if you change cutoﬀ or unit cell volume, the automatically computed FFT grid changes, and this may explain changes in symmetry (and in the number of k-points as a consequence) for no apparent good reason (only if you have fractional translations in the system, though).
+</LI>
+<LI>a fractional translation, without rotation, is a symmetry operation of the system. This means that the cell is actually a supercell. In this case, all symmetry operations containing fractional translations are disabled. The reason is that in this rather exotic case there is no simple way to select those symmetry operations forming a true group, in the mathematical sense of the term.
+</LI>
+</UL>
+<H3><A NAME="SECTION0000172400000000000000">
+[edit] I don’t get the same results in diﬀerent machines!</A>
+</H3>
+
+<P>
+If the difference
+is small, do not panic. It is quite normal for iterative methods to reach convergence through diﬀerent paths as soon as anything changes. In particular,
+between serial and parallel execution there are operations that are not performed in the same order. As the numerical accuracy of computer numbers
+is finite, this can yield slightly diﬀerent results.
+
+<P>
+It is also normal that the total energy converges to a better accuracy than
+the parts it is composed of. Thus if the convergence threshold is for instance
+10−8 , you get 8-digit accuracy on the total energy, but one or two less on
+other terms. It is not a problem, but if you mind, try to reduce the threshold
+for instance to 10−10 or 10−12. 
+The diﬀerences should go away (but it will
+probably take a few more iterations to converge).
+
+<P>
+
+<H3><A NAME="SECTION0000172500000000000000">
+[edit] the CPU time is time-dependent!</A>
+</H3>
+
+<P>
+Yes it is! On most machines and on
+most operating systems, depending on machine load, on communication load
+(for parallel machines), on various other factors (including maybe the phase
+of the moon), reported CPU times may vary quite a lot for the same job.
+Also note that what is printed is supposed to be the CPU time per process,
+but with some compilers it is actually the wall time.
+
+<P>
+
+<H3><A NAME="SECTION0000172600000000000000">
+[edit] 'warning : N eigenvectors not converged ...'</A>
+</H3>
+
+<P>
+This is a warning message that can be safely ignored if it is not present in the last steps of 
+self-consistency. If it is still present in the last steps of self-consistency, and if
+the number of unconverged eigenvector is a significant part of the total, it
+may signal serious trouble in self-consistency (see next point) or something
+badly wrong in input data.
+
+<P>
+
+<H3><A NAME="SECTION0000172700000000000000">
+[edit] 'warning : negative or imaginary charge...', or '...core charge ...', or 'npt with rhoup&lt;0...' or 'rho dw&lt;0...'</A>
+</H3>
+
+<P>
+These are warning messages that can be safely ignored unless the negative or imaginary charge is
+sizable, let us say of the order of 0.1. If it is, something seriously wrong is going on.
+Otherwise, the origin of the negative charge is the following. When one
+transforms a positive function in real space to Fourier space and truncates at
+some finite cutoﬀ, the positive function is no longer guaranteed to be positive
+when transformed back to real space. This happens only with core corrections and with ultrasoft pseudopotentials. In some cases it may be a source
+of trouble (see next point) but it is usually solved by increasing the cutoﬀ
+for the charge density.
+
+<P>
+
+<H3><A NAME="SECTION0000172800000000000000">
+[edit] self-consistency is slow or does not converge</A>
+</H3>
+
+<P>
+Reduce mixing beta
+from the default value (0.7) to ∼ 0.3 − 0.1 or smaller. Try the mixing mode
+value that is more appropriate for your problem. For slab geometries used
+in surface problems or for elongated cells, mixing mode=’local-TF’ should
+be the better choice, dampening “charge sloshing”. You may also try to
+increase mixing ndim to more than 8 (default value). Beware: the larger
+mixing ndim, the larger the amount of memory you need.
+
+<P>
+If the above doesn’t help: verify if your system is metallic or is close to
+a metallic state, especially if you have few k-points. If the highest occupied
+and lowest unoccupied state(s) keep exchanging place during self-consistency,
+forget about reaching convergence. A typical sign of such behavior is that
+the self-consistency error goes down, down, down, than all of a sudden up
+again, and so on. Usually one can solve the problem by adding a few empty
+bands and a broadening.
+
+<P>
+Specific to US PP: the presence of negative charge density regions due to
+either the pseudization procedure of the augmentation part or to truncation
+at finite cutoﬀ may give convergence problems. Raising the ecutrho cutoﬀ for
+charge density will usually help, especially in gradient-corrected calculations.
+
+<P>
+
+<H3><A NAME="SECTION0000172900000000000000">
+[edit] structural optimization is slow or does not converge</A>
+</H3>
+
+<P>
+Typical structural optimizations, based on the BFGS algorithm, converge to the default
+thresholds ( etot_conv_thr and forc_conv_thr ) in 15-25 BFGS steps (depending on the 
+starting configuration). This may not happen when your
+system is characterized by “ﬂoppy” low-energy modes, that make very difficult — and of little use anyway — to reach a well converged structure, no
+matter what. Other possible reasons for a problematic convergence are listed
+below.
+
+<P>
+Close to convergence the self-consistency error in forces may become large
+with respect to the value of forces. The resulting mismatch between forces
+and energies may confuse the line minimization algorithm, which assumes
+consistency between the two. The code reduces the starting self-consistency
+threshold conv thr when approaching the minimum energy configuration, up
+to a factor defined by upscale. Reducing conv_thr (or increasing upscale)
+yields a smoother structural optimization, but if conv_thr becomes too small,
+electronic self-consistency may not converge. You may also increase variables
+etot_conv_thr and forc_conv_thr that determine the threshold for convergence
+(the default values are quite strict).
+
+<P>
+A limitation to the accuracy of forces comes from the absence of perfect
+translational invariance. If we had only the Hartree potential, our PW calculation would be translationally invariant to machine precision. The presence of an exchange-correlation potential introduces Fourier components in the
+potential that are not in our basis set. This loss of precision (more serious
+for gradient-corrected functionals) translates into a slight but detectable loss
+of translational invariance (the energy changes if all atoms are displaced by
+the same quantity, not commensurate with the FFT grid). This sets a limit
+to the accuracy of forces. The situation improves somewhat by increasing
+the ecutrho cutoff.
+
+<P>
+
+<H3><A NAME="SECTION0000173000000000000000">
+[edit] pw.x stops during variable-cell optimization in checkallsym with 'non orthogonal operation' error</A>
+</H3>
+
+<P>
+Variable-cell optimization may occasionally break the starting symmetry of the cell. When this happens, the
+run is stopped because the number of k-points calculated for the starting
+configuration may no longer be suitable. Possible solutions:
+
+<P>
+
+<UL>
+<LI>start with a nonsymmetric cell&lt;
+</LI>
+<LI>use a symmetry-conserving algorithm: the Wentzcovitch algorithm (cell dynamics=’damp-w’) shouldn’t break the symmetry.
+</LI>
+</UL>
+<H3><A NAME="SECTION0000173100000000000000">
+[edit] some codes in PP/ complain that they do not find some files</A>
+</H3>
+
+<P>
+For Linux PC clusters in parallel execution: in at least some versions
+of MPICH, the current directory is set to the directory where the executable
+code resides, instead of being set to the directory where the code is executed.
+This MPICH weirdness may cause unexpected failures in some postprocessing
+codes that expect a data file in the current directory. Workaround: use
+symbolic links, or copy the executable to the current directory.
+
+<P>
+
+<H3><A NAME="SECTION0000173200000000000000">
+[edit] ph.x stops with 'error reading file'</A>
+</H3>
+
+<P>
+The data file produced by pw.x
+is bad or incomplete or produced by an incompatible version of the code.
+In parallel execution: if you did not set wf collect=.true., the number
+of processors and pools for the phonon run should be the same as for the
+self-consistent run; all files must be visible to all processors.
+
+<P>
+
+<H3><A NAME="SECTION0000173300000000000000">
+[edit] ph.x mumbles something like 'cannot recover' or 'error reading recover file'</A>
+</H3>
+
+<P>
+You have a bad restart file from a preceding failed execution.
+Remove all files recover* in outdir.
+
+<P>
+
+<H3><A NAME="SECTION0000173400000000000000">
+[edit] ph.x says 'occupation numbers probably wrong' and continues; or 'phonon + tetrahedra not implemented' and stops</A>
+</H3>
+
+<P>
+You have a
+metallic or spin-polarized system but occupations are not set to 'smearing'.
+Note that the correct way to calculate occupancies must be specified in the
+input data of the non-selfconsistent calculation, if the phonon code reads
+data from it. The non-selfconsistent calculation will not use this information
+but the phonon code will.
+
+<P>
+
+<H3><A NAME="SECTION0000173500000000000000">
+[edit] ph.x does not yield acoustic modes with ω(q=0)=0 </A>
+</H3>
+
+<P>
+This may
+not be an error: the Acoustic Sum Rule (ASR) is never exactly verified,
+because the system is never exactly translationally invariant as it should be
+(see the discussion above). The calculated frequency of the acoustic mode
+is typically less than 10 cm−1 , but in some cases it may be much higher,
+up to 100 cm−1 . The ultimate test is to diagonalize the dynamical matrix
+with program dynmat.x, imposing the ASR. If you obtain an acoustic mode
+with a much smaller ω (let’s say &lt; 1 cm−1 ) with all other modes virtually
+unchanged, you can trust your results.
+
+<P>
+
+<H3><A NAME="SECTION0000173600000000000000">
+[edit] ph.x yields really lousy phonons, with bad or negative frequencies or wrong symmetries or gross ASR violations</A>
+</H3>
+
+<P>
+Possible reasons:
+
+<P>
+
+<UL>
+<LI>wrong data file read.
+</LI>
+<LI>wrong atomic masses given in input will yield wrong frequencies (but the content of file fildyn should be valid, since the force constants, not the dynamical matrix, are written to file).
+</LI>
+<LI>convergence threshold for either SCF (conv_thr) or phonon calculation (tr2_ph) too large (try to reduce them).
+</LI>
+<LI>maybe your system does have negative or strange phonon frequencies, with the approximations you used. A negative frequency signals a mechanical instability of the chosen structure. Check that the structure is reasonable, and check the following parameters:
+
+<UL>
+<LI>The cutoff for wavefunctions, ecutwfc
+</LI>
+<LI>For US PP: the cutoff for the charge density, ecutrho
+</LI>
+<LI>The k-point grid, especially for metallic systems!
+</LI>
+</UL>
+</LI>
+</UL>
+<H3><A NAME="SECTION0000173700000000000000">
+[edit] 'Wrong degeneracy' error in star_q</A>
+</H3>
+
+<P>
+Verify the q-point for which you are calculating phonons. In order to check whether a symmetry operation belongs to the small group of q, the code compares q and the rotated q, with an acceptance tolerance of 
+10−5 (set in routine PW/eqvect.f90). You may run into trouble if your q-point differs from a 
+high-symmetry point by an amount in that order of magnitude.
+
+<P>
+Back to Main Page
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html365"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html363"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html357"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html366"
+  HREF="node18.html">[edit] Frequently Asked Questions</A>
+<B> Up:</B> <A NAME="tex2html364"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html358"
+  HREF="node16.html">[edit] Performance issues (PWscf)</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-07-01
+</ADDRESS>
+</BODY>
+</HTML>

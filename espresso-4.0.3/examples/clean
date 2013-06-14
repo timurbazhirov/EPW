@@ -1,0 +1,15 @@
+#!/bin/sh
+
+dirs=`/bin/ls -d example??`
+for dir in $dirs; do
+  cd $dir/reference
+  pwd
+  files=`/bin/ls *.out`
+  for file in $files; do
+    cat $file | sed 's?/home/giannozz/tmp/??' > tmp
+    cat tmp | sed 's/4.0cvs/4.0/' > $file
+    echo $file
+  done
+  /bin/rm tmp
+  cd ../..
+done 

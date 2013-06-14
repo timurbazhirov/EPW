@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>[edit] Codes</TITLE>
+<META NAME="description" CONTENT="[edit] Codes">
+<META NAME="keywords" CONTENT="user_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="user_guide.css">
+
+<LINK REL="next" HREF="node3.html">
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="up" HREF="user_guide.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html161"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html159"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html153"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html162"
+  HREF="node3.html">[edit] People</A>
+<B> Up:</B> <A NAME="tex2html160"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html154"
+  HREF="node1.html">[edit] Introduction</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00002000000000000000">
+[edit] Codes</A>
+</H2>
+
+<P>
+PWscf can currently perform the following kinds of calculations:
+
+<P>
+
+<UL>
+<LI>ground-state energy and one-electron (Kohn-Sham) orbitals
+</LI>
+<LI>atomic forces, stresses, and structural optimization
+</LI>
+<LI>molecular dynamics on the ground-state Born-Oppenheimer surface, also with variable-cell
+</LI>
+<LI>Nudged Elastic Band (NEB) and Fourier String Method Dynamics (SMD) for energy barriers and reaction paths
+</LI>
+<LI>phonon frequencies and eigenvectors at a generic wave vector, using Density-Functional Perturbation Theory
+</LI>
+<LI>effective charges and dielectric tensors
+</LI>
+<LI>electron-phonon interaction coefficients for metals
+</LI>
+<LI>interatomic force constants in real space
+</LI>
+<LI>third-order anharmonic phonon lifetimes
+</LI>
+<LI>Infrared and Raman (nonresonant) cross section
+</LI>
+<LI>macroscopic polarization and finite electric fields via Berry Phase
+</LI>
+</UL>
+
+<P>
+All of the above works for both insulators and metals, in any crystal structure, for many exchange-correlation functionals (including spin polarization, LDA+U, exact exchange), 
+for both norm-conserving (Hamann-Schluter-Chiang) pseudopotentials in separable form, 
+and - 
+<tex2html_verbatim_mark>- 
+<tex2html_verbatim_mark>- with very few exceptions - 
+<tex2html_verbatim_mark>- 
+<tex2html_verbatim_mark>- for Ultrasoft (Vanderbilt) pseudopotentials. The 
+Projector Augmented Waves (PAW) method is implemented - 
+<tex2html_verbatim_mark>- 
+<tex2html_verbatim_mark>- with the exception of linear 
+response - 
+<tex2html_verbatim_mark>- 
+<tex2html_verbatim_mark>- since v.4.0. Non-collinear magnetism and spin-orbit interactions are also implemented.  
+Finite electric fields are implemented in both the supercell and the ‚Äúmodern theory of polarization‚Äù approaches. Various postprocessing and data analysis programs are available.
+
+<P>
+CP can currently perform the following kinds of calculations:
+
+<P>
+
+<UL>
+<LI>Car-Parrinello molecular dynamics simulation (neutral and charged cases)
+</LI>
+<LI>Geometry optimization by damped dynamics
+</LI>
+<LI>Constant-temperature simulation with NosË thermostats (including NosË-Hoover chains for each atom)
+</LI>
+<LI>Variable-cell (Parrinello-Rahman) dynamics
+</LI>
+<LI>Nudged Elastic Band (NEB) for energy barriers and reaction path
+</LI>
+<LI>Dynamics with Wannier functions and under finite electric fields
+</LI>
+</UL>
+
+<P>
+All of the above works for many exchange-correlation functionals 
+(including spin polarization, LDA+U, SIC for some specific systems,
+meta-GGA), for both norm-conserving and Ultrasoft (Vanderbilt) pseudopotentials. Only systems described by the Gamma point are
+allowed, but there is an implementation of dynamics for metals using  conjugate-gradient algorithms.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html161"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html159"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html153"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html162"
+  HREF="node3.html">[edit] People</A>
+<B> Up:</B> <A NAME="tex2html160"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html154"
+  HREF="node1.html">[edit] Introduction</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-07-01
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,496 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>[edit] Using PWscf</TITLE>
+<META NAME="description" CONTENT="[edit] Using PWscf">
+<META NAME="keywords" CONTENT="user_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="user_guide.css">
+
+<LINK REL="next" HREF="node15.html">
+<LINK REL="previous" HREF="node13.html">
+<LINK REL="up" HREF="user_guide.html">
+<LINK REL="next" HREF="node15.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html313"
+  HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html311"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html305"
+  HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html314"
+  HREF="node15.html">[edit] Using CP</A>
+<B> Up:</B> <A NAME="tex2html312"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html306"
+  HREF="node13.html">[edit] Pseudopotentials</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html315"
+  HREF="node14.html#SECTION000014100000000000000">[edit] Electronic and ionic structure calculations</A>
+<UL>
+<LI><A NAME="tex2html316"
+  HREF="node14.html#SECTION000014110000000000000">[edit] Input data</A>
+<LI><A NAME="tex2html317"
+  HREF="node14.html#SECTION000014120000000000000">[edit] Typical cases</A>
+<LI><A NAME="tex2html318"
+  HREF="node14.html#SECTION000014130000000000000">[edit] Data files</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html319"
+  HREF="node14.html#SECTION000014200000000000000">[edit] Phonon calculations</A>
+<UL>
+<LI><A NAME="tex2html320"
+  HREF="node14.html#SECTION000014210000000000000">[edit] Single-q calculation</A>
+<LI><A NAME="tex2html321"
+  HREF="node14.html#SECTION000014220000000000000">[edit] Calculation of interatomic force constants in real space</A>
+<LI><A NAME="tex2html322"
+  HREF="node14.html#SECTION000014230000000000000">[edit] Calculation of electron-phonon interaction coefficients</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html323"
+  HREF="node14.html#SECTION000014300000000000000">[edit] Post-processing</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION000014000000000000000">
+[edit] Using PWscf</A>
+</H2>
+
+<P>
+Input files for the PWscf codes may be either written by hand (the good old
+way), or produced via the “PWgui” graphical interface by Anton Kokalj, 
+included in the Quantum-ESPRESSO distribution. See PWgui-x.y.z /INSTALL
+(where x.y.z is the version number) for more info on PWgui, or GUI/README
+if you are using CVS sources.
+
+<P>
+You may take the examples distributed with Quantum-ESPRESSO as
+templates for writing your own input files: see section 2.3, “Run examples”.
+In the following, whenever we mention “Example N”, we refer to those. Input
+files are those in the results directories, with names ending in .in (they’ll
+appear after you’ve run the examples).
+
+<P>
+Note about exchange-correlation: the type of exchange-correlation used
+in the calculation is read from PP files. All PP’s must have been generated
+using the same exchange-correlation.
+
+<P>
+
+<H3><A NAME="SECTION000014100000000000000">
+[edit] Electronic and ionic structure calculations</A>
+</H3>
+
+<P>
+Electronic and ionic structure calculations are performed by program pw.x.
+
+<P>
+
+<H4><A NAME="SECTION000014110000000000000">
+[edit] Input data</A>
+</H4>
+
+<P>
+The input data is organized as several namelists, followed by other fields
+introduced by keywords.
+
+<P>
+The namelists are
+
+<P>
+<PRE>     &amp;CONTROL: general variables controlling the run
+     &amp;SYSTEM: structural information on the system under investigation
+     &amp;ELECTRONS: electronic variables: self-consistency, smearing
+     &amp;IONS (optional): ionic variables: relaxation, dynamics
+     &amp;CELL (optional): variable-cell dynamics
+     &amp;PHONON (optional): information required to produce data for
+     phonon calculations
+</PRE>
+
+<P>
+Optional namelist may be omitted if the calculation to be performed
+does not require them. This depends on the value of variable calculation
+in namelist &amp;CONTROL. Most variables in namelists have default values. Only
+the following variables in &amp;SYSTEM must always be specified:
+
+<P>
+<PRE>     ibrav (integer): bravais-lattice index
+     celldm (real, dimension 6): crystallographic constants
+     nat (integer): number of atoms in the unit cell
+     ntyp (integer): number of types of atoms in the unit cell
+     ecutwfc (real): kinetic energy cutoff (Ry) for wavefunctions.
+</PRE>
+
+<P>
+For metallic systems, you have to specify how metallicity is treated by setting
+variable occupations. If you choose occupations=’smearing’, you have
+to specify the smearing width degauss and optionally the smearing type
+smearing. If you choose occupations=’tetrahedra’, you need to specify 
+a suitable uniform k-point grid (card K POINTS with option automatic).
+Spin-polarized systems must be treated as metallic system, except the 
+special case of a single k-point, for which occupation numbers can be fixed
+(occupations=’from input’ and card OCCUPATIONS).
+
+<P>
+Explanations for the meaning of variables ibrav and celldm are in file
+INPUT PW. Please read them carefully. There is a large number of other
+variables, having default values, which may or may not fit your needs.
+
+<P>
+After the namelists, you have several fields introduced by keywords with
+self-explanatory names:
+
+<P>
+<PRE>      ATOMIC SPECIES
+      ATOMIC POSITIONS
+      K POINTS
+      CELL PARAMETERS (optional)
+      OCCUPATIONS (optional)
+      CLIMBING IMAGES (optional)
+</PRE>
+
+<P>
+The keywords may be followed on the same line by an option. Unknown
+fields (including some that are specific to CP code) are ignored by PWscf.
+See file Doc/INPUT PW for a detailed explanation of the meaning and format
+of the various fields.
+
+<P>
+Note about k points: The k-point grid can be either automatically generated 
+or manually provided as a list of k-points and a weight in the Irreducible
+Brillouin Zone only of the Bravais lattice of the crystal. The code will 
+generate (unless instructed not to do so: see variable nosym) all required k-points
+and weights if the symmetry of the system is lower than the symmetry of the
+Bravais lattice. The automatic generation of k-points follows the convention
+of Monkhorst and Pack.
+
+<P>
+
+<H4><A NAME="SECTION000014120000000000000">
+[edit] Typical cases</A>
+</H4>
+
+<P>
+We may distinguish the following typical cases for pw.x:
+
+<P>
+<B>single-point (fixed-ion) SCF calculation:</B> Set calculation=’scf’.
+
+<P>
+Namelists &amp;IONS and &amp;CELL need not to be present (this is the default).
+<BR>
+See Example 01.
+
+<P>
+<B>band structure calculation:</B> First perform a SCF calculation as above;
+then do a non-SCF calculation by specifying calculation=’bands’ or
+calculation=’nscf’, with the desired k-point grid and number nbnd
+of bands. If you are interested in calculating only the Kohn-Sham states
+for the given set of k-points, use calculation=’bands’. If you are
+interested in further processing of the results of non-SCF calculations
+(for instance, in DOS calculations) use calculations=’nscf’.
+Specify nosym=.true. to avoid generation of additional k-points in
+low symmetry cases. Variables prefix and outdir, which determine
+the names of input or output files, should be the same in the two runs.
+<BR>
+See Example 01. <I>Important:</I> atomic positions are read from input,
+NOT from the data file!
+
+<P>
+<B>structural optimization:</B> Specify calculation=’relax’ and add namelist &amp;IONS.
+
+<P>
+All options for a single SCF calculation apply, plus a few others. You
+may follow a structural optimization with a non-SCF band-structure
+calculation, but do not forget to update the input ionic coordinates.
+<BR>
+See Example 03.
+
+<P>
+<B>molecular dynamics:</B> Specify calculation=’md’ and time step dt.
+
+<P>
+Use variable ion dynamics in namelist &amp;IONS for a fine-grained control
+of the kind of dynamics. Other options for setting the initial temperature and for thermalization using velocity rescaling are available. Remember: this is MD on the electronic ground state, not Car-Parrinello MD.
+<BR>
+See Example 04.
+
+<P>
+<B>polarization via Berry Phase:</B> See Example 10, its README, and the documentation in the header of PW/bp_c_phase.f90.
+
+<P>
+<B>Nudged Elastic Band calculation:</B>  Specify calculation=’neb’ and add namelist &amp;IONS.
+
+<P>
+All options for a single SCF calculation apply, plus a few others. In the
+namelist &amp;IONS the number of images used to discretize the elastic band
+must be specified. All other variables have a default value. Coordinates
+of the initial and final image of the elastic band have to be specified
+in the ATOMIC POSITIONS card. A detailed description of all input
+variables is contained in the file Doc/INPUT PW. See also Example 17.
+
+<P>
+
+<H4><A NAME="SECTION000014130000000000000">
+[edit] Data files</A>
+</H4>
+
+<P>
+The output data files are written in the directory specified by variable
+outdir, with names specified by variable prefix (a string that is prepended
+to all file names, whose default value is: prefix=’pwscf’). The <I>iotk</I>
+toolkit is used to write the file in a XML format, whose definition can
+be found in the Developer Manual. In order to use the data directory
+on a different machine, you need to convert the binary files to formatted
+and back, using the <I>bin/iotk</I> script (v.4 and later).
+
+<P>
+The execution stops if you create a file "prefix.EXIT" in the working 
+directory. IMPORTANT NOTE: this is the directory where the program 
+is executed, NOT the directory "outdir" defined in input, where files 
+are written. Note that with some versions of MPI, the "working directory" 
+is the directory where the pw.x executable is! The advantage of this 
+procedure is that all files are properly closed, whereas  just killing 
+the process may leave data and output files in unusable state.
+
+<P>
+
+<H3><A NAME="SECTION000014200000000000000">
+[edit] Phonon calculations</A>
+</H3>
+
+<P>
+Phonon calculation is a multiple-step process, with at least two steps:
+First, you have to find the ground-state atomic and electronic configuration;
+Second, you can calculate phonons using Density-Functional Perturbation Theory.
+Further processing to calculate Interatomic Force Constants, to add macroscopic
+electric field and impose Acoustic Sum Rules at q=0 may be needed.
+
+<P>
+Since version 4 it is possible to safely stop execution of the phonon code using
+the same mechanism of the pw.x code, i.e. by creating a file prefix.EXIT in the 
+working directory. Execution can be resumed by setting 'recover=.true.' in the
+subsequent input data.
+
+<P>
+
+<H4><A NAME="SECTION000014210000000000000">
+[edit] Single-q calculation</A>
+</H4>
+
+<P>
+The phonon code ph.x calculates normal modes at a given q-vector, starting
+from data files produced by pw.x with a simple SCF calculation. For phonons 
+at a generic q-vector, you need to specify the option lnscf=.true. in the
+input data of ph.x
+( an alternative procedure for phonons at a generic q-vector is to perform
+first a SCF calculation, then a band-structure calculation (see above) with 
+calculation=’phonon’, specifying the q-vector in variable xq of namelist &amp;PHONON ).
+
+<P>
+The output data file appear in the directory specified by variables outdir,
+with names specified by variable prefix. After the output file(s) has been
+produced (do not remove any of the files, unless you know which are used
+and which are not), you can run ph.x.
+
+<P>
+The first input line of ph.x is a job identifier. At the second line the
+namelist &amp;INPUTPH starts. The meaning of the variables in the namelist
+(most of them having a default value) is described in file INPUT PH. Variables
+outdir and prefix must be the same as in the input data of pw.x. Presently
+you must also specify amass (real, dimension ntyp): the atomic mass of each
+atomic type.
+
+<P>
+After the namelist you must specify the q-vector of the phonon mode.
+This must be the same q-vector given in the input of pw.x.
+
+<P>
+Notice that the dynamical matrix calculated by ph.x at q = 0 does not
+contain the non-analytic term occuring in polar materials, i.e. there is no
+LO-TO splitting in insulators. Moreover no Acoustic Sum Rule (ASR) is
+applied. In order to have the complete dynamical matrix at q = 0 including
+the non-analytic terms, you need to calculate eﬀective charges by specifying
+option epsil=.true. to ph.x.
+
+<P>
+Use program dynmat.x to calculate the correct LO-TO splitting, IR cross
+sections, and to impose various forms of ASR. If ph.x was instructed to 
+calculate Raman coeﬃcients, dynmat.x will also calculate Raman cross sections
+for a typical experimental setup.
+
+<P>
+A sample phonon calculation is performed in Example 02.
+
+<P>
+
+<H4><A NAME="SECTION000014220000000000000">
+[edit] Calculation of interatomic force constants in real space</A>
+</H4>
+
+<P>
+First, dynamical matrices D(q) are calculated and saved for a suitable uniform 
+grid of q-vectors (only those in the Irreducible Brillouin Zone of the
+crystal are needed). Although this can be done one q-vector at the time, a
+simpler procedure is to specify variable ldisp=.true. and to set variables
+nq1,nq2,nq3 to some suitable Monkhorst-Pack grid, that will be automatically
+generated, centered at q = 0. Do not forget to specify epsil=.true.
+in the input data of ph.x if you want the correct TO-LO splitting in polar
+materials.
+
+<P>
+Second, code q2r.x reads the D(q) dynamical matrices produced in the
+preceding step and Fourier-transform them, writing a file of Interatomic Force
+Constants in real space, up to a distance that depends on the size of the grid
+of q-vectors. Program matdyn.x may be used to produce phonon modes and
+frequencies at any q using the Interatomic Force Constants file as input.
+See Example 06.
+
+<P>
+
+<H4><A NAME="SECTION000014230000000000000">
+[edit] Calculation of electron-phonon interaction coefficients</A>
+</H4>
+
+<P>
+The calculation of electron-phonon coeﬃcients in metals is made diﬃcult by
+the slow convergence of the sum at the Fermi energy. It is convenient to 
+calculate phonons, for each q-vector of a suitable grid, using a smaller k-point
+grid, saving the dynamical matrix and the self-consistent first-order variation
+of the potential (variable fildvscf). Then a non-SCF calculation with
+a larger k-point grid is performed. Finally the electron-phonon calculation is
+performed by specifying elph=.true., trans=.false., and the input files
+fildvscf, fildyn. The electron-phonon coeﬃcients are calculated using several
+values of gaussian broadening (see PH/elphon.f90) because this quickly
+shows whether results are converged or not with respect to the k-point grid
+and Gaussian broadening. See Example 07.
+
+<P>
+All of the above must be repeated for all desired q-vectors and the final
+result is summed over all q-vectors, using pwtools/lambda.x. The input
+data for the latter is described in the header of pwtools/lambda.f90.
+
+<P>
+
+<H3><A NAME="SECTION000014300000000000000">
+[edit] Post-processing</A>
+</H3>
+
+<P>
+There are a number of auxiliary codes performing postprocessing tasks such
+as plotting, averaging, and so on, on the various quantities calculated by
+pw.x. Such quantities are saved by pw.x into the output data file(s).
+
+<P>
+The main postprocessing code pp.x reads data file(s), extracts or calculates 
+the selected quantity, writes it into a format that is suitable for plotting.
+
+<P>
+Quantities that can be read or calculated are:
+
+<P>
+<PRE>     charge density
+     spin polarization
+     various potentials
+     local density of states at EF
+     local density of electronic entropy
+     STM images
+     wavefunction squared
+     electron localization function
+     planar averages
+     integrated local density of states
+</PRE>
+
+<P>
+Various types of plotting (along a line, on a plane, three-dimensional, polar)
+and output formats (including the popular cube format) can be specified.
+The output files can be directly read by the free plotting system Gnuplot
+(1D or 2D plots), or by code plotrho.x that comes with PWscf (2D plots),
+or by advanced plotting software XCrySDen and gOpenMol (3D plots).
+
+<P>
+See file INPUT_PP for a detailed description of the input for code pp.x.
+See Example 05 for a charge density plot.
+
+<P>
+The postprocessing code bands.x reads data file(s), extracts eigenvalues,
+regroups them into bands (the algorithm used to order bands and to resolve
+crossings may not work in all circumstances, though). The output is written
+to a file in a simple format that can be directly read by plotting program
+plotband.x. Unpredictable plots may results if k-points are not in sequence
+along lines. See Example 05 for a simple band plot.
+
+<P>
+The postprocessing code projwfc.x calculates pro jections of wavefunction
+over atomic orbitals. The atomic wavefunctions are those contained
+in the pseudopotential file(s). The L¨wdin population analysis (similar to
+
+<P>
+Mulliken analysis) is presently implemented. The projected DOS (PDOS,
+the DOS pro jected onto atomic orbitals) can also be calculated and written
+to file(s). More details on the input data are found in the header of file
+PP/projwfc.f90. The auxiliary code sumpdos.x (courtesy of Andrea Ferretti) 
+can be used to sum selected PDOS, by specifiying the names of files
+containing the desired PDOS. Type sumpdos.x -h or look into the source
+code for more details. The total electronic DOS is instead calculated by code
+PP/dos.x. See Example 08 for total and pro jected electronic DOS calculations.
+
+<P>
+The postprocessing code path int.x is intended to be used in the framework of NEB calculations. 
+It is a tool to generate a new path (what is actually generated is the restart file) starting from 
+an old one through interpolation (cubic splines). The new path can be discretized with a different 
+number of images (this is its main purpose), images are equispaced and the interpolation can be also
+performed on a subsection of the old path. The input file needed by path int.x can be easily set up 
+with the help of the self-explanatory path_int.sh shell script.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html313"
+  HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html311"
+  HREF="user_guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html305"
+  HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html314"
+  HREF="node15.html">[edit] Using CP</A>
+<B> Up:</B> <A NAME="tex2html312"
+  HREF="user_guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html306"
+  HREF="node13.html">[edit] Pseudopotentials</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-07-01
+</ADDRESS>
+</BODY>
+</HTML>

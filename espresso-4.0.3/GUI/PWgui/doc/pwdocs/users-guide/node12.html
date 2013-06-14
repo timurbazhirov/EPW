@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>3 Running on parallel machines</TITLE>
+<META NAME="description" CONTENT="3 Running on parallel machines">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="users-guide.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html377"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html373"
+  HREF="users-guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html367"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html375"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html378"
+  HREF="node13.html">4 Pseudopotentials</A>
+<B> Up:</B> <A NAME="tex2html374"
+  HREF="users-guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html368"
+  HREF="node11.html">2.4 Installation Issues</A>
+   <B>  <A NAME="tex2html376"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00040000000000000000"></A>
+  <A NAME="runparallel"></A>
+<BR>
+3 Running on parallel machines
+</H1>
+
+<P>
+Parallel execution is strongly system- and installation-dependent.
+Typically one has to specify:
+
+<P>
+
+<UL>
+<LI>a launcher program, such as <TT>poe</TT>, <TT>mpirun</TT>, or
+        <TT>mpiexec</TT>;
+</LI>
+<LI>the number of processors, typically as an option to the
+        launcher program, but in some cases <I>after</I> the program
+        to be executed;
+</LI>
+<LI>the program to be executed, with the proper path if needed:
+        for instance, <TT>pw.x</TT>, or <TT>./pw.x</TT>, or
+        <TT>$HOME/bin/pw.x</TT>, or whatever applies;
+</LI>
+<LI>the number of ``pools'' into which processors are to be
+        grouped (see section <A HREF="node23.html#parissues">7.4</A>, ``Parallelization
+        Issues'', for an explanation of what a pool is).
+</LI>
+</UL>
+
+<P>
+The last item is optional and is read by the code.
+The first and second items are machine- and installation-dependent,
+and may be different for interactive and batch execution.
+
+<P>
+<B>Please note:</B>
+Your machine might be configured so as to disallow interactive
+execution: if in doubt, ask your system administrator.
+
+<P><P>
+<BR>
+
+<P>
+For illustration, here's how to run <TT>pw.x</TT> on 16 processors
+partitioned into 8 pools (2 processors each), for several typical
+cases.
+For convenience, we also give the corresponding values of
+<TT>PARA_PREFIX</TT>, <TT>PARA_POSTFIX</TT> to be used in running
+the examples distributed with Quantum-ESPRESSO (see section <A HREF="node10.html#runexamples">2.3</A>,
+``Run examples'').
+
+<P>
+<DL>
+<DT><STRONG>IBM SP machines,</STRONG></DT>
+<DD>batch:
+<PRE>
+pw.x -npool 8 &lt; input
+
+PARA_PREFIX="", PARA_POSTFIX="-npool 8"
+</PRE>
+    This should also work interactively, with environment variables
+    <TT>NPROC</TT> set to 16, <TT>MP_HOSTFILE</TT> set to the file
+    containing a list of processors.
+  
+</DD>
+<DT><STRONG>IBM SP machines,</STRONG></DT>
+<DD>interactive, using <TT>poe</TT>:
+<PRE>
+poe pw.x -procs 16 -npool 8 &lt; input
+
+PARA_PREFIX="poe", PARA_POSTFIX="-procs 16 -npool 8"
+</PRE>
+  
+</DD>
+<DT><STRONG>SGI Origin and PC clusters</STRONG></DT>
+<DD>using <TT>mpirun</TT>:
+<PRE>
+mpirun -np 16 pw.x -npool 8 &lt; input
+
+PARA_PREFIX="mpirun -np 16", PARA_POSTFIX="-npool 8"
+</PRE>
+  
+</DD>
+<DT><STRONG>PC clusters</STRONG></DT>
+<DD>using <TT>mpiexec</TT>:
+<PRE>
+mpiexec -n 16 pw.x -npool 8 &lt; input
+
+PARA_PREFIX="mpiexec -n 16", PARA_POSTFIX="-npool 8"
+</PRE>
+
+<P>
+</DD>
+</DL>
+
+<P>
+Note that each processor writes its own set of temporary wavefunction
+files during the calculation. If <TT>wf_collect=.true.</TT> (in namelist
+<TT>control</TT>), the final wavefunctions are collected into a single
+directory, written by a single processor, whose format is independent 
+on the number of processors. If <TT>wf_collect=.false.</TT> (this is the
+default), the final wavefunctions are left on disk in the internal format 
+used by PWscf. The former case requires more disk I/O and disk space,
+but produces portable data files; the latter case requires less I/O and
+disk space, but the data so produced can be read only by a job running on
+the same number of processors and pools, and if all files are on a
+file system that is visible to all processors (i.e., you cannot use
+local scratch directories: there is presently no way to ensure that
+the distribution of processes on processors will follow the same
+pattern for different jobs).
+
+<P>
+IMPORTANT: with the new file format (v.3.1 and later) all data 
+(except wavefunctions if <TT>wf_collect=.false.</TT>) is written
+to and read from a single directory <TT>outdir/prefix.save</TT>. 
+A copy of pseudopotential files is also written there. There is 
+however an inconsistency that cannot be quickly fixed: pseudopotential 
+files must be read by each processor, so if <TT>outdir/prefix.save</TT>
+is not accessible by each processor, you will get an error message.
+A workaround that doesn't require to copy everything is just copying
+the pseudopotential files.
+
+<P>
+Some implementations of the MPI library may have problems with
+input redirection in parallel.
+If this happens, use the option <TT>-in</TT> (or <TT>-inp</TT> or
+<TT>-input</TT>), followed by the input file name.
+Example: <TT>pw.x -in input -npool 4 &gt; output</TT>.
+
+<P>
+A bug in the <TT>poe</TT> environment of IBM sp5 machines
+may cause a dramatic slowdown of quantum-espresso in parallel 
+execution. Workaround: set environment variable 
+<TT>MP_STDINMODE</TT> to 0, as in
+<PRE>
+  export MP_STDINMODE=0
+</PRE>
+for sh/bash,
+<PRE>
+  setenv MP_STDINMODE 0
+</PRE>
+for csh/tcsh; or start the code with option <TT>-stdinmode 0</TT> to 
+<TT>poe</TT>:
+<PRE>
+  poe -stdinmode 0 [options] [executable code] &lt; input file
+</PRE>
+
+<P>
+Please note that all postprocessing codes <I>not</I> reading data
+files produced by <TT>pw.x</TT> -- that is,
+<TT>average.x</TT>, <TT>voronoy.x</TT>, <TT>dos.x</TT> -- the
+plotting codes <TT>plotrho.x</TT>, <TT>plotband.x</TT>, and all
+executables in <TT>pwtools/</TT>, should be executed on just one
+processor.
+Unpredictable results may follow if those codes are run on more than
+one processor.
+
+<P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html377"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html373"
+  HREF="users-guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html367"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html375"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html378"
+  HREF="node13.html">4 Pseudopotentials</A>
+<B> Up:</B> <A NAME="tex2html374"
+  HREF="users-guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html368"
+  HREF="node11.html">2.4 Installation Issues</A>
+   <B>  <A NAME="tex2html376"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

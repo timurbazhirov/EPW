@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>User's Guide for Quantum-ESPRESSO</TITLE>
+<META NAME="description" CONTENT="User's Guide for Quantum-ESPRESSO">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html55"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_g.gif"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.gif"> 
+<A NAME="tex2html53"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html56"
+  HREF="node1.html">Contents</A>
+   <B>  <A NAME="tex2html54"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<H1 ALIGN="CENTER">
+  <!-- MATH
+ $\epsfig{figure=pwscf,width=4cm}$
+ -->
+<IMG
+ WIDTH="180" HEIGHT="118" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.gif"
+ ALT="\epsfig{figure=pwscf,width=4cm}">
+<tex2html_verbatim_mark><!-- MATH
+ $\epsfig{figure=democritos,width=8cm}$
+ -->
+<IMG
+ WIDTH="361" HEIGHT="75" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.gif"
+ ALT="\epsfig{figure=democritos,width=8cm}">
+<tex2html_verbatim_mark>
+  <BR>
+<BR>
+<BR>
+<BR>
+  
+<BR>  <FONT SIZE="+3">User's Guide for Quantum-ESPRESSO </FONT>
+<P></P>
+<FONT SIZE="+3">
+<BR>  <FONT SIZE="+2">(version 3.2)
+</FONT></FONT></H1>
+<DIV>
+
+</DIV>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html57"
+  HREF="node1.html">Contents</A>
+<LI><A NAME="tex2html58"
+  HREF="node2.html">1 Introduction</A>
+<UL>
+<LI><A NAME="tex2html59"
+  HREF="node3.html">1.1 Codes</A>
+<LI><A NAME="tex2html60"
+  HREF="node4.html">1.2 People</A>
+<LI><A NAME="tex2html61"
+  HREF="node5.html">1.3 Contacts</A>
+<LI><A NAME="tex2html62"
+  HREF="node6.html">1.4 Terms of use</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html63"
+  HREF="node7.html">2 Installation</A>
+<UL>
+<LI><A NAME="tex2html64"
+  HREF="node8.html">2.1 Configure</A>
+<UL>
+<LI><A NAME="tex2html65"
+  HREF="node8.html#SECTION00031100000000000000">2.1.1 Libraries</A>
+<UL>
+<LI><A NAME="tex2html66"
+  HREF="node8.html#SECTION00031110000000000000">2.1.1.1 BLAS and LAPACK</A>
+<LI><A NAME="tex2html67"
+  HREF="node8.html#SECTION00031120000000000000">2.1.1.2 FFT</A>
+<LI><A NAME="tex2html68"
+  HREF="node8.html#SECTION00031130000000000000">2.1.1.3 Other libraries</A>
+</UL>
+<LI><A NAME="tex2html69"
+  HREF="node8.html#SECTION00031200000000000000">2.1.2 Manual configuration</A>
+<UL>
+<LI><A NAME="tex2html70"
+  HREF="node8.html#SECTION00031210000000000000">2.1.2.1 Note for HP PA-RISC users:</A>
+<LI><A NAME="tex2html71"
+  HREF="node8.html#SECTION00031220000000000000">2.1.2.2 Note for MS-Windows users:</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html72"
+  HREF="node9.html">2.2 Compile</A>
+<LI><A NAME="tex2html73"
+  HREF="node10.html">2.3 Run examples</A>
+<LI><A NAME="tex2html74"
+  HREF="node11.html">2.4 Installation Issues</A>
+<UL>
+<LI><A NAME="tex2html75"
+  HREF="node11.html#SECTION00034010000000000000">2.4.0.1 All machines</A>
+<LI><A NAME="tex2html76"
+  HREF="node11.html#SECTION00034020000000000000">2.4.0.2 IBM AIX</A>
+<LI><A NAME="tex2html77"
+  HREF="node11.html#SECTION00034030000000000000">2.4.0.3 SGI machines with IRIX/MIPS compiler</A>
+<LI><A NAME="tex2html78"
+  HREF="node11.html#SECTION00034040000000000000">2.4.0.4 Linux Alphas with Compaq compiler</A>
+<LI><A NAME="tex2html79"
+  HREF="node11.html#SECTION00034050000000000000">2.4.0.5 Linux PC</A>
+<LI><A NAME="tex2html80"
+  HREF="node11.html#SECTION00034060000000000000">2.4.0.6 Linux PCs with g95 compiler</A>
+<LI><A NAME="tex2html81"
+  HREF="node11.html#SECTION00034070000000000000">2.4.0.7 Linux PCs with Portland Group compiler (pgf90)</A>
+<LI><A NAME="tex2html82"
+  HREF="node11.html#SECTION00034080000000000000">2.4.0.8 Linux PCs with Pathscale compiler</A>
+<LI><A NAME="tex2html83"
+  HREF="node11.html#SECTION00034090000000000000">2.4.0.9 Linux PCs (Pentium) with Intel compiler (ifort, formerly
+ifc)</A>
+<LI><A NAME="tex2html84"
+  HREF="node11.html#SECTION000340100000000000000">2.4.0.10 ifort v.9</A>
+<LI><A NAME="tex2html85"
+  HREF="node11.html#SECTION000340110000000000000">2.4.0.11 ifort v.8</A>
+<LI><A NAME="tex2html86"
+  HREF="node11.html#SECTION000340120000000000000">2.4.0.12 ifc v.7</A>
+<LI><A NAME="tex2html87"
+  HREF="node11.html#SECTION000340130000000000000">2.4.0.13 MKL</A>
+<LI><A NAME="tex2html88"
+  HREF="node11.html#SECTION000340140000000000000">2.4.0.14 Fun with precompiled libraries</A>
+<LI><A NAME="tex2html89"
+  HREF="node11.html#SECTION000340150000000000000">2.4.0.15 AMD CPUs, Intel Itanium</A>
+<LI><A NAME="tex2html90"
+  HREF="node11.html#SECTION000340160000000000000">2.4.0.16 Linux PC clusters with MPI</A>
+<LI><A NAME="tex2html91"
+  HREF="node11.html#SECTION000340170000000000000">2.4.0.17 Mac OS X</A>
+<LI><A NAME="tex2html92"
+  HREF="node11.html#SECTION000340180000000000000">2.4.0.18 T3E</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html93"
+  HREF="node12.html">3 Running on parallel machines</A>
+<LI><A NAME="tex2html94"
+  HREF="node13.html">4 Pseudopotentials</A>
+<LI><A NAME="tex2html95"
+  HREF="node14.html">5 Using PWscf</A>
+<UL>
+<LI><A NAME="tex2html96"
+  HREF="node15.html">5.1 Electronic and ionic structure calculations</A>
+<UL>
+<LI><A NAME="tex2html97"
+  HREF="node15.html#SECTION00061100000000000000">5.1.1 Input data</A>
+<LI><A NAME="tex2html98"
+  HREF="node15.html#SECTION00061200000000000000">5.1.2 Typical cases</A>
+</UL>
+<LI><A NAME="tex2html99"
+  HREF="node16.html">5.2 Phonon calculations</A>
+<UL>
+<LI><A NAME="tex2html100"
+  HREF="node16.html#SECTION00062100000000000000">5.2.1 Calculation of interatomic force constants in real
+space</A>
+<LI><A NAME="tex2html101"
+  HREF="node16.html#SECTION00062200000000000000">5.2.2 Calculation of electron-phonon interaction
+coefficients</A>
+</UL>
+<LI><A NAME="tex2html102"
+  HREF="node17.html">5.3 Post-processing</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html103"
+  HREF="node18.html">6 Using CP</A>
+<LI><A NAME="tex2html104"
+  HREF="node19.html">7 Performance issues (PWscf)</A>
+<UL>
+<LI><A NAME="tex2html105"
+  HREF="node20.html">7.1 CPU time requirements</A>
+<LI><A NAME="tex2html106"
+  HREF="node21.html">7.2 Memory requirements</A>
+<LI><A NAME="tex2html107"
+  HREF="node22.html">7.3 File space requirements</A>
+<LI><A NAME="tex2html108"
+  HREF="node23.html">7.4 Parallelization issues</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html109"
+  HREF="node24.html">8 Troubleshooting (PWscf)</A>
+<UL>
+<LI><A NAME="tex2html110"
+  HREF="node24.html#SECTION00090010000000000000">8.0.0.1 <TT>pw.x</TT> yields a message like ``error while loading
+           shared libraries: ... cannot open shared object file''
+           and does not start.</A>
+<LI><A NAME="tex2html111"
+  HREF="node24.html#SECTION00090020000000000000">8.0.0.2 errors in examples with parallel execution</A>
+<LI><A NAME="tex2html112"
+  HREF="node24.html#SECTION00090030000000000000">8.0.0.3 <TT>pw.x</TT> prints the first few lines and then nothing
+happens (parallel execution).</A>
+<LI><A NAME="tex2html113"
+  HREF="node24.html#SECTION00090040000000000000">8.0.0.4 <TT>pw.x</TT> stops with error in reading.</A>
+<LI><A NAME="tex2html114"
+  HREF="node24.html#SECTION00090050000000000000">8.0.0.5 <TT>pw.x</TT> mumbles something like ``cannot recover'' or
+           ``error reading recover file''.</A>
+<LI><A NAME="tex2html115"
+  HREF="node24.html#SECTION00090060000000000000">8.0.0.6 <TT>pw.x</TT> stops with ``inconsistent DFT'' error.</A>
+<LI><A NAME="tex2html116"
+  HREF="node24.html#SECTION00090070000000000000">8.0.0.7 <TT>pw.x</TT> stops with error in cdiaghg or rdiaghg.</A>
+<LI><A NAME="tex2html117"
+  HREF="node24.html#SECTION00090080000000000000">8.0.0.8 <TT>pw.x</TT> crashes with ``floating invalid'' or 
+``floating divide by zero''.</A>
+<LI><A NAME="tex2html118"
+  HREF="node24.html#SECTION00090090000000000000">8.0.0.9 <TT>pw.x</TT> crashes with no error message at all.</A>
+<LI><A NAME="tex2html119"
+  HREF="node24.html#SECTION000900100000000000000">8.0.0.10 <TT>pw.x</TT> crashes with ``segmentation fault'' or
+           similarly obscure messages.</A>
+<LI><A NAME="tex2html120"
+  HREF="node24.html#SECTION000900110000000000000">8.0.0.11 <TT>pw.x</TT> works for simple systems, but not for large
+           systems or whenever more RAM is needed.</A>
+<LI><A NAME="tex2html121"
+  HREF="node24.html#SECTION000900120000000000000">8.0.0.12 <TT>pw.x</TT> crashes in parallel execution with an obscure
+            message related to MPI errors.</A>
+<LI><A NAME="tex2html122"
+  HREF="node24.html#SECTION000900130000000000000">8.0.0.13 <TT>pw.x</TT> runs but nothing happens.</A>
+<LI><A NAME="tex2html123"
+  HREF="node24.html#SECTION000900140000000000000">8.0.0.14 <TT>pw.x</TT> yields weird results.</A>
+<LI><A NAME="tex2html124"
+  HREF="node24.html#SECTION000900150000000000000">8.0.0.15 <TT>pw.x</TT> stops with error message ``the system is
+           metallic, specify occupations''.</A>
+<LI><A NAME="tex2html125"
+  HREF="node24.html#SECTION000900160000000000000">8.0.0.16 <TT>pw.x</TT> stops with ``internal error: cannot braket Ef'' in
+           <TT>efermig</TT>.</A>
+<LI><A NAME="tex2html126"
+  HREF="node24.html#SECTION000900170000000000000">8.0.0.17 <TT>pw.x</TT> yields ``internal error: cannot braket Ef'' message
+in <TT>efermit</TT>, then stops because ``charge is incorrect''.</A>
+<LI><A NAME="tex2html127"
+  HREF="node24.html#SECTION000900180000000000000">8.0.0.18 <TT>pw.x</TT> yields ``internal error: cannot braket Ef'' message
+in <TT>efermit</TT> but doesn't stop.</A>
+<LI><A NAME="tex2html128"
+  HREF="node24.html#SECTION000900190000000000000">8.0.0.19 in parallel execution, <TT>pw.x</TT> stops complaining that
+           ``some processors have no planes'' or ``smooth planes'' or
+           some other strange error.</A>
+<LI><A NAME="tex2html129"
+  HREF="node24.html#SECTION000900200000000000000">8.0.0.20 the FFT grids in <TT>pw.x</TT> are machine-dependent.</A>
+<LI><A NAME="tex2html130"
+  HREF="node24.html#SECTION000900210000000000000">8.0.0.21 ``warning: symmetry operation # N not allowed''.</A>
+<LI><A NAME="tex2html131"
+  HREF="node24.html#SECTION000900220000000000000">8.0.0.22 <TT>pw.x</TT> doesn't find all the symmetries you
+           expected.</A>
+<LI><A NAME="tex2html132"
+  HREF="node24.html#SECTION000900230000000000000">8.0.0.23 I don't get the same results in different machines!</A>
+<LI><A NAME="tex2html133"
+  HREF="node24.html#SECTION000900240000000000000">8.0.0.24 the CPU time is time-dependent!</A>
+<LI><A NAME="tex2html134"
+  HREF="node24.html#SECTION000900250000000000000">8.0.0.25 ``warning : N eigenvectors not converged ...''</A>
+<LI><A NAME="tex2html135"
+  HREF="node24.html#SECTION000900260000000000000">8.0.0.26 ``warning : negative or imaginary charge...'', or
+``...core charge ...'', or ``npt with rhoup&lt;
+<tex2html_verbatim_mark>0...'' or ''rhodw&lt;
+<tex2html_verbatim_mark>0...'' </A>
+<LI><A NAME="tex2html136"
+  HREF="node24.html#SECTION000900270000000000000">8.0.0.27 self-consistency is slow or does not converge.</A>
+<LI><A NAME="tex2html137"
+  HREF="node24.html#SECTION000900280000000000000">8.0.0.28 structural optimization is slow or does not converge.</A>
+<LI><A NAME="tex2html138"
+  HREF="node24.html#SECTION000900290000000000000">8.0.0.29 <TT>pw.x</TT> stops during variable-cell optimization
+in <TT>checkallsym</TT> with ``non orthogonal operation'' error.</A>
+<LI><A NAME="tex2html139"
+  HREF="node24.html#SECTION000900300000000000000">8.0.0.30 Why are codes in PP/ complaining that they do not
+find some files?</A>
+<LI><A NAME="tex2html140"
+  HREF="node24.html#SECTION000900310000000000000">8.0.0.31 <TT>ph.x</TT> stops with ``error reading file''.</A>
+<LI><A NAME="tex2html141"
+  HREF="node24.html#SECTION000900320000000000000">8.0.0.32 <TT>ph.x</TT> mumbles something like ``cannot recover'' or
+           ``error reading recover file''.</A>
+<LI><A NAME="tex2html142"
+  HREF="node24.html#SECTION000900330000000000000">8.0.0.33 <TT>ph.x</TT> says ``occupation numbers probably wrong''
+and continues; or ``phonon + tetrahedra not implemented'' and stops</A>
+<LI><A NAME="tex2html143"
+  HREF="node24.html#SECTION000900340000000000000">8.0.0.34 <TT>ph.x</TT> does not yield acoustic modes with <IMG
+ WIDTH="17" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$ \omega$"> = 0
+<tex2html_verbatim_mark>
+           at <!-- MATH
+ $\mathbf{q}=0$
+ -->
+<B>q</B> = 0
+<tex2html_verbatim_mark>.</A>
+<LI><A NAME="tex2html144"
+  HREF="node24.html#SECTION000900350000000000000">8.0.0.35 <TT>ph.x</TT> yields really lousy phonons, with bad or
+           negative frequencies or wrong symmetries or gross ASR
+           violations.</A>
+<LI><A NAME="tex2html145"
+  HREF="node24.html#SECTION000900360000000000000">8.0.0.36 ``Wrong degeneracy'' error in star_q.</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html146"
+  HREF="node25.html">9 Frequently Asked Questions</A>
+<UL>
+<LI><A NAME="tex2html147"
+  HREF="node26.html">9.1 Compilation/Installation</A>
+<LI><A NAME="tex2html148"
+  HREF="node27.html">9.2 In general</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html149"
+  HREF="node28.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

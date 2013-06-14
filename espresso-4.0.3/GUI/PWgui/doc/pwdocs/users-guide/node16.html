@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>5.2 Phonon calculations</TITLE>
+<META NAME="description" CONTENT="5.2 Phonon calculations">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node17.html">
+<LINK REL="previous" HREF="node15.html">
+<LINK REL="up" HREF="node14.html">
+<LINK REL="next" HREF="node17.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html434"
+  HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html430"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html424"
+  HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html432"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html435"
+  HREF="node17.html">5.3 Post-processing</A>
+<B> Up:</B> <A NAME="tex2html431"
+  HREF="node14.html">5 Using PWscf</A>
+<B> Previous:</B> <A NAME="tex2html425"
+  HREF="node15.html">5.1 Electronic and ionic</A>
+   <B>  <A NAME="tex2html433"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html436"
+  HREF="node16.html#SECTION00062100000000000000">5.2.1 Calculation of interatomic force constants in real
+space</A>
+<LI><A NAME="tex2html437"
+  HREF="node16.html#SECTION00062200000000000000">5.2.2 Calculation of electron-phonon interaction
+coefficients</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION00062000000000000000">
+5.2 Phonon calculations</A>
+</H2>
+
+<P>
+The phonon code <TT>ph.x</TT> calculates normal modes at a given
+<B>q</B>-vector, starting from data files produced by <TT>pw.x</TT>.
+
+<P>
+If <!-- MATH
+ $\mathbf{q}=0$
+ -->
+<B>q</B> = 0
+<tex2html_verbatim_mark>, the data files can be produced directly by a simple
+SCF calculation.
+For phonons at a generic <B>q</B>-vector, you need to perform first
+a SCF calculation, then a band-structure calculation (see above)
+with
+<TT>calculation = 'phonon'</TT>, specifying the <B>q</B>-vector
+in variable <TT>xq</TT> of namelist <TT>&amp;PHONON</TT>.
+
+<P>
+The output data file appear in the directory specified by variables
+<TT>outdir</TT>, with names specified by variable <TT>prefix</TT>.
+After the output file(s) has been produced (do not remove any of the
+files, unless you know which are used and which are not), you can run
+<TT>ph.x</TT>.
+
+<P>
+The first input line of <TT>ph.x</TT> is a job identifier.
+At the second line the namelist <TT>&amp;INPUTPH</TT> starts.
+The meaning of the variables in the namelist (most of them having a
+default value) is described in file <TT>INPUT_PH</TT>.
+Variables <TT>outdir</TT> and <TT>prefix</TT> must be the same as in
+the input data of <TT>pw.x</TT>.
+Presently you must also specify <TT>amass</TT> (real, dimension
+<TT>ntyp</TT>): the atomic mass of each atomic type.
+
+<P>
+After the namelist you must specify the <B>q</B>-vector of the
+phonon mode.
+This must be the same <B>q</B>-vector given in the input of
+<TT>pw.x</TT>.
+
+<P>
+Notice that the dynamical matrix calculated by <TT>ph.x</TT>
+at <!-- MATH
+ $\mathbf{q}=0$
+ -->
+<B>q</B> = 0
+<tex2html_verbatim_mark> does not contain the non-analytic term
+occuring in polar materials, i.e. there is no LO-TO splitting
+in insulators. Moreover no Acoustic Sum Rule (ASR) is applied.
+In order to have the complete dynamical matrix at <!-- MATH
+ $\mathbf{q}=0$
+ -->
+<B>q</B> = 0
+<tex2html_verbatim_mark> 
+including the non-analytic terms, you need to calculate effective 
+charges by specifying option <TT>epsil=.true.</TT> to <TT>ph.x</TT>. 
+
+<P>
+Use program <TT>dynmat.x</TT> to calculate the correct LO-TO 
+splitting, IR cross sections, and to impose various forms
+of ASR. If <TT>ph.x</TT> was instructed to calculate Raman 
+coefficients, <TT>dynmat.x</TT> will also calculate Raman cross 
+sections for a typical experimental setup.
+
+<P>
+A sample phonon calculation is performed in Example 02.
+
+<P>
+
+<H3><A NAME="SECTION00062100000000000000">
+5.2.1 Calculation of interatomic force constants in real
+space</A>
+</H3>
+
+<P>
+First, dynamical matrices <!-- MATH
+ $D(\mathbf{q})$
+ -->
+<I>D</I>(<B>q</B>)
+<tex2html_verbatim_mark> are calculated and saved 
+for a suitable uniform grid of <B>q</B>-vectors (only those in the 
+Irreducible Brillouin Zone of the crystal are needed). Although
+this can be done one <B>q</B>-vector at the time, a simpler procedure
+is to specify variable <TT>ldisp=.true.</TT> and to set variables
+<TT>nq1,nq2,nq3</TT> to some suitable Monkhorst-Pack grid, that
+will be automatically generated, centered at <!-- MATH
+ $\mathbf{q}=0$
+ -->
+<B>q</B> = 0
+<tex2html_verbatim_mark>.
+Do not forget to specify <TT>epsil=.true.</TT> in the input data
+of <TT>ph.x</TT> if you want the correct TO-LO splitting in 
+polar materials. 
+
+<P>
+Second, code <TT>q2r.x</TT> reads the <!-- MATH
+ $D(\mathbf{q})$
+ -->
+<I>D</I>(<B>q</B>)
+<tex2html_verbatim_mark> dynamical 
+matrices produced in the preceding step and Fourier-transform them,
+writing a file of Interatomic Force Constants in real space, up
+to a distance that depends on the size of the grid of
+<B>q</B>-vectors.
+Program <TT>matdyn.x</TT> may be used to produce phonon modes and
+frequencies at any <B>q</B> using the Interatomic Force Constants
+file as input.
+
+<P>
+See Example 06.
+
+<P>
+
+<H3><A NAME="SECTION00062200000000000000">
+5.2.2 Calculation of electron-phonon interaction
+coefficients</A>
+</H3>
+
+<P>
+The calculation of electron-phonon coefficients in metals is made
+difficult by the slow convergence of the sum at the Fermi energy.
+It is convenient to calculate phonons, for each <B>q</B>-vector of a
+suitable grid, using a smaller k-point grid, saving the dynamical
+matrix and the self-consistent first-order variation of the potential
+(variable <TT>fildvscf</TT>).
+Then a non-SCF calculation with a larger k-point grid is performed.
+Finally the electron-phonon calculation is performed by specifying
+<TT>elph=.true.</TT>, <TT>trans=.false.</TT>, and the input files
+<TT>fildvscf</TT>, <TT>fildyn</TT>.
+The electron-phonon coefficients are calculated using several values
+of gaussian broadening (see <TT>PH/elphon.f90</TT>) because this
+quickly shows whether results are converged or not with respect to the
+k-point grid and Gaussian broadening. See Example 07.
+
+<P>
+All of the above must be repeated for all desired <B>q</B>-vectors
+and the final result is summed over all <B>q</B>-vectors, using
+<TT>pwtools/lambda.x</TT>. The input data for the latter is
+described in the header of <TT>pwtools/lambda.f90</TT>.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html434"
+  HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html430"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html424"
+  HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html432"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html435"
+  HREF="node17.html">5.3 Post-processing</A>
+<B> Up:</B> <A NAME="tex2html431"
+  HREF="node14.html">5 Using PWscf</A>
+<B> Previous:</B> <A NAME="tex2html425"
+  HREF="node15.html">5.1 Electronic and ionic</A>
+   <B>  <A NAME="tex2html433"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

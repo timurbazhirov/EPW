@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>7.4 Parallelization issues</TITLE>
+<META NAME="description" CONTENT="7.4 Parallelization issues">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="previous" HREF="node22.html">
+<LINK REL="up" HREF="node19.html">
+<LINK REL="next" HREF="node24.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html520"
+  HREF="node24.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html516"
+  HREF="node19.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html512"
+  HREF="node22.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html518"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html521"
+  HREF="node24.html">8 Troubleshooting (PWscf)</A>
+<B> Up:</B> <A NAME="tex2html517"
+  HREF="node19.html">7 Performance issues (PWscf)</A>
+<B> Previous:</B> <A NAME="tex2html513"
+  HREF="node22.html">7.3 File space requirements</A>
+   <B>  <A NAME="tex2html519"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00084000000000000000"></A>
+  <A NAME="parissues"></A>
+<BR>
+7.4 Parallelization issues
+</H2>
+
+<P>
+<TT>pw.x</TT> can run in principle on any number of processors (up to
+<TT>maxproc</TT>, presently fixed at 128 in <TT>PW/para.f90</TT>). 
+The <I>N</I><SUB>p</SUB>
+<tex2html_verbatim_mark> processors can be divided into <I>N</I><SUB>pk</SUB>
+<tex2html_verbatim_mark> pools of <I>N</I><SUB>pr</SUB>
+<tex2html_verbatim_mark>
+processors, <!-- MATH
+ $N_p=N_{pk}*N_{pr}$
+ -->
+<I>N</I><SUB>p</SUB> = <I>N</I><SUB>pk</SUB>*<I>N</I><SUB>pr</SUB>
+<tex2html_verbatim_mark>. 
+The k-points are divided across <I>N</I><SUB>pk</SUB>
+<tex2html_verbatim_mark> pools (``k-point
+parallelization''), while both R- and G-space grids are divided across
+the <I>N</I><SUB>pr</SUB>
+<tex2html_verbatim_mark> processors of each pool (``PW parallelization'').
+A third level of parallelization, on the number of bands, is 
+currently confined to the calculation of a few quantities that 
+would not be parallelized at all otherwise.
+A fourth level of parallelization, on the number of NEB images,
+is available for NEB calculation only.
+
+<P>
+The effectiveness of parallelization depends on the size and type of
+the system and on a judicious choice of the <I>N</I><SUB>pk</SUB>
+<tex2html_verbatim_mark> and <I>N</I><SUB>pr</SUB>
+<tex2html_verbatim_mark>:
+
+<P>
+
+<UL>
+<LI>k-point parallelization is very effective if <I>N</I><SUB>pk</SUB>
+<tex2html_verbatim_mark> is a divisor
+    of the number of k-points (linear speedup guaranteed), <I>but</I>
+    it does not reduce the amount of memory per processor taken by the
+    calculation.
+    As a consequence, large systems may not fit into memory.
+    The same applies to parallelization over NEB images.
+</LI>
+<LI>PW parallelization works well if <I>N</I><SUB>pr</SUB>
+<tex2html_verbatim_mark> is a divisor of both
+    dimensions along the <I>z</I>
+<tex2html_verbatim_mark> axis of the FFT grids, <I>N</I><SUB>3</SUB>
+<tex2html_verbatim_mark> and <I>Nr</I><SUB>3</SUB>
+<tex2html_verbatim_mark>
+    (which may coincide).
+    It does not scale so well as k-point parallelization, but it
+    reduces both CPU time AND memory (the latter almost linearly).
+</LI>
+<LI>Optimal serial performances are achieved when the data are as much
+    as possible kept into the cache.
+    As a side effect, one can achieve better than linear scaling with
+    the number of processors, thanks to the increase in serial speed
+    coming from the reduction of data size (making it easier for the
+    machine to keep data in the cache).  
+</LI>
+</UL>
+
+<P>
+Note that for each system there is an optimal range of number of 
+processors on which to run the job.
+A too large number of processors will yield performance degradation,
+or may cause the parallelization algorithm to fail in distributing
+properly R- and G-space grids.
+
+<P>
+Actual parallel performances will also depend a lot on the available 
+software (MPI libraries) and on the available communication hardware. 
+For Beowulf-style machines (clusters of PC) the newest version 1.1
+of the OpenMPI libraries (<A NAME="tex2html44"
+  NAME="http://www.openmpi.org/"><TT>http://www.openmpi.org/</TT></A>) seems to yield better performances 
+than other implementations (info by Kostantin Kudin). 
+Note however that you need a decent communication hardware (at least 
+Gigabit ethernet) in order to have acceptable performances with PW 
+parallelization.
+Do not expect good scaling with cheap hardware: plane-wave
+calculations are by no means an ``embarrassing parallel'' problem. 
+
+<P>
+Also note that multiprocessor motherboards for Intel Pentium CPUs 
+typically have just one memory bus for all processors. This dramatically 
+slows down any code doing massive access to memory (as most codes in the 
+Quantum-ESPRESSO package do) that runs on processors of the same motherboard.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html520"
+  HREF="node24.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html516"
+  HREF="node19.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html512"
+  HREF="node22.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html518"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html521"
+  HREF="node24.html">8 Troubleshooting (PWscf)</A>
+<B> Up:</B> <A NAME="tex2html517"
+  HREF="node19.html">7 Performance issues (PWscf)</A>
+<B> Previous:</B> <A NAME="tex2html513"
+  HREF="node22.html">7.3 File space requirements</A>
+   <B>  <A NAME="tex2html519"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

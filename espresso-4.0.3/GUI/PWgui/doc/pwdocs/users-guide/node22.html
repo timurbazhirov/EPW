@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>7.3 File space requirements</TITLE>
+<META NAME="description" CONTENT="7.3 File space requirements">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node23.html">
+<LINK REL="previous" HREF="node21.html">
+<LINK REL="up" HREF="node19.html">
+<LINK REL="next" HREF="node23.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html510"
+  HREF="node23.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html506"
+  HREF="node19.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html500"
+  HREF="node21.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html508"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html511"
+  HREF="node23.html">7.4 Parallelization issues</A>
+<B> Up:</B> <A NAME="tex2html507"
+  HREF="node19.html">7 Performance issues (PWscf)</A>
+<B> Previous:</B> <A NAME="tex2html501"
+  HREF="node21.html">7.2 Memory requirements</A>
+   <B>  <A NAME="tex2html509"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00083000000000000000">
+7.3 File space requirements</A>
+</H2>
+
+<P>
+A typical <TT>pw.x</TT> run will require an amount of temporary disk
+space in the order of <I>O</I>
+<tex2html_verbatim_mark> double precision complex numbers:
+<P><!-- MATH
+ \begin{displaymath}
+O = N_k \cdot M \cdot N + q \cdot Nr_1 \cdot Nr_2 \cdot Nr_3
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER">
+<I>O</I> = <I>N</I><SUB>k</SUB><SUP> . </SUP><I>M</I><SUP> . </SUP><I>N</I> + <I>q</I><SUP> . </SUP><I>Nr</I><SUB>1</SUB><SUP> . </SUP><I>Nr</I><SUB>2</SUB><SUP> . </SUP><I>Nr</I><SUB>3</SUB>
+</DIV><P>
+<tex2html_verbatim_mark></P>
+where <!-- MATH
+ $q=2 \cdot \mathtt{mixing\_ndim}$
+ -->
+<I>q</I> = 2<SUP> . </SUP><TT>mixing</TT><IMG
+ WIDTH="55" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.gif"
+ ALT="$ \_ndim$">
+<tex2html_verbatim_mark> (number of iterations used in
+self-consistency, default value = 8
+<tex2html_verbatim_mark>) if <TT>disk_io</TT> is set to
+<TT>'high'</TT> or not specified;
+<I>q</I> = 0
+<tex2html_verbatim_mark> if <TT>disk_io='low'</TT> or <TT>'minimal'</TT>.
+
+<P>
+<BR><HR>
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

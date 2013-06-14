@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>4 Pseudopotentials</TITLE>
+<META NAME="description" CONTENT="4 Pseudopotentials">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node14.html">
+<LINK REL="previous" HREF="node12.html">
+<LINK REL="up" HREF="users-guide.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html389"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html385"
+  HREF="users-guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html379"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html387"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html390"
+  HREF="node14.html">5 Using PWscf</A>
+<B> Up:</B> <A NAME="tex2html386"
+  HREF="users-guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html380"
+  HREF="node12.html">3 Running on parallel</A>
+   <B>  <A NAME="tex2html388"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00050000000000000000"></A>
+  <A NAME="pseudopotentials"></A>
+<BR>
+4 Pseudopotentials
+</H1>
+
+<P>
+Currently PWscf and CP support both Ultrasoft (US) Vanderbilt
+pseudopotentials (PPs) and Norm-Conserving (NC)
+Hamann-Schl&#252;ter-Chiang PPs in separable Kleinman-Bylander form.
+Note however that calculation of third-order derivatives is not (yet)
+implemented with US PPs. 
+
+<P>
+The Quantum-ESPRESSO package uses a unified pseudopotential format (UPF)
+(<A NAME="tex2html38"
+  NAME="http://www.pwscf.org/format.htm"><TT>http://www.pwscf.org/format.htm</TT></A>)
+for all types of PPs, but still accepts a number of other formats:
+
+<UL>
+<LI>the ``old PWscf'' format for NC PPs (PWscf only!),
+</LI>
+<LI>the ``old CP'' format for NC PPs (CP only!),
+</LI>
+<LI>the ``old FPMD'' format for NC PPs (CP only!),
+</LI>
+<LI>the ``new PWscf'' format for NC and US PPs,
+</LI>
+<LI>the ``Vanderbilt'' format (formatted, not binary) for NC and
+        US PPs.
+</LI>
+</UL>
+See also
+<A NAME="tex2html39"
+  NAME="http://www.pwscf.org/oldformat.htm"><TT>http://www.pwscf.org/oldformat.htm</TT></A>.
+
+<P>
+A large collection of PPs (currently about 60 elements covered) can
+be downloaded from the Pseudopotentials Page of the Quantum-ESPRESSO
+web site
+(<A NAME="tex2html40"
+  NAME="http://www.pwscf.org/pseudo.htm"><TT>http://www.pwscf.org/pseudo.htm</TT></A>).
+The naming convention for these PPs is explained in file
+<TT>Doc/nomefile.upf</TT>.
+
+<P>
+If you do not find there the PP you need (because there is no PP for
+the atom you need or you need a different exchange-correlation
+functional or a different core-valence partition or for whatever
+reason may apply), it may be taken, if available, from published
+tables, such as e.g.:
+
+<UL>
+<LI>G.B. Bachelet, D.R. Hamann and M. Schl&#252;ter, Phys. Rev. B
+        <B>26</B>, 4199 (1982)
+</LI>
+<LI>X. Gonze, R. Stumpf, and M. Scheffler, Phys. Rev. B
+        <B>44</B>, 8503 (1991)
+</LI>
+<LI>S. Goedecker, M. Teter, and J. Hutter, Phys. Rev. B
+        <B>54</B>, 1703 (1996)
+</LI>
+</UL>
+or otherwise it must be generated. Since version 2.1, Quantum-ESPRESSO 
+includes a PP generation package, in the
+directory <TT>atomic/</TT> (sources) and <TT>atomic_doc/</TT>
+(documentation, tests and examples). 
+The package can generate both NC and US PPs in UPF format.
+We refer to its documentation for instructions on how to generate PPs
+with the <TT>atomic/</TT> code.
+
+<P>
+Other PP generation packages are available on-line:
+
+<P>
+
+<UL>
+<LI>David Vanderbilt's code (UltraSoft PPs):
+<BR>
+    <A NAME="tex2html41"
+  NAME="http://www.physics.rutgers.edu/~dhv/uspp/index.html"><TT>http://www.physics.rutgers.edu/~dhv/uspp/index.html</TT></A>
+</LI>
+<LI>Fritz Haber's code (Norm-Conserving PPs):
+<BR>
+    <A NAME="tex2html42"
+  NAME="http://www.fhi-berlin.mpg.de/th/fhi98md/fhi98PP"><TT>http://www.fhi-berlin.mpg.de/th/fhi98md/fhi98PP</TT></A>
+</LI>
+<LI>Jos&#233;-Lu&#237;s Martins' code (Norm-Conserving PPs):
+<BR>
+    <A NAME="tex2html43"
+  NAME="http://bohr.inesc-mn.pt/~jlm/pseudo.html"><TT>http://bohr.inesc-mn.pt/~jlm/pseudo.html</TT></A>
+</LI>
+</UL>
+
+<P>
+The first two codes produce PPs in UPF format, or in a format that
+can be converted to unified format using the utilities of directory
+<TT>upftools/</TT>.
+
+<P>
+Finally, other electronic-structure packages (CAMPOS, ABINIT)
+provide tables of PPs that can be freely downloaded, but need
+to be converted into a suitable format for use with Quantum-ESPRESSO.
+
+<P>
+Remember: <I>always</I> test the PPs on simple test systems before
+proceeding to serious calculations.
+
+<P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html389"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html385"
+  HREF="users-guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html379"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html387"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html390"
+  HREF="node14.html">5 Using PWscf</A>
+<B> Up:</B> <A NAME="tex2html386"
+  HREF="users-guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html380"
+  HREF="node12.html">3 Running on parallel</A>
+   <B>  <A NAME="tex2html388"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

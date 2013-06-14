@@ -1,0 +1,527 @@
+------------------------------------------------------------------------
+INPUT FILE DESCRIPTION
+
+Program: epw.x / EPW 
+------------------------------------------------------------------------
+
+All quantities whose dimensions are not explicitly specified are in
+RYDBERG ATOMIC UNITS
+
+Structure of the input data:
+=================================================================
+
+title_line
+
+&inputepw
+   ...
+/
+  nqs {cartesian}
+  xq(1) xq(2) xq(3) wq
+
+
+=================================================================
+NAMELIST: &inputepw
+   +--------------------------------------------------------------------
+   Variable:       amass(i), i=1,ntyp
+   
+   Type:           REAL
+   Default:        0.0
+   Description:    Atomic mass [amu] of each atomic type.
+                   If not specified, masses are read from data file
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       outdir
+   
+   Type:           CHARACTER
+   Default:        './'
+   Description:    Scratch directory.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       prefix
+   
+   Type:           CHARACTER
+   Default:        'pwscf'
+   Description:    Prepended to input/output filenames;  must be the same
+                   used in the calculation of the wfs and phonons
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       iverbosity
+   
+   Type:           INTEGER
+   Default:        0
+   Description:    0 = short output
+                   1 = verbose output
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      tphases
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    Set without ambiguity the phases of the input wavefunctions.
+		   This is necessary to ensure the portability of the matrix 
+		   elements.  
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       fildvscf0
+   
+   Type:           CHARACTER
+   Default:        ''
+   Description:    The file used to set the wavefunction gauges without ambiguity.
+		   Currently a  *.dvscf file from an arbitrary (not gamma) phonon
+		   is used.  Note that the files will be appended with the pool names
+		   i.e. in the case of 16 pools, fildvscf0 = 'prefix.dvscf' will 
+		   try to open:	"prefix.dvscf01" ,..., "prefix.dvscf16"
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      nbndsub
+   
+   Type:           INTEGER
+   Default:        0
+   Description:    Number of wannier functions to utilize
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      nbndskip
+   
+   Type:           INTEGER
+   Default:        0
+   Description:    The number of bands lying below the disentanglement
+		   window in the calculation of the Wannier functions.
+		   This quantity is necessary to correctly determine
+		   the Fermi energy.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      nq1, nq2, nq3
+   
+   Type:           INTEGER
+   Default:        0
+   Description:    Dimensions of the coarse phonon grid, corresponds 
+		   to the nqs list.  
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      nk1, nk2, nk3
+   
+   Type:           INTEGER
+   Default:        0
+   Description:    Dimensions of the coarse electronic grid, corresponds
+		   to the nscf calculation and wfs in the outdir.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       wannierize
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    Calculate the Wannier functions using W90 library calls
+		   and write rotation matrix to file 'filukk'.  If false, 
+		   filukk is read from disk
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       filukk
+   
+   Type:           CHARACTER
+   Default:        'prefix.ukk'
+   Description:    The name of the file containing the rotation matrix 
+		   which describes the MLWFS.  
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       dvscf_dir
+   
+   Type:           CHARACTER
+   Default:        './'
+   Description:    Directory where 'prefix.[dvscf|dyn]_q??' files are located. 
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      fsthick
+   
+   Type:           REAL
+   Default:        1.d10
+   Description:    Width of the Fermi surface window to take into account states
+		   in the self-energy delta functions in Rydberg.  Narrowing this
+		   value reduces the number of bands included in the selfenergy
+		   calculations.
+   +--------------------------------------------------------------------
+ 
+   +--------------------------------------------------------------------
+   Variables:      eptemp(:)
+   
+   Type:           REAL
+   Default:        300.d0
+   Description:    Array of smearing occupations for the Fermi occupation 
+		   in K. 
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      degaussw
+   
+   Type:           REAL
+   Default:        0.025
+   Description:    Numerical smearing in the energy-conserving delta functions 
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      degaussq
+
+   Type:           REAL
+   Default:        0.05
+   Description:    Smearing for sum over q in the e-ph coupling (meV)
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      delta_qsmear
+
+   Type:           REAL
+   Default:        0.05
+   Description:    Change in the energy for each addtional smearing in the a2f (meV)
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      nqsmear
+
+   Type:           INTEGER
+   Default:        10
+   Description:    Number of different smearings used to calculate the a2f
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      nqstep
+
+   Type:           REAL
+   Default:        500
+   Description:    Number of steps used to calculate the a2f
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       kmaps
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    If .true., program reads 'prefix.kmap' and 'prefix.kgmap'
+		   from file.  If .false., they are calculated 
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      epbwrite, epbread
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    If epbwrite = .true., the electron-phonon matrix elements
+		   in the coarse Bloch representation and relevant data (dyn
+		   matrices) are written to disk.  If epbread = .true. the
+		   above quantities are read from the 'prefix.epb' files.
+		   Pool dependent files
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      epwwrite, epwread
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    If epwwrite = .true., the electron-phonon matrix elements
+		   in the coarse Wannier representation and relevant data (dyn
+		   matrices) are written to disk.  If epwread = .true. the
+		   above quantities are read from the 'epwdata.fmt' file.
+		   Each pool reads the same file.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      etf_mem
+   
+   Type:           LOGICAL
+   Default:        .true.
+   Description:    If .true., the fine Bloch-space el-ph matrix elements
+		   are stored in memory and used 'en masse' to calculate
+		   self_energies.  This method is faster, although for large
+		   systems the matrix elements are large in 
+		   memory and can exceed the capacity of most
+		   computers.  If .false., matrix elements are written
+		   to disk and read directly when needed.
+   +--------------------------------------------------------------------
+ 
+   +--------------------------------------------------------------------
+   Variables:      epf_mem
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    If .true., the Wannier-space quantites are stored in 
+		   memory and the interpolation is performed without disk
+		   i/o.  If .false. data are read from prefix.epmatwp for
+		   each interpolated phonon wavevector.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      elinterp
+   
+   Type:           LOGICAL
+   Default:        .true.
+   Description:    Decide whether or not to interpolate electron wavefunctions
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      phlinterp
+   
+   Type:           LOGICAL
+   Default:        .true.
+   Description:    Decide whether or not to interpolate phonons
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      elecselfen
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    Calculate the electron self-energy from the el-ph interaction
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      phonselfen
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    Calculate the phonon self-energy from the el-ph interaction
+   +--------------------------------------------------------------------
+   +--------------------------------------------------------------------
+   Variables:      eps_acustic
+   
+   Type:           REAL
+   Default:        20.d0
+   Description:    The lower boundary for the phonon frequency in el-ph 
+                   and a2f calculations.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      nest_fn
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    Calculate the electronic nesting function.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      band_plot
+
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    Writes files for band structure and phonon dispersion plots.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      ephmatwrite
+
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    Writes file with e-ph matrix elements within the Fermi 
+                   window (fsthick) on fine k and q meshes.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      fly
+   
+   Type:           LOGICAL
+   Default:        .true.
+   Description:    calculates the nesting function, phonon self-energy, indabs
+                   ``on the fly'', meaning that the data for each q-vector
+                   calculated independently.  fly = .t. reduced the total memory
+		   needed for the calculation by a factor of nxqf (size of fine q-mesh)
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      a2f
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    Calculate Eliashberg spectral function, a^2F(omega),
+                   transport Eliashber spectral function a^F_tr(omega,
+                   and phonon density of states F(omega).
+		   Only allowed in the case of phonselfen = .true.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       filkf
+   
+   Type:           CHARACTER
+   Default:        './'
+   Description:    File which contains the fine mesh of electronic states
+		   to be calculated for elinterp. Crystal coordinates.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       filqf
+   
+   Type:           CHARACTER
+   Default:        './'
+   Description:    File which contains the fine mesh of phonon states
+		   to be calculated for phinterp. Crystal coordinates.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      nqf1, nqf2, nqf3
+   
+   Type:           INTEGER
+   Default:        0
+   Description:    Dimensions of the fine phonon grid, if filqf
+   		   is not given		     
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      nkf1, nkf2, nqf3
+   
+   Type:           INTEGER
+   Default:        0
+   Description:    Dimensions of the fine electron grid, if filkf
+   		   is not given		     
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      mp_mesh_k
+   
+   Type:           logical
+   Default:        .false.
+   Description:    If .t., fine electronic mesh is in the irr. wedge,
+		   else a uniform grid throughout the BZ is used.
+                   Not currently in use.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      mp_mesh_q
+   
+   Type:           logical
+   Default:        .false.
+   Description:    If .t., fine phonon mesh is in the irr. wedge,
+		   else a uniform grid throughout the BZ is used.
+                   Not currently in use.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      rand_q, rand_k
+   
+   Type:           logical
+   Default:        false
+   Description:    q/k-vectors on the fine mesh are generated randomly
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      rand_nq, rand_nk
+   
+   Type:           integer
+   Default:        1
+   Description:    number of random q,k-vectors on the fine mesh
+   +--------------------------------------------------------------------
+///---
+   ========================================================================
+   Line of input:
+	 nqs {cartesian}   
+         xq(1)  xq(2)  xq(3)
+      
+      
+      DESCRIPTION OF ITEMS:
+      
+         +--------------------------------------------------------------------
+         Variable:       nqs
+         
+         Type:           Integer
+         Description:    The number of phonon points listed below.
+         +--------------------------------------------------------------------
+
+         +--------------------------------------------------------------------
+         Variables:      xq(1)  xq(2)  xq(3)
+         
+         Type:           REAL
+         Description:    The phonon wavevectors of the coarse grid.  Must be
+			 in the same order as prefix_q* listed in dvscf_dir
+         +--------------------------------------------------------------------
+         
+         
+   ===End of line-of-input=================================================
+   
+   
+\\\---
+________________________________________________________________________
+* IF wannier = .true. :
+
+   +--------------------------------------------------------------------
+   Variable:       write_wfn
+   
+   Type:           LOGICAL
+   Default:        .false.
+   Description:    If .true. UNK???? files are output.  These files must
+		   be on disk if wannier_plot = .true.
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       num_iter
+   
+   Type:           INTEGER
+   Default:        200
+   Description:    Number of iterations passed to Wannier90 for minimization
+		   See wannier90 documentation
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variable:       iprint
+   
+   Type:           INTEGER
+   Default:        2
+   Description:    Verbosity level of Wannier90 code
+		   See wannier90 documentation
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:       dis_win_min, dis_win_max
+   
+   Type:           INTEGER
+   Default:        -1d3, 1d3
+   Description:    Minimum and maximum values of the disentanglement window
+		   See wannier90 documentation
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:       dis_froz_min, dis_froz_max
+   
+   Type:           INTEGER
+   Default:        -1d3, -0.9d3
+   Description:    Window which includes frozen states for Wannier90
+		   See wannier90 documentation
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      proj(:)
+   
+   Type:           CHARACTER
+   Default:        ''
+   Description:    Initial projections used in the Wannier90 calculation.
+		   Simple solution is "proj(1) = 'random' "
+		   See wannier90 documentation
+   +--------------------------------------------------------------------
+
+   +--------------------------------------------------------------------
+   Variables:      wdata(:)
+   
+   Type:           CHARACTER
+   Default:        ''
+   Description:    Any extra inforumation to be used in the Wannier90 calculation
+		   should be included here.  These characters will be written
+		   to the 'prefix.win' file.  For example to plot the first Wannier
+		   function in xcrysden format:
+		   --------------------------------------
+		     wdata(1)    = 'wannier_plot = true '
+		     wdata(2)    = 'wannier_plot_list : 1'
+		   --------------------------------------
+		   See wannier90 documentation
+   +--------------------------------------------------------------------
+
+
+
+ENDIF
+________________________________________________________________________

@@ -1,0 +1,11 @@
+--
+&inputph
+  tr2_ph   =  1.0d-12
+  prefix   = 'sic'
+  amass(1) = 28.0855  
+  amass(2) = 12.01078
+  outdir   = './'
+  fildyn   = 'sic.dyn'
+  fildvscf = 'dvscf'
+ /
+XQ1 XQ2 XQ3

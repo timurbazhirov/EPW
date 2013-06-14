@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>2 Installation</TITLE>
+<META NAME="description" CONTENT="2 Installation">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="users-guide.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html265"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html261"
+  HREF="users-guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html255"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html263"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html266"
+  HREF="node8.html">2.1 Configure</A>
+<B> Up:</B> <A NAME="tex2html262"
+  HREF="users-guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html256"
+  HREF="node6.html">1.4 Terms of use</A>
+   <B>  <A NAME="tex2html264"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00030000000000000000"></A>
+  <A NAME="installation"></A>
+<BR>
+2 Installation
+</H1>
+
+<P>
+Presently, the Quantum-ESPRESSO package is only distributed in source
+form; some precompiled executables (binary files) are provided only
+for
+<BR>
+PWgui. Providing binaries would require too much effort
+and would work only for a small number of machines anyway.
+
+<P>
+Stable releases of the Quantum-ESPRESSO source package (current version
+is 3.2) can be downloaded from this URL:
+
+<P>
+<BR>
+
+<P>
+<A NAME="tex2html15"
+  NAME="http://www.pwscf.org/download.htm"><TT>http://www.pwscf.org/download.htm</TT></A>
+<P>
+<BR>
+
+<P>
+Uncompress and unpack the distribution using the command:
+
+<P>
+<BR>
+
+<P>
+<TT>tar zxvf espresso-3.2.tar.gz</TT>
+
+<P>
+<BR>
+
+<P>
+If your version of <TT>tar</TT> doesn't recognize the <TT>z</TT> flag,
+use this instead:
+
+<P>
+<BR>
+
+<P>
+<TT>gunzip -c espresso-3.2.tar.gz | tar xvf -</TT>
+
+<P>
+<BR>
+
+<P>
+
+<TT>cd</TT> to the directory <TT>espresso/</TT> that will be created.
+The bravest may access the (unstable) development version via anonymous 
+CVS (Concurrent Version System): see the file <TT>README.cvs</TT>
+contained in the distribution.
+
+<P>
+To install Quantum-ESPRESSO from source, you need C and Fortran-95
+compilers (Fortran-90 is not sufficient, but most ``Fortran-90''
+compilers are actually Fortran-95-compliant).
+If you don't have a commercial Fortran-95 compiler, you may install
+the free <TT>g95</TT> compiler:
+(<A NAME="tex2html16"
+  NAME="http://www.g95.org/"><TT>http://www.g95.org/</TT></A>)
+or the GNU fortran compiler <TT>gfortran</TT>:
+(<A NAME="tex2html17"
+  NAME="http://www.gfortran.org/"><TT>http://www.gfortran.org/</TT></A>).
+You also need a minimal Unix environment: basically, a command shell
+(e.g., <TT>bash</TT> or <TT>tcsh</TT>) and the utilities
+<TT>make</TT>, <TT>awk</TT> and <TT>sed</TT>.
+MS-Windows users need to have Cygwin (a UNIX environment which runs
+under Windows) installed: see
+<A NAME="tex2html18"
+  NAME="http://www.cygwin.com/"><TT>http://www.cygwin.com/</TT></A>
+<P>
+Instructions for the impatient:
+<PRE>
+  ./configure
+  make all
+</PRE>
+Executable programs (actually, symlinks to them) will be placed in the
+<TT>bin/</TT> directory.
+
+<P>
+If you have problems or would like to tweak the default settings, read
+the detailed instructions below.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html267"
+  HREF="node8.html">2.1 Configure</A>
+<UL>
+<LI><A NAME="tex2html268"
+  HREF="node8.html#SECTION00031100000000000000">2.1.1 Libraries</A>
+<UL>
+<LI><A NAME="tex2html269"
+  HREF="node8.html#SECTION00031110000000000000">2.1.1.1 BLAS and LAPACK</A>
+<LI><A NAME="tex2html270"
+  HREF="node8.html#SECTION00031120000000000000">2.1.1.2 FFT</A>
+<LI><A NAME="tex2html271"
+  HREF="node8.html#SECTION00031130000000000000">2.1.1.3 Other libraries</A>
+</UL>
+<LI><A NAME="tex2html272"
+  HREF="node8.html#SECTION00031200000000000000">2.1.2 Manual configuration</A>
+<UL>
+<LI><A NAME="tex2html273"
+  HREF="node8.html#SECTION00031210000000000000">2.1.2.1 Note for HP PA-RISC users:</A>
+<LI><A NAME="tex2html274"
+  HREF="node8.html#SECTION00031220000000000000">2.1.2.2 Note for MS-Windows users:</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html275"
+  HREF="node9.html">2.2 Compile</A>
+<LI><A NAME="tex2html276"
+  HREF="node10.html">2.3 Run examples</A>
+<LI><A NAME="tex2html277"
+  HREF="node11.html">2.4 Installation Issues</A>
+<UL>
+<LI><A NAME="tex2html278"
+  HREF="node11.html#SECTION00034010000000000000">2.4.0.1 All machines</A>
+<LI><A NAME="tex2html279"
+  HREF="node11.html#SECTION00034020000000000000">2.4.0.2 IBM AIX</A>
+<LI><A NAME="tex2html280"
+  HREF="node11.html#SECTION00034030000000000000">2.4.0.3 SGI machines with IRIX/MIPS compiler</A>
+<LI><A NAME="tex2html281"
+  HREF="node11.html#SECTION00034040000000000000">2.4.0.4 Linux Alphas with Compaq compiler</A>
+<LI><A NAME="tex2html282"
+  HREF="node11.html#SECTION00034050000000000000">2.4.0.5 Linux PC</A>
+<LI><A NAME="tex2html283"
+  HREF="node11.html#SECTION00034060000000000000">2.4.0.6 Linux PCs with g95 compiler</A>
+<LI><A NAME="tex2html284"
+  HREF="node11.html#SECTION00034070000000000000">2.4.0.7 Linux PCs with Portland Group compiler (pgf90)</A>
+<LI><A NAME="tex2html285"
+  HREF="node11.html#SECTION00034080000000000000">2.4.0.8 Linux PCs with Pathscale compiler</A>
+<LI><A NAME="tex2html286"
+  HREF="node11.html#SECTION00034090000000000000">2.4.0.9 Linux PCs (Pentium) with Intel compiler (ifort, formerly
+ifc)</A>
+<LI><A NAME="tex2html287"
+  HREF="node11.html#SECTION000340100000000000000">2.4.0.10 ifort v.9</A>
+<LI><A NAME="tex2html288"
+  HREF="node11.html#SECTION000340110000000000000">2.4.0.11 ifort v.8</A>
+<LI><A NAME="tex2html289"
+  HREF="node11.html#SECTION000340120000000000000">2.4.0.12 ifc v.7</A>
+<LI><A NAME="tex2html290"
+  HREF="node11.html#SECTION000340130000000000000">2.4.0.13 MKL</A>
+<LI><A NAME="tex2html291"
+  HREF="node11.html#SECTION000340140000000000000">2.4.0.14 Fun with precompiled libraries</A>
+<LI><A NAME="tex2html292"
+  HREF="node11.html#SECTION000340150000000000000">2.4.0.15 AMD CPUs, Intel Itanium</A>
+<LI><A NAME="tex2html293"
+  HREF="node11.html#SECTION000340160000000000000">2.4.0.16 Linux PC clusters with MPI</A>
+<LI><A NAME="tex2html294"
+  HREF="node11.html#SECTION000340170000000000000">2.4.0.17 Mac OS X</A>
+<LI><A NAME="tex2html295"
+  HREF="node11.html#SECTION000340180000000000000">2.4.0.18 T3E</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html265"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html261"
+  HREF="users-guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html255"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html263"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html266"
+  HREF="node8.html">2.1 Configure</A>
+<B> Up:</B> <A NAME="tex2html262"
+  HREF="users-guide.html">User's Guide for Quantum-ESPRESSO</A>
+<B> Previous:</B> <A NAME="tex2html256"
+  HREF="node6.html">1.4 Terms of use</A>
+   <B>  <A NAME="tex2html264"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

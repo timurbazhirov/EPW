@@ -1,0 +1,26 @@
+ &control
+    calculation='scf',
+    prefix='pb',
+    pseudo_dir = '../../pp/',
+    outdir='./',
+ /
+ &system    
+    ibrav = 2 , 
+    celldm(1) = 9.2 , 
+    nat=  1 , 
+    ntyp = 1 , 
+    ecutwfc = 40.0
+    occupations = 'smearing'
+    degauss = 0.05
+ /
+ &electrons
+    mixing_beta = 0.7
+    conv_thr =  1.0d-9
+ /
+ATOMIC_SPECIES
+ Pb 207.2   Pb.pz-bhs.UPF
+ATOMIC_POSITIONS crystal
+Pb        0.000000000   0.000000000   0.000000000
+K_POINTS AUTOMATIC
+6 6 6 1 1 1
+

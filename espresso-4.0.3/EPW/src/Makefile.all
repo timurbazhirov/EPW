@@ -1,0 +1,42 @@
+# Makefile for EPW
+
+include make.sys
+include make.libs
+
+#
+# use recursive definitions in Makefile to modify the PATH for modules
+#
+
+IFLAGS   = -I../../include  
+MODFLAGS = -I./ -I../../Modules -I../../iotk/src \
+           -I../../PW -I../../PH
+LIBOBJS  = ../../flib/ptools.a ../../flib/flib.a \
+           ../../clib/clib.a ../../iotk/src/libiotk.a
+
+W90LIB   = ../../W90/libwannier.a
+
+EPWOBJS = \
+all.o 
+
+default : epw
+
+all : epw
+
+epw : pw ph wannier $(EPWOBJS) $(LIBOBJS)
+	$(LD) -o epw.x $(MODULES) $(PWOBJS) $(PHOBJS) \
+	$(EPWOBJS) $(W90LIB) $(LDFLAGS) $(LIBOBJS) $(LIBS)
+	- ( cd ../bin ; ln -fs ../src/epw.x . )
+
+pw : 
+	cd ../../PW ; make
+
+ph : 
+	cd ../../PH ; make
+
+wannier :
+	cd ../../W90 ; make libs
+
+clean :
+	- /bin/rm -f  *.o *~ *.F90 *.d *.mod *.i 
+
+include make.depend

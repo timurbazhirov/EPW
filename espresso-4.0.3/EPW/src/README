@@ -1,0 +1,58 @@
+Updated 03/26/2010
+
+Installation:
+===================================================
+Download and unpack espresso-4.0.3 from the QE-forge 
+website at http://www.pwscf.org.  Copy EPW/ into the 
+espresso-4.0.3 directory, then execute the following 
+commands from espresso-4.0.3/:
+./configure
+make ph
+cd EPW/src
+make 
+
+This will create an epw.x executable in EPW/bin, which
+can be used with pw.x and ph.x to run the examples in the
+EPW/examples directory.
+
+Known bugs/issues:
+===================================================
+When performing calculations on a system WIHTOUT 
+inversion symmetry, the electron-phonon matrix 
+elements for the -q of the star are not computed 
+correctly.  Time reversal symmetry must not be
+used.  Instead the coarse mesh phonons need to
+be calculated explicitly for q and -q at certain
+phonon wavevectors.
+
+Ultrasoft pseudopotentials have not been tested, 
+although they have been implemented.  Particularly
+the wannier90 conversion of uspp wavefunctions 
+seems to be incorrect.
+
+Currently there is no parallelization over G-vectors.  
+Practically this means that in order to run EPW 
+in parallel,  NPOOL=NPROC must be satisfied. 
+
+
+Troubleshooting:
+===================================================
+The program seems to hang on the "Running Wannier90" line
+------------------------------------------------
+As of version 1.1, W90 sends the STOP command when it 
+encounters a fatal error, thus not exiting smoothly.  Check
+the end of the prefix.wout for specific errors.
+
+Creating kgmap seems to take forever
+------------------------------------------------
+Yes it does.  It is currenlty not parallelized. For a system
+with over 10^5 G-vectors, the kgmap may take several hours.
+
+
+The lambda's and linewidths of the phonon selfenergy
+are identically zero
+------------------------------------------------
+Are you performing calculations on a metal?  Have you 
+correctly set the 'nbndskip' parameter?  What is Ef
+and the DOS at Ef?
+

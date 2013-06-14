@@ -1,0 +1,495 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>9.2 In general</TITLE>
+<META NAME="description" CONTENT="9.2 In general">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="previous" HREF="node26.html">
+<LINK REL="up" HREF="node25.html">
+<LINK REL="next" HREF="node28.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html604"
+  HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html600"
+  HREF="node25.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html596"
+  HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html602"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html605"
+  HREF="node28.html">About this document ...</A>
+<B> Up:</B> <A NAME="tex2html601"
+  HREF="node25.html">9 Frequently Asked Questions</A>
+<B> Previous:</B> <A NAME="tex2html597"
+  HREF="node26.html">9.1 Compilation/Installation</A>
+   <B>  <A NAME="tex2html603"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION000102000000000000000">
+9.2 In general</A>
+</H2>
+
+<P>
+
+<UL>
+<LI><EM>How can I choose parameters for variable-cell 
+molecular dynamics?</EM>
+
+<P>
+``A common mistake many new users make is to set the time step 
+<TT>dt</TT> inproperly to the same order of magnitude as for CP 
+algorithm, or not setting <TT>dt</TT> at all. This will produce 
+a `not evolving dynamics'. Good values for the original RMW
+(RM Wentzcovitch) dynamics are <TT>dt</TT>= 50 &#247; 70
+<tex2html_verbatim_mark>. 
+
+<P>
+The choice of the cell mass is a delicate matter. An off-optimal mass 
+will make convergence slower. Too small masses, as well as too long time 
+steps, can make the algorithm unstable. A good cell mass will make the 
+oscillation times for internal degrees of freedom comparable to 
+cell degrees of freedom in non-damped Variable-Cell MD. Test calculations 
+are advisable before extensive calculation.
+
+<P>
+I have tested the damping algorithm that I have developed and it has
+worked well so far. It allows for a much longer time step 
+(<TT>dt</TT>=<!-- MATH
+ $100\div150$
+ -->
+100 &#247; 150
+<tex2html_verbatim_mark>) than the RMW one and is much more stable 
+with very small cell masses, which is useful when the cell shape, 
+not the internal degrees of freedom, is far out of equilibrium. 
+It also converges in  a smaller number of steps than RMW.''
+
+<P>
+(Info from Cesar Da Silva: the new damping algorithm is the default
+since v. 3.1).
+
+<P>
+</LI>
+<LI><EM>How is the charge density (the potential, etc.) stored?
+What position in real space  corresponds to an array value? </EM>
+
+<P>
+The index of arrays used to store functions defined on 3D meshes is  
+actually a shorthand for three indeces, following the FORTRAN  
+convention (``leftmost index runs faster''). An example will explain  
+this better. Suppose you have a 3D array of dimension <TT>(nr1,nr2,nr3)</TT>,
+say <TT>psi(nr1,nr2,nr3)</TT>. FORTRAN compilers store this array 
+sequentially  in the computer RAM in the following way:
+<BLOCKQUOTE>
+<TT>psi(1,1,1)</TT>
+<BR><TT>psi(2,1,1)</TT>
+<BR>...
+<BR><TT>psi(nr1,1,1)</TT>
+<BR><TT>psi(1,2,1)</TT>
+<BR><TT>psi(2,2,1)</TT>
+<BR>...
+<BR><TT>psi(nr1,2,1)</TT>
+<BR>...
+<BR><TT>psi(nr1,nr2,1)</TT>
+<BR><TT>psi(1,1,nr3)</TT>
+
+</BLOCKQUOTE>
+etc
+
+<P>
+Let <TT>ind</TT> be the position of the <TT>(i,j,k)</TT> element 
+in the above list: the relation between <TT>ind</TT> and  <TT>(i,j,k)</TT>
+is:
+
+<P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{equation}
+ind = i + (j-1)*nr1 + (k-1)*nr2*nr1
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP>
+<I>ind</I> = <I>i</I> + (<I>j</I> - 1)*<I>nr</I>1 + (<I>k</I> - 1)*<I>nr</I>2*<I>nr</I>1
+</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(1)</TD></TR>
+</TABLE>
+<tex2html_verbatim_mark>
+</DIV>
+
+<P>
+This should clarify the relation between 1D and 3D indexing. In real  
+space, the <TT>(i,j,k)</TT> point of the mesh is
+
+<P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{equation}
+{\bf r}_{ijk} = {i-1\over nr1}*\tau_1
+              + {j-1\over nr2}*\tau_2
+              + {k-1\over nr3}*\tau_3
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP>
+<IMG
+ WIDTH="32" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.gif"
+ ALT="$\displaystyle \bf r_{{ijk}}^{}$"> = <IMG
+ WIDTH="48" HEIGHT="61" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.gif"
+ ALT="$\displaystyle {i-1\over nr1}$">*<IMG
+ WIDTH="21" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.gif"
+ ALT="$\displaystyle \tau_{1}^{}$"> + <IMG
+ WIDTH="50" HEIGHT="61" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.gif"
+ ALT="$\displaystyle {j-1\over nr2}$">*<IMG
+ WIDTH="21" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img13.gif"
+ ALT="$\displaystyle \tau_{2}^{}$"> + <IMG
+ WIDTH="52" HEIGHT="61" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.gif"
+ ALT="$\displaystyle {k-1\over nr3}$">*<IMG
+ WIDTH="21" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img15.gif"
+ ALT="$\displaystyle \tau_{3}^{}$">
+</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(2)</TD></TR>
+</TABLE>
+<tex2html_verbatim_mark>
+</DIV>
+
+<P>
+where the <IMG
+ WIDTH="15" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img16.gif"
+ ALT="$ \tau$">
+<tex2html_verbatim_mark>'s are the basis vectors of the Bravais lattice. The  
+latter are stored row-wise in the ``AT'' array:
+
+<P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{equation}
+\tau_1 = at(:,1), \tau_2 = at(:,2), \tau_3 = at(:,3)
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP>
+<IMG
+ WIDTH="21" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.gif"
+ ALT="$\displaystyle \tau_{1}^{}$"> = <I>at</I>(: , 1),<IMG
+ WIDTH="21" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img13.gif"
+ ALT="$\displaystyle \tau_{2}^{}$"> = <I>at</I>(: , 2),<IMG
+ WIDTH="21" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img15.gif"
+ ALT="$\displaystyle \tau_{3}^{}$"> = <I>at</I>(: , 3)
+</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(3)</TD></TR>
+</TABLE>
+<tex2html_verbatim_mark>
+</DIV>
+(info by Stefano Baroni)
+
+<P>
+</LI>
+<LI><EM>Is there a simple way to determine the symmetry
+of a given phonon mode?</EM>
+
+<P>
+A symmetry analizer was added in v.3.2 by Andrea Dal Corso. The
+following info may still be of interest to somebody, though.
+
+<P>
+You might find the ISOTROPY package useful:
+<BR><A NAME="tex2html46"
+  NAME="http://stokes.byu.edu/iso/isotropy.html"><TT>http://stokes.byu.edu/iso/isotropy.html</TT></A>.
+
+<P>
+You might also find the following info from Pascal Thibeadeau useful:
+<BR>``please follow 
+<A NAME="tex2html47"
+  NAME="http://dx.doi.org/10.1016/0010-4655(94)00164-W"><TT>http://dx.doi.org/10.1016/0010-4655(94)00164-W</TT></A>
+and
+<A NAME="tex2html48"
+  NAME="http://dx.doi.org/10.1016/0010-4655(74)90057-5"><TT>http://dx.doi.org/10.1016/0010-4655(74)90057-5</TT></A>. 
+These are connected to some programs found in the Computer Physics 
+Communications Program Library 
+(<A NAME="tex2html49"
+  NAME="http://www.cpc.cs.qub.ac.uk"><TT>http://www.cpc.cs.qub.ac.uk</TT></A>
+) 
+which are described in the articles:
+<BR>
+ACKJ_v1.0 <EM>Normal coordinate analysis of crystals,</EM>
+J.Th.M. de Hosson.
+<BR>
+ACMI_v1.0 <EM>Group-theoretical analysis of lattice vibrations</EM>,
+T.G. Worlton, J.L. Warren. See erratum Comp. Phys. Commun. 4(1972)382.
+<BR>
+ACMM_v1.0 <EM>Improved version of group-theoretical analysis of lattice 
+dynamics</EM>, J.L. Warren, T.G. Worlton.''
+
+<P>
+</LI>
+<LI><EM>What are the <TT>nr1b</TT>, <TT>nr2b</TT>, <TT>nr3b</TT>?</EM>
+
+<P>
+``<TT>ecutrho</TT> defines the resolution on the real space FFT mesh 
+(as expressed by <TT>nr1</TT>, <TT>nr2</TT> and <TT>nr3</TT>, that
+the code left on its own sets automatically). In the ultrasoft
+case we refer to this mesh as the `hard' mesh, since
+it is denser than the smooth mesh that is needed to
+represent the square of the non-norm-conserving wavefunctions.
+
+<P>
+On this `hard', fine-spaced mesh, you need to determine the size
+of the cube that will encompass the largest of the augmentation
+charges - this is what <TT>nr1b</TT>, <TT>nr2b</TT>, <TT>nr3b</TT> are.
+
+<P>
+So, <TT>nr1b</TT> is independent of the system size, but dependent on the
+size of the augmentation charge (that doesn't vary that much)
+and on the real-space resolution needed by augmentation charges
+(rule of thumb: <TT>ecutrho</TT> is between 6 and 12 times <TT>ecutwfc</TT>).
+
+<P>
+In practice, <TT>nr1b</TT> et al. are often in the region of 20-24-28;
+testing seems again a necessity (unless the code started
+automagically to estimate these).
+
+<P>
+The core charge is in principle finite only at the core region (as 
+defined by <I>r</I><SUB>cut</SUB>
+<tex2html_verbatim_mark>) and vanishes out side the core. Numerically the charge 
+is represented in a Fourier series which may give rise to small charge 
+oscillations outside the core and even to negative charge density, but 
+only if the cut-off is too low. Having these small boxes removes the 
+charge oscillations problem (at least outside the box) and also offers 
+some numerical advantages in going to higher cut-offs.
+
+<P>
+The small boxes should be set as small as possible, but large enough to 
+contain the core of the largest element in your system. The formula for 
+determining the box size is quite simple:
+<!-- MATH
+ $nr1b=(2*r_{cut})/L_x*nr1$
+ -->
+<I>nr</I>1<I>b</I> = (2*<I>r</I><SUB>cut</SUB>)/<I>L</I><SUB>x</SUB>*<I>nr</I>1
+<tex2html_verbatim_mark>,
+where <I>r</I><SUB>cut</SUB>
+<tex2html_verbatim_mark> is the cut-off radius for the largest element and <I>L</I><SUB>x</SUB>
+<tex2html_verbatim_mark> 
+is the physical length of your box along the <I>x</I>
+<tex2html_verbatim_mark> axis. You have to round 
+your result to the nearest larger integer.'' (info by Nicola Marzari)
+
+<P>
+</LI>
+<LI><EM>How can I calculate magnetic moments for each atom?</EM>
+
+<P>
+"There is no 'right' way of defining the local magnetic moment around
+ an atom in a multi-atom system. However an approximate way to define
+ it is via the projected density of states on the atomic orbitals (code 
+ <TT>projwfc.x</TT>, see example08 for its use as a postprocessing tool). 
+ This code generate many files with the density of states projected 
+ on each atomic wavefunction of each atom and a BIG amount of data 
+ on the standard output, the last few lines of which contain the 
+ decomposition of Lowdin charges on angular momentum and spin component 
+ of each atom."
+
+<P>
+</LI>
+<LI><EM>What is the order of <I>Y</I><SUB>lm</SUB>
+<tex2html_verbatim_mark> components in projected DOS /
+projection of atomic wavefunctions ?</EM>
+
+<P>
+"The order is, I think:
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="RIGHT">1</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $P_{0,0}(t)$
+ -->
+<I>P</I><SUB>0, 0</SUB>(<I>t</I>)
+<tex2html_verbatim_mark></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">2</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $P_{1,0}(t)$
+ -->
+<I>P</I><SUB>1, 0</SUB>(<I>t</I>)
+<tex2html_verbatim_mark></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">3</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $P_{1,1}(t) \cos\phi$
+ -->
+<I>P</I><SUB>1, 1</SUB>(<I>t</I>)cos<IMG
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.gif"
+ ALT="$ \phi$">
+<tex2html_verbatim_mark></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">4</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $P_{1,1}(t) \sin\phi$
+ -->
+<I>P</I><SUB>1, 1</SUB>(<I>t</I>)sin<IMG
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.gif"
+ ALT="$ \phi$">
+<tex2html_verbatim_mark></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">5</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $P_{2,0}(t)$
+ -->
+<I>P</I><SUB>2, 0</SUB>(<I>t</I>)
+<tex2html_verbatim_mark></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">6</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $P_{2,1}(t) \cos\phi$
+ -->
+<I>P</I><SUB>2, 1</SUB>(<I>t</I>)cos<IMG
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.gif"
+ ALT="$ \phi$">
+<tex2html_verbatim_mark></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">7</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $P_{2,1}(t) \sin\phi$
+ -->
+<I>P</I><SUB>2, 1</SUB>(<I>t</I>)sin<IMG
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.gif"
+ ALT="$ \phi$">
+<tex2html_verbatim_mark></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">8</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $P_{2,2}(t) \cos 2\phi$
+ -->
+<I>P</I><SUB>2, 2</SUB>(<I>t</I>)cos 2<IMG
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.gif"
+ ALT="$ \phi$">
+<tex2html_verbatim_mark></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">9</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $P_{2,2}(t) \sin 2\phi$
+ -->
+<I>P</I><SUB>2, 2</SUB>(<I>t</I>)sin 2<IMG
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.gif"
+ ALT="$ \phi$">
+<tex2html_verbatim_mark></TD>
+</TR>
+</TABLE>
+
+<P>
+and so on; <I>P</I><SUB>l, m</SUB> =
+<tex2html_verbatim_mark>Legendre Polynomials, <!-- MATH
+ $t=\cos\theta=z/r$
+ -->
+<I>t</I> = cos<IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img18.gif"
+ ALT="$ \theta$"> = <I>z</I>/<I>r</I>
+<tex2html_verbatim_mark>, <!-- MATH
+ $\phi=\mbox{atan}(y/x)$
+ -->
+<IMG
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.gif"
+ ALT="$ \phi$"> = atan(<I>y</I>/<I>x</I>)
+<tex2html_verbatim_mark>.
+No warranty. Anybody really interested in knowing for sure which
+spherical harmonic combination is which should look into routine
+<TT>ylmr2</TT> in <TT>flib/ylmr2.f90</TT>".
+
+<P>
+</LI>
+<LI><EM>Where can I find the crystal structure/atomic positions of XYZ?</EM>
+
+<P>
+The following site contains a lot of crystal structures:
+<BR><A NAME="tex2html50"
+  NAME="http://cst-www.nrl.navy.mil/lattice"><TT>http://cst-www.nrl.navy.mil/lattice</TT></A>. 
+
+<P>
+"Since this seems to come up often, I'd like to point out that the 
+American Mineralogist Crystal Structure Database 
+(<A NAME="tex2html51"
+  NAME="http://rruff.geo.arizona.edu/AMS/amcsd.php"><TT>http://rruff.geo.arizona.edu/AMS/amcsd.php</TT></A>)
+is another excellent place to find structures, though you will have to use 
+it in conjunction with Bilbao
+(<A NAME="tex2html52"
+  NAME="http://www.cryst.ehu.es"><TT>http://www.cryst.ehu.es</TT></A>),
+and have some understanding of space groups and Wyckoff positions".
+</LI>
+</UL><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html604"
+  HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html600"
+  HREF="node25.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html596"
+  HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html602"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html605"
+  HREF="node28.html">About this document ...</A>
+<B> Up:</B> <A NAME="tex2html601"
+  HREF="node25.html">9 Frequently Asked Questions</A>
+<B> Previous:</B> <A NAME="tex2html597"
+  HREF="node26.html">9.1 Compilation/Installation</A>
+   <B>  <A NAME="tex2html603"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

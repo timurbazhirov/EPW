@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>5.1 Electronic and ionic structure calculations</TITLE>
+<META NAME="description" CONTENT="5.1 Electronic and ionic structure calculations">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node16.html">
+<LINK REL="previous" HREF="node14.html">
+<LINK REL="up" HREF="node14.html">
+<LINK REL="next" HREF="node16.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html420"
+  HREF="node16.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html416"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html410"
+  HREF="node14.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html418"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html421"
+  HREF="node16.html">5.2 Phonon calculations</A>
+<B> Up:</B> <A NAME="tex2html417"
+  HREF="node14.html">5 Using PWscf</A>
+<B> Previous:</B> <A NAME="tex2html411"
+  HREF="node14.html">5 Using PWscf</A>
+   <B>  <A NAME="tex2html419"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html422"
+  HREF="node15.html#SECTION00061100000000000000">5.1.1 Input data</A>
+<LI><A NAME="tex2html423"
+  HREF="node15.html#SECTION00061200000000000000">5.1.2 Typical cases</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H2><A NAME="SECTION00061000000000000000">
+5.1 Electronic and ionic structure calculations</A>
+</H2>
+
+<P>
+Electronic and ionic structure calculations are performed by program
+<TT>pw.x</TT>.
+
+<P>
+
+<H3><A NAME="SECTION00061100000000000000">
+5.1.1 Input data</A>
+</H3>
+
+<P>
+The input data is organized as several namelists, followed by other
+fields introduced by keywords.
+
+<P>
+The namelists are 
+<BLOCKQUOTE>
+<TT>&amp;CONTROL</TT>: general variables controlling the run
+<BR>  <TT>&amp;SYSTEM</TT>: structural information on the system under
+    investigation
+<BR>  <TT>&amp;ELECTRONS</TT>: electronic variables: self-consistency,
+    smearing
+<BR>  <TT>&amp;IONS</TT> (optional): ionic variables: relaxation,
+    dynamics
+<BR>  <TT>&amp;CELL</TT> (optional): variable-cell dynamics
+<BR>  <TT>&amp;PHONON</TT> (optional): information required to produce
+    data for phonon calculations
+
+</BLOCKQUOTE>
+
+<P>
+Optional namelist may be omitted if the calculation to be performed
+does not require them.
+This depends on the value of variable <TT>calculation</TT> in namelist
+<TT>&amp;CONTROL</TT>.
+Most variables in namelists have default values.
+Only the following variables in <TT>&amp;SYSTEM</TT> must always be
+specified:
+<BLOCKQUOTE>
+<TT>ibrav</TT> (integer): bravais-lattice index
+<BR>  <TT>celldm</TT> (real, dimension 6): crystallographic constants
+<BR>  <TT>nat</TT> (integer): number of atoms in the unit cell
+<BR>  <TT>ntyp</TT> (integer): number of types of atoms in the unit cell
+<BR>  <TT>ecutwfc</TT> (real): kinetic energy cutoff (Ry) for
+    wavefunctions.
+
+</BLOCKQUOTE>
+For metallic systems, you have to specify how metallicity
+is treated by setting variable <TT>occupations</TT>. If you choose
+<TT>occupations='smearing'</TT>, you have to specify the 
+smearing width <TT>degauss</TT> and optionally the smearing 
+type <TT>smearing</TT>. If you choose <TT>occupations='tetrahedra'</TT>,
+you need to specify a suitable uniform k-point grid (card 
+<TT>K_POINTS</TT> with option <TT>automatic</TT>). 
+Spin-polarized systems must be treated as metallic system,
+except the special case of a single k-point, for which
+occupation numbers can be fixed (<TT>occupations='from_input'</TT>
+and card <TT>OCCUPATIONS</TT>).
+
+<P>
+Explanations for the meaning of variables <TT>ibrav</TT> and
+<TT>celldm</TT> are in file <TT>INPUT_PW</TT>.
+Please read them carefully.
+There is a large number of other variables, having default values,
+which may or may not fit your needs.
+
+<P>
+After the namelists, you have several fields introduced by keywords
+with self-explanatory names:
+
+<P>
+<BLOCKQUOTE>
+<TT>ATOMIC_SPECIES</TT>
+<BR>  <TT>ATOMIC_POSITIONS</TT>
+<BR>  <TT>K_POINTS</TT>
+<BR>  <TT>CELL_PARAMETERS</TT> (optional)
+<BR>  <TT>OCCUPATIONS</TT> (optional) 
+<BR>  <TT>CLIMBING_IMAGES</TT> (optional)
+
+</BLOCKQUOTE>
+
+<P>
+The keywords may be followed on the same line by an option.
+Unknown fields (including some that are specific to CP code)
+are ignored by PWscf.
+See file <TT>Doc/INPUT_PW</TT> for a detailed explanation of the
+meaning and format of the various fields.
+
+<P>
+Note about k points:
+The k-point grid can be either automatically generated or manually
+provided as a list of k-points and a weight in the Irreducible
+Brillouin Zone only of the <I>Bravais lattice</I> of the crystal.
+The code will generate (unless instructed not to do so: see variable
+<TT>nosym</TT>) all required k-points and weights if the symmetry of
+the system is lower than the symmetry of the Bravais lattice.
+The automatic generation of k-points follows the convention of
+Monkhorst and Pack.
+
+<P>
+
+<H3><A NAME="SECTION00061200000000000000">
+5.1.2 Typical cases</A>
+</H3>
+
+<P>
+We may distinguish the following typical cases for <TT>pw.x</TT>:
+
+<P>
+<DL>
+<DT><STRONG>single-point (fixed-ion) SCF calculation.</STRONG></DT>
+<DD><P>
+Set <TT>calculation='scf'</TT>.
+
+<P>
+Namelists <TT>&amp;IONS</TT> and <TT>&amp;CELL</TT> need not to be
+    present (this is the default).  See Example 01.
+
+<P>
+</DD>
+<DT><STRONG>band structure calculation.</STRONG></DT>
+<DD><P>
+First perform a SCF calculation as above; then do a non-SCF
+    calculation by specifying <TT>calculation='bands'</TT> or
+    <TT>calculation='nscf'</TT>, with the desired k-point grid 
+    and number <TT>nbnd</TT> of bands.
+    If you are interested in calculating only the Kohn-Sham states 
+    for the given set of k-points, use <TT>calculation='bands'</TT>. 
+    If you are interested in further processing of the results of
+    non-SCF calculations (for instance, in DOS calculations) use
+    <TT>calculations='nscf'</TT>.
+
+<P>
+Specify <TT>nosym=.true.</TT> to avoid generation of additional
+    k-points in low symmetry cases.  Variables <TT>prefix</TT> and
+    <TT>outdir</TT>, which determine the names of input or output
+    files, should be the same in the two runs.  See Example 01.
+
+<P>
+</DD>
+<DT><STRONG>structural optimization.</STRONG></DT>
+<DD><P>
+Specify <TT>calculation='relax'</TT> and add namelist <TT>&amp;IONS</TT>.
+
+<P>
+All options for a single SCF calculation apply, plus a few others.
+    You may follow a structural optimization with a non-SCF
+    band-structure calculation, but do not forget to update the input
+    ionic coordinates.  See Example 03.
+
+<P>
+</DD>
+<DT><STRONG>molecular dynamics.</STRONG></DT>
+<DD><P>
+Specify <TT>calculation='md'</TT> and time step <TT>dt</TT>.
+
+<P>
+Use variable <TT>ion_dynamics</TT> in namelist <TT>&amp;IONS</TT>
+    for a fine-grained control of the kind of dynamics.  Other options
+    for setting the initial temperature and for thermalization using
+    velocity rescaling are available.  Remember: this is MD on the
+    electronic ground state, not Car-Parrinello MD.  See Example 04.
+
+<P>
+</DD>
+<DT><STRONG>polarization via Berry Phase.</STRONG></DT>
+<DD><P>
+See Example 10, its <TT>README</TT>, and the documentation in the
+    header of <TT>PW/bp_c_phase.f90</TT>.
+
+<P>
+</DD>
+<DT><STRONG>Nudged Elastic Band calculation.</STRONG></DT>
+<DD><P>
+Specify <TT>calculation='neb'</TT> and add namelist
+    <TT>&amp;IONS</TT>.
+
+<P>
+All options for a single SCF calculation apply, plus a few others.
+    In the namelist <TT>&amp;IONS</TT> the number of images used to
+    discretize the elastic band must be specified.  All other
+    variables have a default value.  Coordinates of the initial and
+    final image of the elastic band have to be specified in the
+    <TT>ATOMIC_POSITIONS</TT> card.  A detailed description of all
+    input variables is contained in the file <TT>Doc/INPUT_PW</TT>.
+    See also Example 17.
+
+<P>
+</DD>
+</DL>
+
+<P>
+The output data files are written in the directory specified by
+variable <TT>outdir</TT>, with names specified by variable
+<TT>prefix</TT> (a string that is prepended to all file names,
+whose default value is: <TT>prefix='pwscf'</TT>).
+
+<P>
+The execution stops if you create a file <TT>prefix.EXIT</TT> in the
+working directory. Note that just killing the process may leave the
+output files in an unusable state.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html420"
+  HREF="node16.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html416"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html410"
+  HREF="node14.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html418"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html421"
+  HREF="node16.html">5.2 Phonon calculations</A>
+<B> Up:</B> <A NAME="tex2html417"
+  HREF="node14.html">5 Using PWscf</A>
+<B> Previous:</B> <A NAME="tex2html411"
+  HREF="node14.html">5 Using PWscf</A>
+   <B>  <A NAME="tex2html419"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

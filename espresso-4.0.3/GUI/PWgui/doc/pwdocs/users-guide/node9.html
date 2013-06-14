@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>2.2 Compile</TITLE>
+<META NAME="description" CONTENT="2.2 Compile">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node10.html">
+<LINK REL="previous" HREF="node8.html">
+<LINK REL="up" HREF="node7.html">
+<LINK REL="next" HREF="node10.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html325"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html321"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html315"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html323"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html326"
+  HREF="node10.html">2.3 Run examples</A>
+<B> Up:</B> <A NAME="tex2html322"
+  HREF="node7.html">2 Installation</A>
+<B> Previous:</B> <A NAME="tex2html316"
+  HREF="node8.html">2.1 Configure</A>
+   <B>  <A NAME="tex2html324"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00032000000000000000">
+2.2 Compile</A>
+</H2>
+
+<P>
+There are a few adjustable parameters in
+<TT>Modules/parameters.f90</TT>.
+The present values will work for most cases.  All other variables are
+dynamically allocated: you do not need to recompile your code for a
+different system.
+
+<P>
+At your option, you may compile the complete Quantum-ESPRESSO suite of
+programs (with <TT>make all</TT>), or only some specific programs.
+
+<P>
+<TT>make</TT> with no arguments yields a list of valid compilation
+targets.
+Here is a list:
+
+<P>
+
+<UL>
+<LI><TT>make pw</TT> produces <TT>PW/pw.x</TT>.
+
+<P>
+<TT>pw.x</TT> calculates electronic structure, structural
+    optimization, molecular dynamics, barriers with NEB.
+</LI>
+<LI><TT>make ph</TT> produces <TT>PH/ph.x</TT>.
+
+<P>
+<TT>ph.x</TT> calculates phonon frequencies and displacement
+    patterns, dielectric tensors, effective charges (uses data
+    produced by <TT>pw.x</TT>).
+</LI>
+<LI><TT>make d3</TT> produces <TT>D3/d3.x</TT>
+
+<P>
+<TT>d3.x</TT> calculates anharmonic phonon lifetimes (third-order
+    derivatives of the energy), using data produced by <TT>pw.x</TT>
+    and <TT>ph.x</TT> (Ultrasoft pseudopotentials not supported).
+</LI>
+<LI><TT>make gamma</TT> produces <TT>Gamma/phcg.x</TT>.
+
+<P>
+<TT>phcg.x</TT> is a version of <TT>ph.x</TT> that calculates
+    phonons at <!-- MATH
+ $\mathbf{q}=0$
+ -->
+<B>q</B> = 0
+<tex2html_verbatim_mark> using conjugate-gradient minimization of
+    the density functional expanded to second-order.
+    Only the <IMG
+ WIDTH="17" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.gif"
+ ALT="$ \Gamma$">
+<tex2html_verbatim_mark> (<!-- MATH
+ $\mathbf{q}=0$
+ -->
+<B>q</B> = 0
+<tex2html_verbatim_mark>) point is used for Brillouin
+    zone integration.
+    It is faster and takes less memory than <TT>ph.x</TT>, but does
+    not support Ultrasoft pseudopotentials.
+</LI>
+<LI><TT>make pp</TT> produces several codes for data postprocessing, in
+    <TT>PP/</TT> (see list below).
+</LI>
+<LI><TT>make tools</TT> produces several utility programs, mostly for
+    phonon calculations, in <TT>pwtools/</TT> (see list below).
+</LI>
+<LI><TT>make pwcond</TT> produces <TT>PWCOND/pwcond.x</TT>, for
+    ballistic conductance calculations (experimental).
+</LI>
+<LI><TT>make pwall</TT> produces all of the above.
+</LI>
+<LI><TT>make ld1</TT> produces code <TT>atomic/ld1.x</TT> for 
+    pseudopotential generationd (see the specific
+    documentation in <TT>atomic_doc/</TT>).
+</LI>
+<LI><TT>make upf</TT> produces utilities for pseudopotential
+    conversion in directory <TT>upftools/</TT> (see section
+    <A HREF="node13.html#pseudopotentials">4</A>, ``Pseudopotentials'').
+</LI>
+<LI><TT>make cp</TT> produces the Car-Parrinello code CP in
+    <TT>CPV/cp.x</TT>. and the postprocessing code 
+    <TT>CPV/cppp.x</TT>.
+</LI>
+<LI><TT>make all</TT> produces all of the above.
+</LI>
+</UL>
+For the setup of the GUI, refer to the
+<TT>PWgui-</TT><I>X.Y.Z</I><TT>/INSTALL</TT> file, where <I>X.Y.Z</I>
+stands for the version number of the GUI (should be the same as the
+general version number, currently 3.2).
+If you are using the CVS-sources, see the <TT>GUI/README</TT>
+file instead.
+
+<P>
+The codes for data postprocessing in <TT>PP/</TT> are:
+
+<UL>
+<LI><TT>pp.x</TT> extracts the specified data from files
+        produced by <TT>pw.x</TT>, prepare data for plotting
+        by writing them into formats that can be read by
+        several plotting programs
+</LI>
+<LI><TT>bands.x</TT> extracts and reorders eigenvalues
+        from files produced by <TT>pw.x</TT> for band structure plotting
+</LI>
+<LI><TT>projwfc.x</TT> calculates projections of wavefunction
+        over atomic orbitals, performs L&#246;wdin population
+        analysis and calculates projected density of states. 
+        These can be summed using auxiliary code <TT>sumpdos.x</TT>
+</LI>
+<LI><TT>dipole.x</TT> calculates the dipole moment for
+        isolated systems (molecules) and the Makov-Payne correction
+        for molecules in supercells (beware: meaningful results 
+        only if the charge density is completely contained into 
+        the Wigner-Seitz cell)
+</LI>
+<LI><TT>plotrho.x</TT> produces PostScript 2-d contour plots
+</LI>
+<LI><TT>plotband.x</TT> reads the output of <TT>bands.x</TT>,
+        produces band structure PostScript plots
+</LI>
+<LI><TT>average.x</TT> calculates planar averages of quantities
+        produced by pp.x (potentials, charge, magnetization densities,...)
+</LI>
+<LI><TT>voronoy.x</TT> divides the charge density into Voronoy
+        polyhedra (obsolete, use at your own risk)
+</LI>
+<LI><TT>dos.x</TT> calculates electronic Density of States
+        (DOS)
+</LI>
+<LI><TT>pw2wan.x</TT>: interface with code WanT for calculation
+        of transport properties via Wannier (also known as Boyd)
+        functions: see
+<BR>
+        <A NAME="tex2html25"
+  NAME="http://www.wannier-transport.org/"><TT>http://www.wannier-transport.org/</TT></A>
+</LI>
+<LI><TT>pmw.x</TT> generates Poor Man's Wannier functions,
+        to be used in LDA+U calculations
+</LI>
+<LI><TT>pw2casino.x</TT>: interface with CASINO code for Quantum
+        Monte Carlo calculation
+        (<A NAME="tex2html26"
+  NAME="http://www.tcm.phy.cam.ac.uk/~mdt26/casino.html"><TT>http://www.tcm.phy.cam.ac.uk/~mdt26/casino.html</TT></A>).
+</LI>
+</UL>
+
+<P>
+The utility programs in <TT>pwtools/</TT> are:
+
+<UL>
+<LI><TT>dynmat.x</TT> applies various kinds of Acoustic Sum Rule
+        (ASR), calculates LO-TO splitting at <!-- MATH
+ $\mathbf{q}=0$
+ -->
+<B>q</B> = 0
+<tex2html_verbatim_mark> in 
+        insulators, IR and Raman cross sections (if the coefficients
+        have been properly calculated), from the dynamical matrix
+        produced by <TT>ph.x</TT>
+</LI>
+<LI><TT>q2r.x</TT> calculates Interatomic Force Constants (IFC) in
+        real space from dynamical matrices produced by
+        <TT>ph.x</TT> on a regular <B>q</B>-grid
+</LI>
+<LI><TT>matdyn.x</TT> produces phonon frequencies at a generic
+        wave vector using the IFC file calculated by <TT>q2r.x</TT>; 
+        may also calculate phonon DOS
+</LI>
+<LI><TT>fqha.x</TT> for quasi-harmonic calculations
+</LI>
+<LI><TT>dist.x</TT> calculates distances and angles between
+        atoms in a cell, taking into account periodicity
+</LI>
+<LI><TT>ev.x</TT> fits energy-vs-volume data to an equation of
+        state
+</LI>
+<LI><TT>kpoints.x</TT> produces lists of k-points
+</LI>
+<LI><TT>pwi2xsf.sh</TT>, <TT>pwo2xsf.sh</TT> process
+        respectively input and output files (not data files!) for
+        <TT>pw.x</TT> and produce an XSF-formatted file suitable
+        for plotting with XCrySDen, a powerful crystalline and
+        molecular structure visualization program 
+        (<TT>http://www.xcrysden.org/</TT>).
+        BEWARE: the <TT>pwi2xsf.sh</TT> shell script requires the
+        <TT>pwi2xsf.x</TT> executables to be located somewhere in
+        your <TT>$PATH</TT>.
+</LI>
+<LI><TT>band_plot.x</TT>: undocumented and possibly obsolete
+</LI>
+<LI><TT>bs.awk</TT>, <TT>mv.awk</TT> are scripts that process
+        the output of <TT>pw.x</TT> (not data files!).
+        Usage:
+<PRE>
+  awk -f bs.awk &lt; my-pw-file &gt; myfile.bs
+  awk -f mv.awk &lt; my-pw-file &gt; myfile.mv
+</PRE>
+        The files so produced are suitable for use with
+        <TT>xbs</TT>, a very simple X-windows utility to display
+        molecules, available at:
+<BR>
+        <A NAME="tex2html27"
+  NAME="http://www.ccl.net/cca/software/X-WINDOW/xbsa/README.shtml"><TT>http://www.ccl.net/cca/software/X-WINDOW/xbsa/README.shtml</TT></A>
+</LI>
+<LI><TT>path_int.sh/path_int.x</TT>: utility to generate, starting
+        from a path (a set of images), a new one with a different number of
+        images. The initial and final points of the new path can differ
+        from those in the original one. Useful for NEB calculations.
+</LI>
+<LI><TT>kvecs_FS.x, bands_FS.x</TT>: utilities for Fermi Surface
+        plotting using XCrySDen
+</LI>
+</UL>
+
+<P>
+Other utilities: 
+
+<UL>
+<LI><TT>VIB/</TT> contains the sources of a frozen-phonon code,
+        using either <TT>pw.x</TT> or <TT>cp.x</TT> as computational
+        engine. Contributed by Silviu Zilberman (Princeton). Compile with
+        <TT>make vib</TT>, executables in <TT>VIB/pwvib.x</TT> and
+        <TT>VIB/cpvib.x</TT>, documentation in <TT>Doc/INPUT_CPVIB</TT>, 
+        example in <TT>examples/example32</TT>.
+</LI>
+<LI><TT>VdW/</TT> contains the sources  for the calculation of the 
+        finite (imaginary) frequency molecular polarizability using the
+        approximated Thomas-Fermi  + von Weiz&#228;cker scheme, contributed
+        by H.-V. Nguyen (Sissa and Hanoi University). Compile with
+        <TT>make vdw</TT>, executables in <TT>VdW/vdw.x</TT>, no
+        documentation yet, but an example in <TT>examples/example34</TT>.
+</LI>
+</UL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html325"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html321"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html315"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html323"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html326"
+  HREF="node10.html">2.3 Run examples</A>
+<B> Up:</B> <A NAME="tex2html322"
+  HREF="node7.html">2 Installation</A>
+<B> Previous:</B> <A NAME="tex2html316"
+  HREF="node8.html">2.1 Configure</A>
+   <B>  <A NAME="tex2html324"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

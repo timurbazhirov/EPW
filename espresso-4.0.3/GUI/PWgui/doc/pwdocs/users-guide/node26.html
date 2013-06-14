@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>9.1 Compilation/Installation</TITLE>
+<META NAME="description" CONTENT="9.1 Compilation/Installation">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node27.html">
+<LINK REL="previous" HREF="node25.html">
+<LINK REL="up" HREF="node25.html">
+<LINK REL="next" HREF="node27.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html594"
+  HREF="node27.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html590"
+  HREF="node25.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html584"
+  HREF="node25.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html592"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html595"
+  HREF="node27.html">9.2 In general</A>
+<B> Up:</B> <A NAME="tex2html591"
+  HREF="node25.html">9 Frequently Asked Questions</A>
+<B> Previous:</B> <A NAME="tex2html585"
+  HREF="node25.html">9 Frequently Asked Questions</A>
+   <B>  <A NAME="tex2html593"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION000101000000000000000">
+9.1 Compilation/Installation</A>
+</H2>
+
+<P>
+Most compilation problems have obvious origins and can be solved by 
+reading error messages and acting accordingly. Sometimes the reason 
+for a failure is less obvious. In such a case, you should look into 
+this guide, in the ``Installation Issues'' section, and into the 
+<TT>pw_forum</TT> archive to see if a similar problem (with
+solution) is described. If you get really weird error messages 
+during installation, look for them with your preferred Internet
+search engine (such as Google).
+
+<P>
+
+<UL>
+<LI><TT>configure</TT> <EM>says I have no fortran compiler!</EM>
+You haven't one. Really. More exactly, you have none of the fortran 
+compilers <TT>configure</TT> is trying in your execution path. If 
+your hardware/software combination is supported, fix your 
+execution path.
+
+<P>
+</LI>
+<LI><TT>configure</TT> <EM>complains that it has no permission 
+to run /usr/bin/oslevel and stops!</EM> On some IBM AIX machines, the command
+<TT>/usr/bin/oslevel</TT> used by <TT>configure</TT> to get info about
+the type of system is not executable to normal users. Complain with
+your system manager. Fixed since v.3.2 anyway.
+
+<P>
+</LI>
+<LI><TT>configure</TT> <EM>says ``unsupported C/Fortran compilers 
+combination''!</EM>
+Unless you have trouble in compilation/linking, never mind.
+Check removed since v.3.2
+
+<P>
+</LI>
+<LI><TT>configure</TT> <EM>says ``unsupported architecture''!</EM>
+If compilation/linking still works, never mind, Otherwise, supply
+a suitable supported architecture to <TT>configure</TT>: see 
+instructions in <TT>README.configure</TT> on what to do. Note that 
+in most cases you may use <TT>configure</TT> to produce dependencies, 
+then edit the file <TT>make.sys</TT>.
+
+<P>
+</LI>
+<LI><TT>configure</TT> <EM>doesn't find my (parallel/mathematical) 
+libraries!</EM>
+<TT>configure</TT> tries to locate libraries (both mathematical and 
+parallel libraries) in logical places with logical names, but if they 
+have strange names or strange locations, you will have to rename/move 
+them, or to instruct <TT>configure</TT> to find them (see subsection 
+``Libraries''). Note that if MPI libraries are not found, parallel
+compilation is disabled.
+
+<P>
+</LI>
+<LI><TT>configure</TT> <EM>doesn't recognize that I have a parallel 
+machine!</EM>
+You do not have a properly configure parallel environment (libraries and
+compiler). <TT>configure</TT> tries to locate a parallel compiler in a 
+logical place with a logical name, but if it has a strange names or it 
+is located in a strange location, you will have to instruct 
+<TT>configure</TT> to find it. Note that in most PC clusters (Beowulf),
+there is no parallel Fortran-95 compiler: you have to configure an 
+appropriate script, such as <TT>mpif90</TT>. For libraries, see above.
+
+<P>
+</LI>
+</UL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html594"
+  HREF="node27.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html590"
+  HREF="node25.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html584"
+  HREF="node25.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html592"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html595"
+  HREF="node27.html">9.2 In general</A>
+<B> Up:</B> <A NAME="tex2html591"
+  HREF="node25.html">9 Frequently Asked Questions</A>
+<B> Previous:</B> <A NAME="tex2html585"
+  HREF="node25.html">9 Frequently Asked Questions</A>
+   <B>  <A NAME="tex2html593"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

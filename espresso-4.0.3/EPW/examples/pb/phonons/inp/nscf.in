@@ -1,0 +1,33 @@
+ &control
+    calculation='phonon',
+    prefix='pb',
+    pseudo_dir = '../../../../pp/',
+    outdir='./',
+    tprnfor = .true.,
+    tstress = .true.,   
+ /
+ &system    
+    ibrav = 2 , 
+    celldm(1) = 9.2 , 
+    nat=  1 , 
+    ntyp = 1 , 
+    ecutwfc = 40.0
+    occupations = 'smearing'
+    degauss = 0.05
+ /
+ &electrons
+    mixing_beta = 0.7
+    conv_thr =  1.0d-9
+ /
+ &phonon
+  xqq(1) = XQ1
+  xqq(2) = XQ2
+  xqq(3) = XQ3
+ /
+ATOMIC_SPECIES
+ Pb 207.2   Pb.pz-bhs.UPF
+ATOMIC_POSITIONS crystal
+Pb        0.000000000   0.000000000   0.000000000
+K_POINTS AUTOMATIC
+6 6 6 1 1 1
+

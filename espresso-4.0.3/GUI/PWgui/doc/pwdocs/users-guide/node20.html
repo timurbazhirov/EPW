@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>7.1 CPU time requirements</TITLE>
+<META NAME="description" CONTENT="7.1 CPU time requirements">
+<META NAME="keywords" CONTENT="users-guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users-guide.css">
+
+<LINK REL="next" HREF="node21.html">
+<LINK REL="previous" HREF="node19.html">
+<LINK REL="up" HREF="node19.html">
+<LINK REL="next" HREF="node21.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html486"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html482"
+  HREF="node19.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html476"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html484"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html487"
+  HREF="node21.html">7.2 Memory requirements</A>
+<B> Up:</B> <A NAME="tex2html483"
+  HREF="node19.html">7 Performance issues (PWscf)</A>
+<B> Previous:</B> <A NAME="tex2html477"
+  HREF="node19.html">7 Performance issues (PWscf)</A>
+   <B>  <A NAME="tex2html485"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00081000000000000000">
+7.1 CPU time requirements</A>
+</H2>
+
+<P>
+The following holds for code <TT>pw.x</TT> and for non-US PPs. 
+For US PPs there are additional terms to be calculated.
+For phonon calculations, each of the 3<I>N</I><SUB>at</SUB>
+<tex2html_verbatim_mark> modes requires a CPU
+time of the same order of that required by a self-consistent 
+calculation in the same system.
+
+<P>
+The computer time required for the self-consistent solution at fixed
+ionic positions, <I>T</I><SUB>scf</SUB>
+<tex2html_verbatim_mark>, is:
+<P><!-- MATH
+ \begin{displaymath}
+T_{scf} = N_{iter} \cdot T_{iter} + T_{init}
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER">
+<I>T</I><SUB>scf</SUB> = <I>N</I><SUB>iter</SUB><SUP> . </SUP><I>T</I><SUB>iter</SUB> + <I>T</I><SUB>init</SUB>
+</DIV><P>
+<tex2html_verbatim_mark></P>
+where <!-- MATH
+ $N_{iter}=\mathtt{niter}=$
+ -->
+<I>N</I><SUB>iter</SUB> = <TT>niter</TT> =
+<tex2html_verbatim_mark> number of self-consistency
+iterations, <I>T</I><SUB>iter</SUB> =
+<tex2html_verbatim_mark> CPU time for a single iteration,
+<I>T</I><SUB>sub</SUB> =
+<tex2html_verbatim_mark> initialization time for a single iteration. 
+Usually <!-- MATH
+ $T_{init} << N_{iter} \cdot T_{iter}$
+ -->
+<I>T</I><SUB>init</SUB> &lt; &lt; <I>N</I><SUB>iter</SUB><SUP> . </SUP><I>T</I><SUB>iter</SUB>
+<tex2html_verbatim_mark>.
+
+<P>
+The time required for a single self-consistency iteration
+<I>T</I><SUB>iter</SUB>
+<tex2html_verbatim_mark> is:
+<P><!-- MATH
+ \begin{displaymath}
+T_{iter} = N_k \cdot T_{diag} + T_{rho} + T_{scf}
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER">
+<I>T</I><SUB>iter</SUB> = <I>N</I><SUB>k</SUB><SUP> . </SUP><I>T</I><SUB>diag</SUB> + <I>T</I><SUB>rho</SUB> + <I>T</I><SUB>scf</SUB>
+</DIV><P>
+<tex2html_verbatim_mark></P>
+where <I>N</I><SUB>k</SUB> =
+<tex2html_verbatim_mark> number of k-points, <I>T</I><SUB>diag</SUB> =
+<tex2html_verbatim_mark> CPU time per hamiltonian
+iterative diagonalization, <I>T</I><SUB>rho</SUB> =
+<tex2html_verbatim_mark> CPU time for charge density
+calculation, <I>T</I><SUB>scf</SUB> =
+<tex2html_verbatim_mark> CPU time for Hartree and exchange-correlation
+potential calculation.
+
+<P>
+The time for a Hamiltonian iterative diagonalization <I>T</I><SUB>diag</SUB>
+<tex2html_verbatim_mark> is:
+<P><!-- MATH
+ \begin{displaymath}
+T_{diag} = N_h \cdot T_h + T_{orth} + T_{sub}
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER">
+<I>T</I><SUB>diag</SUB> = <I>N</I><SUB>h</SUB><SUP> . </SUP><I>T</I><SUB>h</SUB> + <I>T</I><SUB>orth</SUB> + <I>T</I><SUB>sub</SUB>
+</DIV><P>
+<tex2html_verbatim_mark></P>
+where <I>N</I><SUB>h</SUB> =
+<tex2html_verbatim_mark> number of <I>H</I><IMG
+ WIDTH="18" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$ \psi$">
+<tex2html_verbatim_mark> products needed by iterative
+diagonalization, <I>T</I><SUB>h</SUB> =
+<tex2html_verbatim_mark> CPU time per <I>H</I><IMG
+ WIDTH="18" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$ \psi$">
+<tex2html_verbatim_mark> product, <I>T</I><SUB>orth</SUB> =
+<tex2html_verbatim_mark> CPU
+time for orthonormalization, <I>T</I><SUB>sub</SUB> =
+<tex2html_verbatim_mark> CPU time for subspace
+diagonalization.
+
+<P>
+The time <I>T</I><SUB>h</SUB>
+<tex2html_verbatim_mark> required for a <I>H</I><IMG
+ WIDTH="18" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$ \psi$">
+<tex2html_verbatim_mark> product is
+<P><!-- MATH
+ \begin{displaymath}
+T_h = a_1 \cdot M \cdot N
+      + a_2 \cdot M \cdot N_1 \cdot N_2 \cdot N_3 \cdot
+        \log(N_1 \cdot N_2 \cdot N_3)
+      + a_3 \cdot M \cdot P \cdot N.
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER">
+<I>T</I><SUB>h</SUB> = <I>a</I><SUB>1</SUB><SUP> . </SUP><I>M</I><SUP> . </SUP><I>N</I> + <I>a</I><SUB>2</SUB><SUP> . </SUP><I>M</I><SUP> . </SUP><I>N</I><SUB>1</SUB><SUP> . </SUP><I>N</I><SUB>2</SUB><SUP> . </SUP><I>N</I><SUB>3</SUB><SUP> . </SUP>log(<I>N</I><SUB>1</SUB><SUP> . </SUP><I>N</I><SUB>2</SUB><SUP> . </SUP><I>N</I><SUB>3</SUB>) + <I>a</I><SUB>3</SUB><SUP> . </SUP><I>M</I><SUP> . </SUP><I>P</I><SUP> . </SUP><I>N</I>.
+</DIV><P>
+<tex2html_verbatim_mark></P>
+The first term comes from the kinetic term and is usually much smaller
+than the others.
+The second and third terms come respectively from local and nonlocal
+potential.
+<I>a</I><SUB>1</SUB>
+<tex2html_verbatim_mark>, <I>a</I><SUB>2</SUB>
+<tex2html_verbatim_mark>, <I>a</I><SUB>3</SUB>
+<tex2html_verbatim_mark> are prefactors, <I>M</I> =
+<tex2html_verbatim_mark> number of valence bands,
+<I>N</I> =
+<tex2html_verbatim_mark> number of plane waves (basis set dimension), 
+<I>N</I><SUB>1</SUB>
+<tex2html_verbatim_mark>, <I>N</I><SUB>2</SUB>
+<tex2html_verbatim_mark>, <I>N</I><SUB>3</SUB> =
+<tex2html_verbatim_mark> dimensions of the FFT grid for wavefunctions
+(<!-- MATH
+ $N_1 \cdot N_2 \cdot N_3 \sim 8N$
+ -->
+<I>N</I><SUB>1</SUB><SUP> . </SUP><I>N</I><SUB>2</SUB><SUP> . </SUP><I>N</I><SUB>3</SUB> <IMG
+ WIDTH="20" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img5.gif"
+ ALT="$ \sim$"> 8<I>N</I>
+<tex2html_verbatim_mark>), <I>P</I> =
+<tex2html_verbatim_mark> number of projectors for PPs
+(summed on all atoms, on all values of the angular momentum <I>l</I>
+<tex2html_verbatim_mark>, and
+<!-- MATH
+ $m=1,\dots,2l+1$
+ -->
+<I>m</I> = 1,..., 2<I>l</I> + 1
+<tex2html_verbatim_mark>)
+
+<P>
+The time <I>T</I><SUB>orth</SUB>
+<tex2html_verbatim_mark> required by orthonormalization is
+<P><!-- MATH
+ \begin{displaymath}
+T_{orth}=b_1*M_x^2*N
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER">
+<I>T</I><SUB>orth</SUB> = <I>b</I><SUB>1</SUB>*<I>M</I><SUB>x</SUB><SUP>2</SUP>*<I>N</I>
+</DIV><P>
+<tex2html_verbatim_mark></P>
+and the time <I>T</I><SUB>sub</SUB>
+<tex2html_verbatim_mark> required by subspace diagonalization is
+<P><!-- MATH
+ \begin{displaymath}
+T_{sub}=b_2*M_x^3
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER">
+<I>T</I><SUB>sub</SUB> = <I>b</I><SUB>2</SUB>*<I>M</I><SUB>x</SUB><SUP>3</SUP>
+</DIV><P>
+<tex2html_verbatim_mark></P>
+where <I>b</I><SUB>1</SUB>
+<tex2html_verbatim_mark> and <I>b</I><SUB>2</SUB>
+<tex2html_verbatim_mark> are prefactors, <I>M</I><SUB>x</SUB> =
+<tex2html_verbatim_mark> number of trial
+wavefunctions (this will vary between <I>M</I>
+<tex2html_verbatim_mark> and a few times <I>M</I>
+<tex2html_verbatim_mark>,
+depending on the algorithm).
+
+<P>
+The time <I>T</I><SUB>rho</SUB>
+<tex2html_verbatim_mark> for the calculation of charge density from
+wavefunctions is
+<P><!-- MATH
+ \begin{displaymath}
+T_{rho} = c_1 \cdot M \cdot Nr_1 \cdot Nr_2 \cdot Nr_3 \cdot
+          \log(Nr_1 \cdot Nr_2 \cdot Nr_3)
+          + c_2 \cdot M \cdot Nr_1 \cdot Nr_2 \cdot Nr_3 + T_{us}
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER">
+<I>T</I><SUB>rho</SUB> = <I>c</I><SUB>1</SUB><SUP> . </SUP><I>M</I><SUP> . </SUP><I>Nr</I><SUB>1</SUB><SUP> . </SUP><I>Nr</I><SUB>2</SUB><SUP> . </SUP><I>Nr</I><SUB>3</SUB><SUP> . </SUP>log(<I>Nr</I><SUB>1</SUB><SUP> . </SUP><I>Nr</I><SUB>2</SUB><SUP> . </SUP><I>Nr</I><SUB>3</SUB>) + <I>c</I><SUB>2</SUB><SUP> . </SUP><I>M</I><SUP> . </SUP><I>Nr</I><SUB>1</SUB><SUP> . </SUP><I>Nr</I><SUB>2</SUB><SUP> . </SUP><I>Nr</I><SUB>3</SUB> + <I>T</I><SUB>us</SUB>
+</DIV><P>
+<tex2html_verbatim_mark></P>
+where <I>c</I><SUB>1</SUB>
+<tex2html_verbatim_mark>, <I>c</I><SUB>2</SUB>
+<tex2html_verbatim_mark>, <I>c</I><SUB>3</SUB>
+<tex2html_verbatim_mark> are prefactors,
+<I>Nr</I><SUB>1</SUB>
+<tex2html_verbatim_mark>, <I>Nr</I><SUB>2</SUB>
+<tex2html_verbatim_mark>, <I>Nr</I><SUB>3</SUB> =
+<tex2html_verbatim_mark> dimensions of the FFT grid for charge density
+(<!-- MATH
+ $Nr_1 \cdot Nr_2 \cdot Nr_3 \sim 8N_g$
+ -->
+<I>Nr</I><SUB>1</SUB><SUP> . </SUP><I>Nr</I><SUB>2</SUB><SUP> . </SUP><I>Nr</I><SUB>3</SUB> <IMG
+ WIDTH="20" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img5.gif"
+ ALT="$ \sim$"> 8<I>N</I><SUB>g</SUB>
+<tex2html_verbatim_mark>, where <I>N</I><SUB>g</SUB> =
+<tex2html_verbatim_mark> number of
+G-vectors for the charge density), and <I>T</I><SUB>us</SUB> =
+<tex2html_verbatim_mark> CPU time required by
+ultrasoft contribution (if any).
+
+<P>
+The time <I>T</I><SUB>scf</SUB>
+<tex2html_verbatim_mark> for calculation of potential from charge density is
+<P><!-- MATH
+ \begin{displaymath}
+T_{scf} = d_2 \cdot Nr_1 \cdot Nr_2 \cdot Nr_3 + d_3 \cdot
+          Nr_1 \cdot Nr_2 \cdot Nr_3 \cdot
+          \log(Nr_1 \cdot Nr_2 \cdot Nr_3)
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER">
+<I>T</I><SUB>scf</SUB> = <I>d</I><SUB>2</SUB><SUP> . </SUP><I>Nr</I><SUB>1</SUB><SUP> . </SUP><I>Nr</I><SUB>2</SUB><SUP> . </SUP><I>Nr</I><SUB>3</SUB> + <I>d</I><SUB>3</SUB><SUP> . </SUP><I>Nr</I><SUB>1</SUB><SUP> . </SUP><I>Nr</I><SUB>2</SUB><SUP> . </SUP><I>Nr</I><SUB>3</SUB><SUP> . </SUP>log(<I>Nr</I><SUB>1</SUB><SUP> . </SUP><I>Nr</I><SUB>2</SUB><SUP> . </SUP><I>Nr</I><SUB>3</SUB>)
+</DIV><P>
+<tex2html_verbatim_mark></P>
+where <I>d</I><SUB>1</SUB>
+<tex2html_verbatim_mark>, <I>d</I><SUB>2</SUB>
+<tex2html_verbatim_mark> are prefactors.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html486"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.gif"></A> 
+<A NAME="tex2html482"
+  HREF="node19.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.gif"></A> 
+<A NAME="tex2html476"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.gif"></A> 
+<A NAME="tex2html484"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html487"
+  HREF="node21.html">7.2 Memory requirements</A>
+<B> Up:</B> <A NAME="tex2html483"
+  HREF="node19.html">7 Performance issues (PWscf)</A>
+<B> Previous:</B> <A NAME="tex2html477"
+  HREF="node19.html">7 Performance issues (PWscf)</A>
+   <B>  <A NAME="tex2html485"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Paolo Giannozzi
+2008-05-14
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,19 @@
+# The files necessary to set up and run EPW calculation
+
+## espresso-4.0.3
+   - source directory for EPW-compatible version of espresso with EPW-2.3.6 inside its ./EPW folder
+
+## makefiles
+   - makefiles for a different systems
+
+## executables
+   - executables for different systems
+
+## scripts
+   - directory containing the wrappers for a complete many-step EPW calculation
+
+## psp
+   - directory containing the EPW-compatible pseudopotentials in UPF1 format
+  
+## tar
+   - original files from http://www.quantum-espresso.org/previous-versions and http://epw.org.uk/Main/DownloadAndInstall

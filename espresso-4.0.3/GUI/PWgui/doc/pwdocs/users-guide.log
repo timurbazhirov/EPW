@@ -1,0 +1,369 @@
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2008.1.7)  14 MAY 2008 12:12
+entering extended mode
+**users-guide
+(./users-guide.tex
+LaTeX2e <2003/12/01>
+Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 2004/02/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size12.clo
+File: size12.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 80.
+
+(/usr/share/texmf/tex/latex/graphics/pdftex.def
+File: pdftex.def 2002/06/19 v0.03k graphics/color for pdftex
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+\epsfxsize=\dimen105
+\epsfysize=\dimen106
+)
+(/usr/share/texmf/tex/latex/html/html.sty
+(/usr/share/texmf/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2003/11/30 v6.74m Hypertext links for LaTeX
+\@linkdim=\dimen107
+\Hy@linkcounter=\count88
+\Hy@pagecounter=\count89
+
+(/usr/share/texmf/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2003/11/30 v6.74m Hyperref: PDFDocEncoding definition (HO)
+)
+(/usr/share/texmf/tex/latex/hyperref/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive and teTeX
+)
+Package hyperref Info: Hyper figures OFF on input line 1880.
+Package hyperref Info: Link nesting OFF on input line 1885.
+Package hyperref Info: Hyper index ON on input line 1888.
+Package hyperref Info: Plain pages ON on input line 1893.
+Package hyperref Info: Backreferencing OFF on input line 1900.
+
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 2004.
+(/usr/share/texmf/tex/latex/html/url.sty
+Package: url 1999/03/02  ver 1.4  Verb mode for urls, email addresses, and file
+ names
+)
+LaTeX Info: Redefining \url on input line 2143.
+\Fld@menulength=\count90
+\Field@Width=\dimen108
+\Fld@charsize=\dimen109
+\Choice@toks=\toks15
+\Field@toks=\toks16
+Package hyperref Info: Hyper figures OFF on input line 2618.
+Package hyperref Info: Link nesting OFF on input line 2623.
+Package hyperref Info: Hyper index ON on input line 2626.
+Package hyperref Info: backreferencing OFF on input line 2633.
+Package hyperref Info: Link coloring OFF on input line 2638.
+\c@Item=\count91
+\c@Hfootnote=\count92
+)
+*hyperref using default driver hpdftex*
+(/usr/share/texmf/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2003/11/30 v6.74m Hyperref driver for pdfTeX
+
+(/usr/share/texmf/tex/latex/psnfss/pifont.sty
+Package: pifont 2004/09/15 PSNFSS-v9.2 Pi font support (SPQR) 
+LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
+
+(/usr/share/texmf/tex/latex/psnfss/upzd.fd
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Try loading font information for U+psy on input line 64.
+
+(/usr/share/texmf/tex/latex/psnfss/upsy.fd
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+))
+\Fld@listcount=\count93
+\@outlinefile=\write3
+)
+Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
+
+\c@lpart=\count94
+\c@lchapter=\count95
+\c@chapter=\count96
+\c@lsection=\count97
+\c@lsubsection=\count98
+\c@lsubsubsection=\count99
+\c@lparagraph=\count100
+\c@lsubparagraph=\count101
+\c@lsubsubparagraph=\count102
+\ptrfile=\write4
+) (./users-guide.aux)
+\openout1 = `users-guide.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+
+(/usr/share/texmf/tex/context/base/supp-pdf.tex
+(/usr/share/texmf/tex/context/base/supp-mis.tex
+loading : Context Support Macros / Miscellaneous (2004.10.26)
+\protectiondepth=\count103
+\scratchcounter=\count104
+\scratchtoks=\toks17
+\scratchdimen=\dimen110
+\scratchskip=\skip43
+\scratchmuskip=\muskip10
+\scratchbox=\box26
+\scratchread=\read1
+\scratchwrite=\write5
+\zeropoint=\dimen111
+\onepoint=\dimen112
+\onebasepoint=\dimen113
+\minusone=\count105
+\thousandpoint=\dimen114
+\onerealpoint=\dimen115
+\emptytoks=\toks18
+\nextbox=\box27
+\nextdepth=\dimen116
+\everyline=\toks19
+\!!counta=\count106
+\!!countb=\count107
+\recursecounter=\count108
+)
+loading : Context Support Macros / PDF (2004.03.26)
+\nofMPsegments=\count109
+\nofMParguments=\count110
+\MPscratchCnt=\count111
+\MPscratchDim=\dimen117
+\MPnumerator=\count112
+\everyMPtoPDFconversion=\toks20
+)
+Package hyperref Info: Link coloring OFF on input line 10.
+ (/usr/share/texmf/tex/latex/hyperref/nameref.sty
+Package: nameref 2003/12/03 v2.21 Cross-referencing by name of section
+\c@section@level=\count113
+)
+LaTeX Info: Redefining \ref on input line 10.
+LaTeX Info: Redefining \pageref on input line 10.
+ (./users-guide.out)
+(./users-guide.out)
+\openout3 = `users-guide.out'.
+
+ <pwscf.png, id=135, 199.74625pt x 131.49126pt>
+File: pwscf.png Graphic file (type png)
+
+<use pwscf.png> <democritos.png, id=136, 496.85625pt x 103.38625pt>
+File: democritos.png Graphic file (type png)
+
+<use democritos.png>
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 25.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 25.
+ (./users-guide.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 2.
+ [1
+
+{/usr/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./pwscf.png> <./demo
+critos.png>])
+\tf@toc=\write6
+\openout6 = `users-guide.toc'.
+
+ [2]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 41.
+
+(/usr/share/texmf/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 41.
+ [3
+
+] [4] [5] [6] [7] [8] [9
+
+]
+[10] [11]
+Overfull \hbox (29.18303pt too wide) in paragraph at lines 545--547
+ \OT1/cmr/bx/n/12 BLAS and LA-PACK[] \OT1/cmr/m/n/12 Quantum-ESPRESSO can use t
+he fol-low-ing architecture-
+ []
+
+[12] [13] [14]
+Overfull \hbox (18.94106pt too wide) in paragraph at lines 707--710
+[]\OT1/cmr/m/n/12 NOTA BENE: If you mod-ify the pro-gram sources, run the scrip
+t \OT1/cmtt/m/n/12 makedeps.sh
+ []
+
+[15] [16] [17] [18]
+Overfull \hbox (17.48256pt too wide) in paragraph at lines 915--921
+\OT1/cmr/m/n/12 and Hanoi Uni-ver-sity). Com-pile with \OT1/cmtt/m/n/12 make vd
+w\OT1/cmr/m/n/12 , ex-e-cuta-bles in \OT1/cmtt/m/n/12 VdW/vdw.x\OT1/cmr/m/n/12 
+,
+ []
+
+[19] [20] [21]
+Overfull \hbox (6.73505pt too wide) in paragraph at lines 1134--1140
+[]\OT1/cmtt/m/n/12 http://www.democritos.it/pipermail/pw[]forum/2006-May/004200
+.html[]\OT1/cmr/m/n/12 . 
+ []
+
+[22]
+Overfull \hbox (10.46733pt too wide) in paragraph at lines 1165--1177
+[]\OT1/cmtt/m/n/12 http://www.theochem.rub.de/~axel.kohlmeyer/cpmd-linux.html[]
+\OT1/cmr/m/n/12 . In par-
+ []
+
+[23] [24] [25]
+Overfull \hbox (12.17422pt too wide) in paragraph at lines 1367--1368
+[]\OT1/cmtt/m/n/12 nm /path/to/your/libs/libf77blas.a | grep 'T xerbla' 
+ []
+
+[26]
+Overfull \hbox (13.49121pt too wide) in paragraph at lines 1418--1433
+\OT1/cmr/m/n/12 braries, ker-nels, sys-tem li-braries, com-pil-ers, is very lar
+ge. Quantum-ESPRESSO
+ []
+
+[27]
+Overfull \hbox (22.7816pt too wide) in paragraph at lines 1460--1466
+\OT1/cmr/m/n/12 change the or-der of di-rec-tory in your \OT1/cmtt/m/n/12 PATH 
+\OT1/cmr/m/n/12 vari-able in or-der to make \OT1/cmtt/m/n/12 /opt/ibm/...
+ []
+
+
+Overfull \hbox (14.32088pt too wide) in paragraph at lines 1483--1487
+[]\OT1/cmtt/m/n/12 sudo /opt/ibmcmp/xlf/8.1/bin/xlf[]configure -gcc /usr -insta
+ll
+ []
+
+
+Overfull \hbox (9.87488pt too wide) in paragraph at lines 1483--1487
+\OT1/cmtt/m/n/12 -smprt /opt/ibmcmp/xlsmp/1.4 -xlf /opt/ibmcmp/xlf/8.1 -xlfrt
+ []
+
+[28] [29] [30
+
+] [31] [32] [33
+
+] [34] [35
+
+] [36] [37] [38] [39] [40] [41] [42
+
+]
+[43] [44] [45] [46] [47] [48] [49] [50
+
+] [51] [52] [53]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 2711.
+
+ [54
+
+]
+Overfull \hbox (6.42361pt too wide) in paragraph at lines 2801--2808
+\OT1/cmr/m/n/12 Try to use conjugate-gradient di-ag-o-nal-iza-tion (\OT1/cmtt/m
+/n/12 diagonalization='cg'\OT1/cmr/m/n/12 ),
+ []
+
+[55] [56] [57] [58] [59] [60] [61] [62] [63] [64]
+Overfull \hbox (14.50177pt too wide) in paragraph at lines 3335--3340
+\OT1/cmr/m/it/12 and stops! \OT1/cmr/m/n/12 On some IBM AIX ma-chines, the com-
+mand \OT1/cmtt/m/n/12 /usr/bin/oslevel
+ []
+
+
+Overfull \hbox (5.24173pt too wide) in paragraph at lines 3353--3361
+[]\OT1/cmtt/m/n/12 configure \OT1/cmr/m/it/12 doesn't find my (par-al-lel/mathe
+matical) li-braries! \OT1/cmtt/m/n/12 configure
+ []
+
+[65] [66]
+Overfull \hbox (1.38745pt too wide) in paragraph at lines 3463--3481
+\OT1/cmr/m/n/12 and []\OT1/cmtt/m/n/12 http://dx.doi.org/10.1016/0010-4655(74)9
+0057-5[]\OT1/cmr/m/n/12 . These are
+ []
+
+[67] [68]
+Overfull \hbox (3.03523pt too wide) in paragraph at lines 3549--3553
+[]\OT1/cmr/m/n/12 and so on; $\OML/cmm/m/it/12 P[] \OT1/cmr/m/n/12 =$Legendre P
+oly-no-mi-als, $\OML/cmm/m/it/12 t \OT1/cmr/m/n/12 = [] \OML/cmm/m/it/12 ^^R \O
+T1/cmr/m/n/12 = \OML/cmm/m/it/12 z=r$\OT1/cmr/m/n/12 , $\OML/cmm/m/it/12 ^^^ \O
+T1/cmr/m/n/12 = [](\OML/cmm/m/it/12 y=x\OT1/cmr/m/n/12 )$.
+ []
+
+
+Overfull \hbox (135.70709pt too wide) in paragraph at lines 3560--3569
+\OT1/cmr/m/n/12 can Min-er-al-o-gist Crys-tal Struc-ture Database ([]\OT1/cmtt/
+m/n/12 http://rruff.geo.arizona.edu/AMS/amcsd.php[]\OT1/cmr/m/n/12 )
+ []
+
+[69] (./users-guide.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3120 strings out of 94500
+ 40781 string characters out of 1173670
+ 91588 words of memory out of 1000000
+ 6084 multiletter control sequences out of 10000+50000
+ 11906 words of font info for 43 fonts, out of 500000 for 2000
+ 585 hyphenation exceptions out of 1000
+ 34i,8n,36p,244b,408s stack positions out of 1500i,500n,5000p,200000b,5000s
+PDF statistics:
+ 644 PDF objects out of 300000
+ 190 named destinations out of 131072
+ 283 words of extra memory for PDF output out of 65536
+</usr/share/texmf/fonts/type1/bluesky/cm/cmitt10.pfb></usr/share/texmf/fonts/
+type1/bluesky/cm/cmr8.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsy8.pfb></
+usr/share/texmf/fonts/type1/bluesky/cm/cmmi8.pfb></usr/share/texmf/fonts/type1/
+bluesky/cm/cmtt10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmmi12.pfb></usr
+/share/texmf/fonts/type1/bluesky/cm/cmti12.pfb></usr/share/texmf/fonts/type1/bl
+uesky/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsy10.pfb></usr/s
+hare/texmf/fonts/type1/bluesky/cm/cmr12.pfb></usr/share/texmf/fonts/type1/blues
+ky/cm/cmbx12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr17.pfb>
+Output written on users-guide.pdf (69 pages, 361898 bytes).

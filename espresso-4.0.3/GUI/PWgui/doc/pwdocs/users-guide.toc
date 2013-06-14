@@ -1,0 +1,91 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Codes}{4}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}People}{5}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Contacts}{7}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Terms of use}{7}{subsection.1.4}
+\contentsline {section}{\numberline {2}Installation}{9}{section.2}
+\contentsline {subsection}{\numberline {2.1}Configure}{9}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Libraries}{12}{subsubsection.2.1.1}
+\contentsline {paragraph}{BLAS and LAPACK}{12}{section*.2}
+\contentsline {paragraph}{FFT}{12}{section*.3}
+\contentsline {paragraph}{Other libraries}{13}{section*.4}
+\contentsline {subsubsection}{\numberline {2.1.2}Manual configuration}{14}{subsubsection.2.1.2}
+\contentsline {paragraph}{Note for HP PA-RISC users:}{15}{section*.5}
+\contentsline {paragraph}{Note for MS-Windows users:}{15}{section*.6}
+\contentsline {subsection}{\numberline {2.2}Compile}{15}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Run examples}{19}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Installation Issues}{21}{subsection.2.4}
+\contentsline {paragraph}{All machines}{22}{section*.7}
+\contentsline {paragraph}{IBM AIX}{22}{section*.8}
+\contentsline {paragraph}{SGI machines with IRIX/MIPS compiler}{22}{section*.9}
+\contentsline {paragraph}{Linux Alphas with Compaq compiler}{23}{section*.10}
+\contentsline {paragraph}{Linux PC}{23}{section*.11}
+\contentsline {paragraph}{Linux PCs with g95 compiler}{23}{section*.12}
+\contentsline {paragraph}{Linux PCs with Portland Group compiler (pgf90)}{23}{section*.13}
+\contentsline {paragraph}{Linux PCs with Pathscale compiler}{23}{section*.14}
+\contentsline {paragraph}{Linux PCs (Pentium) with Intel compiler (ifort, formerly ifc)}{24}{section*.15}
+\contentsline {paragraph}{ifort v.9}{24}{section*.16}
+\contentsline {paragraph}{ifort v.8}{24}{section*.17}
+\contentsline {paragraph}{ifc v.7}{25}{section*.18}
+\contentsline {paragraph}{MKL}{25}{section*.19}
+\contentsline {paragraph}{Fun with precompiled libraries}{25}{section*.20}
+\contentsline {paragraph}{AMD CPUs, Intel Itanium}{27}{section*.21}
+\contentsline {paragraph}{Linux PC clusters with MPI}{27}{section*.22}
+\contentsline {paragraph}{Mac OS X}{28}{section*.23}
+\contentsline {paragraph}{T3E}{29}{section*.24}
+\contentsline {section}{\numberline {3}Running on parallel machines}{30}{section.3}
+\contentsline {section}{\numberline {4}Pseudopotentials}{33}{section.4}
+\contentsline {section}{\numberline {5}Using PWscf}{35}{section.5}
+\contentsline {subsection}{\numberline {5.1}Electronic and ionic structure calculations}{35}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Input data}{35}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}Typical cases}{36}{subsubsection.5.1.2}
+\contentsline {subsection}{\numberline {5.2}Phonon calculations}{38}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Calculation of interatomic force constants in real space}{39}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}Calculation of electron-phonon interaction coefficients}{39}{subsubsection.5.2.2}
+\contentsline {subsection}{\numberline {5.3}Post-processing}{39}{subsection.5.3}
+\contentsline {section}{\numberline {6}Using CP}{42}{section.6}
+\contentsline {section}{\numberline {7}Performance issues (PWscf)}{50}{section.7}
+\contentsline {subsection}{\numberline {7.1}CPU time requirements}{50}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Memory requirements}{51}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}File space requirements}{51}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}Parallelization issues}{52}{subsection.7.4}
+\contentsline {section}{\numberline {8}Troubleshooting (PWscf)}{54}{section.8}
+\contentsline {paragraph}{\texttt {pw.x} yields a message like ``error while loading shared libraries: \dots {} cannot open shared object file'' and does not start.}{54}{section*.25}
+\contentsline {paragraph}{errors in examples with parallel execution}{54}{section*.26}
+\contentsline {paragraph}{\texttt {pw.x} prints the first few lines and then nothing happens (parallel execution).}{54}{section*.27}
+\contentsline {paragraph}{\texttt {pw.x} stops with error in reading.}{54}{section*.28}
+\contentsline {paragraph}{\texttt {pw.x} mumbles something like ``cannot recover'' or ``error reading recover file''.}{55}{section*.29}
+\contentsline {paragraph}{\texttt {pw.x} stops with ``inconsistent DFT'' error.}{55}{section*.30}
+\contentsline {paragraph}{\texttt {pw.x} stops with error in cdiaghg or rdiaghg.}{55}{section*.31}
+\contentsline {paragraph}{\texttt {pw.x} crashes with ``floating invalid'' or ``floating divide by zero''.}{56}{section*.32}
+\contentsline {paragraph}{\texttt {pw.x} crashes with no error message at all.}{56}{section*.33}
+\contentsline {paragraph}{\texttt {pw.x} crashes with ``segmentation fault'' or similarly obscure messages.}{56}{section*.34}
+\contentsline {paragraph}{\texttt {pw.x} works for simple systems, but not for large systems or whenever more RAM is needed.}{56}{section*.35}
+\contentsline {paragraph}{\texttt {pw.x} crashes in parallel execution with an obscure message related to MPI errors.}{57}{section*.36}
+\contentsline {paragraph}{\texttt {pw.x} runs but nothing happens.}{57}{section*.37}
+\contentsline {paragraph}{\texttt {pw.x} yields weird results.}{58}{section*.38}
+\contentsline {paragraph}{\texttt {pw.x} stops with error message ``the system is metallic, specify occupations''.}{58}{section*.39}
+\contentsline {paragraph}{\texttt {pw.x} stops with ``internal error: cannot braket Ef'' in \texttt {efermig}.}{58}{section*.40}
+\contentsline {paragraph}{\texttt {pw.x} yields ``internal error: cannot braket Ef'' message in \texttt {efermit}, then stops because ``charge is incorrect''.}{58}{section*.41}
+\contentsline {paragraph}{\texttt {pw.x} yields ``internal error: cannot braket Ef'' message in \texttt {efermit} but doesn't stop.}{58}{section*.42}
+\contentsline {paragraph}{in parallel execution, \texttt {pw.x} stops complaining that ``some processors have no planes'' or ``smooth planes'' or some other strange error.}{59}{section*.43}
+\contentsline {paragraph}{the FFT grids in \texttt {pw.x} are machine-dependent.}{59}{section*.44}
+\contentsline {paragraph}{``warning: symmetry operation \# N not allowed''.}{59}{section*.45}
+\contentsline {paragraph}{\texttt {pw.x} doesn't find all the symmetries you expected.}{60}{section*.46}
+\contentsline {paragraph}{I don't get the same results in different machines!}{61}{section*.47}
+\contentsline {paragraph}{the CPU time is time-dependent!}{61}{section*.48}
+\contentsline {paragraph}{``warning : N eigenvectors not converged ...''}{61}{section*.49}
+\contentsline {paragraph}{``warning : negative or imaginary charge...'', or ``...core charge ...'', or ``npt with rhoup$<$0...'' or ''rhodw$<$0...'' }{61}{section*.50}
+\contentsline {paragraph}{self-consistency is slow or does not converge.}{62}{section*.51}
+\contentsline {paragraph}{structural optimization is slow or does not converge.}{62}{section*.52}
+\contentsline {paragraph}{\texttt {pw.x} stops during variable-cell optimization in \texttt {checkallsym} with ``non orthogonal operation'' error.}{63}{section*.53}
+\contentsline {paragraph}{Why are codes in PP/ complaining that they do not find some files?}{63}{section*.54}
+\contentsline {paragraph}{\texttt {ph.x} stops with ``error reading file''.}{63}{section*.55}
+\contentsline {paragraph}{\texttt {ph.x} mumbles something like ``cannot recover'' or ``error reading recover file''.}{63}{section*.56}
+\contentsline {paragraph}{\texttt {ph.x} says ``occupation numbers probably wrong'' and continues; or ``phonon + tetrahedra not implemented'' and stops}{63}{section*.57}
+\contentsline {paragraph}{\texttt {ph.x} does not yield acoustic modes with $\omega =0$ at $\@mathbf {q}=0$.}{64}{section*.58}
+\contentsline {paragraph}{\texttt {ph.x} yields really lousy phonons, with bad or negative frequencies or wrong symmetries or gross ASR violations.}{64}{section*.59}
+\contentsline {paragraph}{``Wrong degeneracy'' error in star\_q.}{64}{section*.60}
+\contentsline {section}{\numberline {9}Frequently Asked Questions}{65}{section.9}
+\contentsline {subsection}{\numberline {9.1}Compilation/Installation}{65}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}In general}{66}{subsection.9.2}
