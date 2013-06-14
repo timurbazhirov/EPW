@@ -1,0 +1,9 @@
+Copied from sinisa home here : ~/compile/epw/ver_2.3.6/a
+
+Modules loaded at the time of compilation
+
+  1) moab/7.1.0              6) scipy/0.10.0           11) netcdf/4.2-intel-s
+  2) intel/2011.11.339       7) mpi4py/1.3             12) scalapack/2.0.2-intel
+  3) openmpi/1.6-intel       8) matplotlib/1.1.0       13) fftw/3.3.2-intel
+  4) python/2.6.6            9) mkl/2011.11.339
+  5) numpy/1.6.1            10) hdf5/1.8.9-intel-s

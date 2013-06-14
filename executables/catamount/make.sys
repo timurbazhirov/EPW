@@ -1,10 +1,5 @@
-######################################################
-## Makefile for expresso-4.0.3
-## Author: Timur Bazhirov
-## Tested: catamount, June 2013
-######################################################
-#
 # make.sys.  Generated from make.sys.in by configure.
+
 # compilation rules
 
 .SUFFIXES :
@@ -36,7 +31,7 @@
 # With the exception of IBM xlf, FDFLAGS = $(DFLAGS)
 # For IBM xlf, FDFLAGS is the same as DFLAGS with separating commas 
 
-DFLAGS         =  -D__INTEL -D__FFTW -D__USE_INTERNAL_FFTW -D__MPI -D__PARA -D_SCALAPACK
+DFLAGS         =  -D__INTEL -D__FFTW -D__USE_INTERNAL_FFTW -D__MPI -D__PARA -D__SCALAPACK $(MANUAL_DFLAGS)
 FDFLAGS        = $(DFLAGS)
 
 # IFLAGS = how to locate directories where files to be included are
@@ -84,13 +79,13 @@ FFLAGS         = -O2 -assume byterecl
 # compiler flags without optimization for fortran-77
 # the latter is NEEDED to properly compile dlamch.f, used by lapack
 
-FFLAGS_NOOPT   = -O0 -assume byterecl
+FFLAGS_NOOPT   = -O0 -assume byterecl -g -traceback
 
 # Linker, linker-specific flags (if any)
 # Typically LD coincides with F90 or MPIF90, LD_LIBS is empty
 
 LD             = mpif90
-LDFLAGS        = 
+LDFLAGS        = -static-intel
 LD_LIBS        =
 
 # External Libraries (if any) : blas, lapack, fft, MPI
@@ -98,6 +93,7 @@ LD_LIBS        =
 # If you have nothing better, use the local copy : ../flib/blas.a
 
 BLAS_LIBS      = -lmkl_intel_lp64  -lmkl_sequential -lmkl_core
+BLAS_LIBS_SWITCH = external
 
 # The following lapack libraries will be available in flib/ :
 # ../flib/lapack.a : contains all needed routines
@@ -105,7 +101,8 @@ BLAS_LIBS      = -lmkl_intel_lp64  -lmkl_sequential -lmkl_core
 # For IBM machines with essl (-D__ESSL): load essl BEFORE lapack !
 # remember that LAPACK_LIBS precedes BLAS_LIBS in loading order
 
-LAPACK_LIBS    = ../flib/lapack.a
+LAPACK_LIBS    = 
+LAPACK_LIBS_SWITCH = external
 
 # nothing needed here if the the internal copy of FFTW is compiled
 # (needs -D__FFTW -D__USE_INTERNAL_FFTW in DFLAGS)
@@ -143,3 +140,4 @@ RANLIB         = ranlib
 
 LIBOBJS        = ../flib/ptools.a ../flib/flib.a ../clib/clib.a ../iotk/src/libiotk.a
 LIBS           = $(LAPACK_LIBS) $(BLAS_LIBS) $(FFT_LIBS) $(MPI_LIBS) $(MASS_LIBS) $(PGPLOT_LIBS) $(LD_LIBS)
+
