@@ -1,8 +1,8 @@
 # Parameters for the EPW run
 
 # common parameters
-ECUT=80.0 # energy cut in Ry
-KMESH=[6,6,6] # automatic grid with no shift used for scf, nscf, and phonons
+ECUT=60.0 # energy cut in Ry
+KMESH=[4,4,4] # automatic grid with no shift used for scf, nscf, and phonons
 
 # stuff to be computed in the second EPW run
 # and fine mesh to be used
@@ -13,16 +13,18 @@ EPW_SECOND_RUN=\
   a2f         = .false.
   elecselfen  = .false.
 
-  nqf1 = 12
-  nqf2 = 12
-  nqf3 = 12
+  nqf1 = 6
+  nqf2 = 6
+  nqf3 = 6
   nkf1 = 36
   nkf2 = 36
   nkf3 = 36
 
-  fsthick     = 0.05
+  fsthick     = 0.200
   eptemp      = 300.0
-  degaussw    = 0.045
+  degaussw    = 0.010
+  delta_smear = 0.005
+  nsmear      = 4
 """
 
 # dft parameters for the QE runs: SCF, NSCF, PH

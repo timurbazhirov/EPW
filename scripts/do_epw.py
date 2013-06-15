@@ -11,6 +11,7 @@ import loc # parameters for the calculation
 import xml.dom.minidom # reading xml
 import numpy as np # for numerics
 import datetime # needed for timestamps
+import time #
 
 # get executables from the submission script
 PH_SCF_EXEC  =sub.Popen("echo $PH_SCF_EXEC  ", shell=True,stdout=sub.PIPE).communicate()[0].strip()
@@ -22,6 +23,7 @@ EPW_EPW_EXEC =sub.Popen("echo $EPW_EPW_EXEC  ", shell=True,stdout=sub.PIPE).comm
 def main():
     legend()
     exec_info()
+    save_scripts()
     
     # parse arguments
     #
@@ -73,6 +75,12 @@ def main():
     else:
         help()
         sys.exit(1)
+
+def save_scripts():
+    os.popen("mkdir -p run/_scr")
+    os.popen("cp submit run/_scr/"+tstamp)
+    os.popen("cp loc.py run/_scr"+tstamp)
+    os.popen("cp do_epw.py run/_scr/"+tstamp)
         
 def do_scf():
     # make input file for the SCF run
@@ -210,7 +218,7 @@ def run_one_phonon(ph_index,numq,phonon_qpts):
         # dvscf file names are inconsistently named in quantum espresso
         # it seems to depend on the number of cpus used or number of pools?
         for ext in ["1","01","001","0001"]:
-            fnm_tmp="mv run/02/,q"+subf+"/_work/pref.dvscf"+ext
+            fnm_tmp="run/02/,q"+subf+"/_work/pref.dvscf"+ext
             if os.path.exists(fnm_tmp)==True:
                 os.popen("mv "+fnm_tmp+" run/02/save/pref.dvscf_q"+subf)
         # clean up wavefunctions and stuff
@@ -410,15 +418,15 @@ def do_epw_second():
 
     # store output and input files from each EPW run
     # into unique folder based on current time
-    tstamp=datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d_%H:%M:%S')
+    ts=time.time()
+    tstamp=datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d__%H_%M_%S')
     os.popen("mkdir -p out_epw_2/"+tstamp)
     os.popen("cp run/05/epw.in  out_epw_2/"+tstamp)
     os.popen("cp run/05/epw.out out_epw_2/"+tstamp)
     # also store script files
-    os.popen("cp submit out_epw_2/"+tstamp)
-    os.popen("cp loc.py out_epw_2/"+tstamp)
-    os.popen("cp do_epw.py out_epw_2/"+tstamp)
-    
+    os.popen("cp run/_scr/submit out_epw_2/"+tstamp)
+    os.popen("cp run/_scr/loc.py out_epw_2/"+tstamp)
+    os.popen("cp run/_scr/do_epw.py out_epw_2/"+tstamp)
     
 def get_kpoints_weights(fname):
     """Returns k-points in 2pi/alat units, but makes sure

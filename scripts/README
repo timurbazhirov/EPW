@@ -1,0 +1,6 @@
+Wrapper scripts for EPW calculation:
+
+	Same for all machines
+	     do_epw.py
+	
+	Machine-dependent scripts inside subfolders
