@@ -6,8 +6,11 @@ import glob
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+FOLD="_figs/plot_grid"
 
 def main():
+    os.popen("mkdir -p "+FOLD)
     if len(sys.argv)==1:
         use_folds=glob.glob("*/*/out_epw_2/*")
     else:
@@ -42,6 +45,15 @@ def main():
         # read in lambda information on a regular mesh
         data_reshape=get_lambda(fold+"/epw.out",reshape=True)
 
+        # plot phonon DOS
+        fig=plt.figure()
+        ax=fig.add_subplot(111)
+        plt.hist(data_reshape["omega"][:,:,:,:,0].ravel(),50)
+        fig.savefig(FOLD+"/phdos__"+fold.replace("/","__")+".pdf")
+        
+        # find maximal lambda over all smearing
+        max_lmbd_all_smear=np.max(data_reshape["lambda"][:,:,:,:,:])
+
         # plot histograms of lambda
         for ism in range(data_reshape["num_smears"]):
             # get data_reshape first 
@@ -50,21 +62,15 @@ def main():
             # sum over branches
             aver_lmbd=lmbd.sum(axis=3)
             
-            # plot all contributions to lambda ina histogram
+            # plot all contributions to lambda in a histogram
             fig=plt.figure()
             ax=fig.add_subplot(111)
-            plt.hist(aver_lmbd.ravel(),50)
-            fig.savefig("_figs/hist_lambda__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+".pdf")
-
-            # plot phonon DOS
-            fig=plt.figure()
-            ax=fig.add_subplot(111)
-            plt.hist(omega.ravel(),50)
-            fig.savefig("_figs/phdos__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+".pdf")
-          
+            plt.hist(aver_lmbd.ravel(),50,range=[0.0,max_lmbd_all_smear*1.05])
+            fig.savefig(FOLD+"/hist_lambda__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+".pdf")
+         
             # plot slices on the third direction of lambda
             #
-            # first find range of data_reshape
+            # first find range of lambda for this choice of smearing
             max_val=np.max(lmbd.sum(axis=3))
             if np.min(lmbd.sum(axis=3))<-1.0E-3:
                 print "Negative lambda?"
@@ -74,9 +80,10 @@ def main():
                 # plot stuff
                 fig=plt.figure()
                 ax=fig.add_subplot(111)
-                plt.imshow(lmbd.sum(axis=3)[:,:,ind_z],interpolation='nearest',
-                           vmin=0.0,vmax=max_val*1.01)
-                fig.savefig("_figs/slice_z__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+"__slice_"+"%03d" % ind_z+".pdf")
+                ax.imshow(lmbd.sum(axis=3)[:,:,ind_z],interpolation='none',
+                          vmin=0.0,vmax=max_val*1.01, origin='lower',
+                          cmap=plt.cm.gray, extent=(0,1,0,1))
+                fig.savefig(FOLD+"/slice_z__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+"__slice_"+"%03d" % ind_z+".pdf")
 
 if __name__=="__main__":
     main()

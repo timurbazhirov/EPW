@@ -6,8 +6,12 @@ import glob
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+FOLD="_figs/plot_path"
 
 def main():
+    os.popen("mkdir -p "+FOLD)
+    #
     if len(sys.argv)==1:
         use_folds=glob.glob("*/*/out_epw_2/*")
     else:
@@ -53,35 +57,42 @@ def main():
                 lmbd=data["val_lambda"][:,:,ism]
 
             if data.has_key("val_omega") and data.has_key("val_lambda"):
+                nkpt=omega.shape[0]
+                
                 # plot freq, and lambda as size of the point
                 fig=plt.figure()
                 ax=fig.add_subplot(111)
                 fig.subplots_adjust(0.15,0.15,0.8,0.9)
                 for i in range(omega.shape[1]):
+                    ax.plot(np.arange(omega.shape[0]),
+                            omega[:,i],"k-",lw=0.75,zorder=5)
+#                    ax.scatter(np.arange(omega.shape[0]),
+#                               omega[:,i],c="k",s=0.2,lw=0.0,zorder=5)
                     ax.scatter(np.arange(omega.shape[0]),
-                               omega[:,i],c="k",s=0.2,lw=0.0,zorder=5)
-                    ax.scatter(np.arange(omega.shape[0]),
-                               omega[:,i],c="g",s=10.0*lmbd[:,i],lw=0.0,alpha=0.5,zorder=10)
-                ax.set_title("   ismear: "+str(ism+1))
-                ax.set_xlabel("k-points")
-                ax.set_ylabel("omega (meV)")
+                               omega[:,i],c="g",s=10.0*lmbd[:,i],lw=0.0,alpha=0.85,zorder=10)
+#                ax.set_title("   ismear: "+str(ism+1))
+                ax.set_xlabel("q path")
+                ax.set_ylabel("Phonon frequency (meV)")
+                ax.set_xlim(0.0,nkpt)
+                ax.set_xticks([])
                 ax.text(1.05, 1.00, txt_info,
                         verticalalignment='top', horizontalalignment='left',
                         transform=ax.transAxes, fontsize=3)
-                fig.savefig("_figs/omla__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+".pdf")
+                fig.savefig(FOLD+"/omla__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+".pdf")
                 
                 # plot lambda
                 fig=plt.figure()
                 ax=fig.add_subplot(111)
                 fig.subplots_adjust(0.15,0.15,0.8,0.9)
                 ax.plot(np.arange(lmbd.shape[0]),lmbd[:,:].sum(axis=1),"go-",ms=3.0)
-                ax.set_title("   ismear: "+str(ism+1))
-                ax.set_xlabel("k-points")
-                ax.set_ylabel("lambda")
+#                ax.set_title("   ismear: "+str(ism+1))
+                ax.set_xlabel("q path")
+                ax.set_ylabel("$\lambda$")
+                ax.set_xticks([])
                 ax.text(1.05, 1.00, txt_info,
                         verticalalignment='top', horizontalalignment='left',
                         transform=ax.transAxes, fontsize=3)
-                fig.savefig("_figs/lambda__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+".pdf")
+                fig.savefig(FOLD+"/lambda__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+".pdf")
 
             if data.has_key("val_nesting"):
                 # plot nesting
@@ -89,13 +100,14 @@ def main():
                 ax=fig.add_subplot(111)
                 fig.subplots_adjust(0.15,0.15,0.8,0.9)
                 ax.plot(np.arange(nesting.shape[0]),nesting[:],"ro-",ms=3.0)
-                ax.set_title("   ismear: "+str(ism+1))
-                ax.set_xlabel("k-points")
+#                ax.set_title("   ismear: "+str(ism+1))
+                ax.set_xlabel("q path")
                 ax.set_ylabel("nesting")
+                ax.set_xticks([])
                 ax.text(1.05, 1.00, txt_info,
                         verticalalignment='top', horizontalalignment='left',
                         transform=ax.transAxes, fontsize=3)
-                fig.savefig("_figs/nesting__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+".pdf")
+                fig.savefig(FOLD+"/nesting__"+fold.replace("/","__")+"__smear_"+"%02d" % (ism+1)+".pdf")
 
 if __name__=="__main__":
     main()
