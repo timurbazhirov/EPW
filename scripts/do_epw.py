@@ -12,6 +12,7 @@ import xml.dom.minidom # reading xml
 import numpy as np # for numerics
 import datetime # needed for timestamps
 import time #
+import imp # to load files from a path
 
 # get executables from the submission script
 PH_SCF_EXEC  =sub.Popen("echo $PH_SCF_EXEC  ", shell=True,stdout=sub.PIPE).communicate()[0].strip()
@@ -78,9 +79,9 @@ def main():
 
 def save_scripts():
     os.popen("mkdir -p run/_scr")
-    os.popen("cp submit run/_scr/"+tstamp)
-    os.popen("cp loc.py run/_scr"+tstamp)
-    os.popen("cp do_epw.py run/_scr/"+tstamp)
+    os.popen("cp submit run/_scr")
+    os.popen("cp loc.py run/_scr")
+    os.popen("cp do_epw.py run/_scr")
         
 def do_scf():
     # make input file for the SCF run
@@ -111,22 +112,78 @@ def do_scf():
     # create scratch folder
     os.popen("mkdir run/01/_work")
     # run QE
-    os.popen("cd run/01 ; "+PH_SCF_EXEC+" -in scf.in &> scf.out")
+    proc=sub.Popen("cd run/01 ; "+PH_SCF_EXEC+" -in scf.in &> scf.out",shell=True)
+    proc.wait()
+    # check if done smoothly
+    if proc.returncode!=0 or os.path.exists("run/01/CRASH")==True:
+        os.popen("mv run/01 run/01__FAILED")
+        sys.exit(1)
     # clean up wavefunctions and stuff
     os.popen("cd run/01 ; rm _work/*")
 
-    # find q-vectors used in the scf run, and to be used in phonon run
-    (numq,phonon_qpts,phonon_weights)=get_kpoints_weights("run/01/_work/pref.save/data-file.xml")
+    # find irreducible mesh of q-points for phonon calculation
+    # unless phonon list is overriden
+    try:
+        override=loc.PHONON_OVERRIDE
+    except:
+        override=False
+    if override==False and os.path.exists("run/01/phonon_mesh")==False:
+        compute_phonon_mesh()
+
+    # write down list of phonons that will be used in the calculation
+    (numq,phonon_qpts,phonon_weights)=get_phonon_vectors()
     f=open("_phonon_list","w")
     f.write(np.array_str(phonon_qpts,precision=15)+"\n")
     f.close()
     
+def compute_phonon_mesh():
+    "Do one quick QE run to find irreducible q-mesh"
+    os.popen("mkdir run/01/phonon_mesh")
+    f=open("run/01/phonon_mesh/scf.in","w")
+    f.write("&control\n")
+    f.write("calculation='scf'\n")
+    f.write("prefix='pref'\n")
+    f.write("outdir='_work'\n")
+    f.write("wf_collect=true\n")
+    f.write(loc.BLOCKS["control"].strip()+"\n")
+    f.write("/\n")
+    f.write("&system\n")
+    f.write(loc.BLOCKS["system"].strip()+"\n")
+    f.write("noinv=true\n")
+    f.write("/\n")
+    f.write("&electrons\n")
+    f.write(loc.BLOCKS["electrons"].strip()+"\n")
+    f.write("electron_maxstep=2\n")
+    f.write("/\n")
+    f.write("ATOMIC_SPECIES\n")
+    f.write(loc.BLOCKS["ATOMIC_SPECIES"].strip()+"\n")
+    f.write("ATOMIC_POSITIONS crystal\n")
+    f.write(loc.BLOCKS["atomic_positions_crystal"].strip()+"\n")
+    f.write("K_POINTS automatic\n")
+    f.write(str(loc.QMESH[0])+" "+str(loc.QMESH[1])+" "+str(loc.QMESH[2])+"  0 0 0 \n")
+    f.write("CELL_PARAMETERS alat\n")
+    f.write(loc.BLOCKS["cell_parameters_alat"].strip()+"\n")
+    f.close()
+
+    # create scratch folder
+    os.popen("mkdir run/01/phonon_mesh/_work")
+    # run SCF
+    proc=sub.Popen("cd run/01/phonon_mesh ; "+PH_SCF_EXEC+" -in scf.in &> scf.out",shell=True)
+    proc.wait()
+    # check if done smoothly
+#    if proc.returncode!=0 or os.path.exists("run/01/phonon_mesh/CRASH")==True:
+#        os.popen("mv run/01/phonon_mesh run/01/phonon_mesh__FAILED")
+#        sys.exit(1)
+    # clean up wavefunctions and stuff
+    os.popen("cd run/01/phonon_mesh ; rm _work/*")
+    
+
 def do_phonons(only_one_phonon=False,one_phonon_argv=None):
     # create folders in which all dvscf and dyn files will be stored
     if os.path.exists("run/02/save")==False:
         os.popen("mkdir run/02/save")
     # get phonon qpoints and weights 
-    (numq,phonon_qpts,phonon_weights)=get_kpoints_weights("run/01/_work/pref.save/data-file.xml")
+    (numq,phonon_qpts,phonon_weights)=get_phonon_vectors()
     # run all qpoints one after the other
     if only_one_phonon==False:
         for ph_index in range(numq):
@@ -138,8 +195,8 @@ def do_phonons(only_one_phonon=False,one_phonon_argv=None):
         if ph_index<1 or ph_index>numq:
             print "Phonon index out of range! ",one_phonon_argv
             sys.exit(1)
-        run_one_phonon(ph_index-1,numq,phonon_qpts)
-        
+        run_one_phonon(ph_index-1,numq,phonon_qpts)        
+
 def run_one_phonon(ph_index,numq,phonon_qpts):
     "Do one phonon calculation"
     # number of digits used for qpoint integer
@@ -201,26 +258,26 @@ def run_one_phonon(ph_index,numq,phonon_qpts):
         # run NSCF
         proc_a=sub.Popen("cd run/02/,q"+subf+" ; "+PH_NSCF_EXEC+" -in nscf.in &> nscf.out",shell=True)
         proc_a.wait()
-        if proc_a.returncode!=0:
+        if proc_a.returncode!=0 or os.path.exists("run/02/,q"+subf+"/CRASH")==True:
             print "Failed nscf run for phonon folder: ",subf
             os.popen("mv run/02/,q"+subf+" run/02/,q"+subf+"__FAILED_NSCF")
             sys.exit(1)
         # run PH
         proc_b=sub.Popen("cd run/02/,q"+subf+" ; "+PH_PH_EXEC+" -in ph.in &> ph.out",shell=True)
         proc_b.wait()
-        if proc_b.returncode!=0:
+        if proc_b.returncode!=0 or os.path.exists("run/02/,q"+subf+"/CRASH")==True:
             print "Failed ph run for phonon folder: ",subf
             os.popen("mv run/02/,q"+subf+" run/02/,q"+subf+"__FAILED_PH")
             sys.exit(1)
             
         # move dyn and dvscf files to another folder
-        os.popen("mv run/02/,q"+subf+"/pref.dyn run/02/save/pref.dyn_q"+subf)
+        os.popen("cp run/02/,q"+subf+"/pref.dyn run/02/save/pref.dyn_q"+subf)
         # dvscf file names are inconsistently named in quantum espresso
         # it seems to depend on the number of cpus used or number of pools?
         for ext in ["1","01","001","0001"]:
             fnm_tmp="run/02/,q"+subf+"/_work/pref.dvscf"+ext
             if os.path.exists(fnm_tmp)==True:
-                os.popen("mv "+fnm_tmp+" run/02/save/pref.dvscf_q"+subf)
+                os.popen("cp "+fnm_tmp+" run/02/save/pref.dvscf_q"+subf)
         # clean up wavefunctions and stuff
         #os.popen("cd run/02/,q"+subf+" ; "+"rm _work/*")
 
@@ -237,12 +294,15 @@ def do_nscf_for_epw():
         # run only to get kmesh
         if s==0:
             os.popen("mkdir run/03/get_mesh")
-            f=open("run/03/get_mesh/nscf.in","w")
+            f=open("run/03/get_mesh/scf.in","w")
         # real nscf run
         elif s==1:
             f=open("run/03/nscf.in","w")
         f.write("&control\n")
-        f.write("calculation='nscf'\n")
+        if s==0:
+            f.write("calculation='scf'\n")
+        if s==1:
+            f.write("calculation='nscf'\n")
         f.write("prefix='pref'\n")
         f.write("outdir='_work'\n")
         f.write("wf_collect=true\n")
@@ -282,10 +342,9 @@ def do_nscf_for_epw():
         if s==0:
             # create scratch folder
             os.popen("mkdir run/03/get_mesh/_work")
-            # copy density from the scf run
-            os.popen("cp -rf run/01/_work/* run/03/get_mesh/_work/")
-            # run NSCF
-            os.popen("cd run/03/get_mesh ; "+EPW_NSCF_EXEC+" -in nscf.in &> nscf.out")
+            # run SCF to get mesh
+            proc=sub.Popen("cd run/03/get_mesh ; "+EPW_NSCF_EXEC+" -in scf.in &> scf.out",shell=True)
+            proc.wait()
             # clean up wavefunctions and stuff
             os.popen("cd run/03/get_mesh ; "+"rm _work/*")
             # get kpoints and put them in the home cell
@@ -296,12 +355,17 @@ def do_nscf_for_epw():
             # copy density from the scf run
             os.popen("cp -rf run/01/_work/* run/03/_work/")
             # run NSCF
-            os.popen("cd run/03 ; "+EPW_NSCF_EXEC+" -in nscf.in &> nscf.out")
+            proc=sub.Popen("cd run/03 ; "+EPW_NSCF_EXEC+" -in nscf.in &> nscf.out",shell=True)
+            proc.wait()
+            # check if done smoothly
+            if proc.returncode!=0 or os.path.exists("run/03/CRASH")==True:
+                os.popen("mv run/03 run/03__FAILED")
+                sys.exit(1)
 
 def do_epw_first():
     "Do EPW calculation but without explicit lambda, a2f or whatever calculation"
     # find q-vectors used in the scf run, and to be used in phonon run
-    (numq,phonon_qpts,phonon_weights)=get_kpoints_weights("run/01/_work/pref.save/data-file.xml")
+    (numq,phonon_qpts,phonon_weights)=get_phonon_vectors()
     # make input file for the first EPW run
     f=open("run/04/epw.in","w")
     f.write("--\n")
@@ -320,6 +384,15 @@ def do_epw_first():
   epf_mem     = .true.
   etf_mem     = .true.
   wannierize  = .true.
+  wdata(1)    = 'bands_plot = true'
+  wdata(2)    = 'begin kpoint_path'
+  wdata(3)    = 'A 0.0 0.0 0.0   B 0.5 0.0 0.0'
+  wdata(4)    = 'B 0.5 0.0 0.0   C 0.5 0.5 0.0'
+  wdata(5)    = 'C 0.5 0.5 0.0   D 0.0 0.0 0.0'
+  wdata(6)    = 'D 0.0 0.0 0.0   E 0.0 0.0 0.5'
+  wdata(7)    = 'E 0.0 0.0 0.5   F 0.5 0.5 0.5'
+  wdata(8)    = 'F 0.5 0.5 0.5   G 0.5 0.0 0.5'
+  wdata(9)   = 'end kpoint_path'
   elinterp    = .true.
   phinterp    = .true.
   tshuffle2   = .true.
@@ -331,9 +404,9 @@ def do_epw_first():
   nk1         = """+str(loc.KMESH[0])+"""
   nk2         = """+str(loc.KMESH[1])+"""
   nk3         = """+str(loc.KMESH[2])+"""
-  nq1         = """+str(loc.KMESH[0])+"""
-  nq2         = """+str(loc.KMESH[1])+"""
-  nq3         = """+str(loc.KMESH[2])+"""
+  nq1         = """+str(loc.QMESH[0])+"""
+  nq2         = """+str(loc.QMESH[1])+"""
+  nq3         = """+str(loc.QMESH[2])+"""
   nqf1 = 1
   nqf2 = 1
   nqf3 = 1
@@ -353,7 +426,13 @@ def do_epw_first():
     if os.path.exists("run/04/_work")==False:
         os.popen("cd run/04 ; ln -s ../03/_work .")
     # run EPW
-    os.popen("cd run/04; "+EPW_EPW_EXEC+" -in epw.in &> epw.out")
+    proc=sub.Popen("cd run/04; "+EPW_EPW_EXEC+" -in epw.in &> epw.out",shell=True)
+    proc.wait()
+    # check if done smoothly
+    if proc.returncode!=0 or os.path.exists("run/04/CRASH")==True:
+        os.popen("mv run/04 run/04__FAILED")
+        sys.exit(1)
+
     # clean up some large files used in EPW
     os.popen("cd run/04 ; rm _work/pref.epmatwe*")
     os.popen("cd run/04 ; rm _work/pref.epmatwp*")
@@ -361,7 +440,14 @@ def do_epw_first():
 def do_epw_second():
     "Do EPW calculation but only for lambda, a2f or whatever calculation"
     # find q-vectors used in the scf run, and to be used in phonon run
-    (numq,phonon_qpts,phonon_weights)=get_kpoints_weights("run/01/_work/pref.save/data-file.xml")
+    (numq,phonon_qpts,phonon_weights)=get_phonon_vectors()
+    # create fine mesh file for the calculation if needed
+    if loc.Q_MESH_USE==True:
+        # first get reciprocal vectors
+        (rec_0,rec_1,rec_2)=get_recip_vectors("run/03/get_mesh/_work/pref.save/data-file.xml")
+        # create fine_mesh
+        create_fine_mesh_file("run/05/mesh.txt",loc.Q_MESH_POINTS,loc.Q_MESH_PATH,rec_0,rec_1,rec_2)
+    #
     # make input file for the first EPW run
     f=open("run/05/epw.in","w")
     f.write("--\n")
@@ -392,9 +478,9 @@ def do_epw_second():
   nk1         = """+str(loc.KMESH[0])+"""
   nk2         = """+str(loc.KMESH[1])+"""
   nk3         = """+str(loc.KMESH[2])+"""
-  nq1         = """+str(loc.KMESH[0])+"""
-  nq2         = """+str(loc.KMESH[1])+"""
-  nq3         = """+str(loc.KMESH[2])+"""
+  nq1         = """+str(loc.QMESH[0])+"""
+  nq2         = """+str(loc.QMESH[1])+"""
+  nq3         = """+str(loc.QMESH[2])+"""
  /
 """)
     f.write(str(numq)+"  cartesian\n")
@@ -411,11 +497,16 @@ def do_epw_second():
     os.popen("cd run/05 ; ln -s ../04/epwdata.fmt .")
     os.popen("cd run/05 ; ln -s ../04/dmedata.fmt .")
     # run EPW
-    os.popen("cd run/05; "+EPW_EPW_EXEC+" -in epw.in &> epw.out")
+    proc=sub.Popen("cd run/05; "+EPW_EPW_EXEC+" -in epw.in &> epw.out",shell=True)
+    proc.wait()
     # clean up some large files used in EPW
     os.popen("cd run/05 ; rm _work/pref.epmatwe*")
     os.popen("cd run/05 ; rm _work/pref.epmatwp*")
-
+    # check if done smoothly
+    if proc.returncode!=0 or os.path.exists("run/05/CRASH")==True:
+        os.popen("mv run/05 run/05__FAILED")
+        sys.exit(1)
+        
     # store output and input files from each EPW run
     # into unique folder based on current time
     ts=time.time()
@@ -427,6 +518,64 @@ def do_epw_second():
     os.popen("cp run/_scr/submit out_epw_2/"+tstamp)
     os.popen("cp run/_scr/loc.py out_epw_2/"+tstamp)
     os.popen("cp run/_scr/do_epw.py out_epw_2/"+tstamp)
+    # store mesh file if needed
+    if loc.Q_MESH_USE==True:
+        os.popen("cp run/05/mesh.txt out_epw_2/"+tstamp)
+
+def create_fine_mesh_file(fname,num_points,q_path,rec_0,rec_1,rec_2):
+    "Create path for the fine mesh."
+    # convert all endpoints to cartesian
+    q_cart=[]
+    for q in q_path:
+        q_cart.append(red_to_cart_3d(q,rec_0,rec_1,rec_2))
+    q_cart=np.array(q_cart)
+    # now find length of first segment
+    frst_len=np.sqrt(np.dot(q_cart[1]-q_cart[0],q_cart[1]-q_cart[0]))
+    # find length of each small segment
+    seg_len=frst_len/float(num_points-1.0)
+    # now make path along each segment
+    final_pth=[]
+    for i in range(len(q_cart)-1):
+        # compute how many segments are needed for this part of the path
+        num_seg=int(round(np.sqrt(np.dot(q_cart[i+1]-q_cart[i],q_cart[i+1]-q_cart[i]))/seg_len))
+        for j in range(num_seg):
+            pref=float(j)/float(num_seg)
+            final_pth.append(q_cart[i]+pref*(q_cart[i+1]-q_cart[i]))
+    # missing last point
+    final_pth.append(q_cart[-1])
+    # now convert path to crystal coordinates
+    for i in range(len(final_pth)):
+        final_pth[i]=cart_to_red_3d(final_pth[i],rec_0,rec_1,rec_2)
+    final_pth=np.array(final_pth)
+    # get weight
+    wei=1.0/float(final_pth.shape[0])
+    
+    # now dump it to the file            
+    f=open(fname,"w")
+    f.write(str(final_pth.shape[0])+"\n")
+    for i in range(final_pth.shape[0]):
+        for j in range(3):
+            f.write('%.15f'%final_pth[i,j]+"  ")
+        f.write('   %.15f'%wei)
+        if i!=final_pth.shape[0]-1:
+            f.write("\n")
+    f.close()    
+        
+def get_recip_vectors(fname):
+    """Returns reciprocal vector from xml file"""
+    # open xml file
+    doc=xml.dom.minidom.parse(fname)
+    # get reciprocal vectors
+    cell=doc.getElementsByTagName("CELL")[0]
+    recip=cell.getElementsByTagName("RECIPROCAL_LATTICE_VECTORS")[0]
+    units=cell.getElementsByTagName("UNITS_FOR_RECIPROCAL_LATTICE_VECTORS")[0].getAttribute("UNITS")
+    if units!="2 pi / a":
+        print "Wrong units! ",units
+        sys.exit(1)
+    rec_vec_0=np.array(map(float,recip.getElementsByTagName("b1")[0].firstChild.data.split()))
+    rec_vec_1=np.array(map(float,recip.getElementsByTagName("b2")[0].firstChild.data.split()))
+    rec_vec_2=np.array(map(float,recip.getElementsByTagName("b3")[0].firstChild.data.split()))
+    return (rec_vec_0,rec_vec_1,rec_vec_2)
     
 def get_kpoints_weights(fname):
     """Returns k-points in 2pi/alat units, but makes sure
@@ -475,10 +624,34 @@ def get_kpoints_weights(fname):
         cur_red=cart_to_red_3d(cur_cart,rec_vec_0,rec_vec_1,rec_vec_2)
         # now force this to be between 0 and 1
         for j in range(3):
-            cur_red[j]=cur_red[j]%1.0
-        # now put vack in cartesian
+            cur_red[j]=(cur_red[j]+1.0E-10)%1.0-1.0E-10
+        # now put back in cartesian
         kpt[i]=red_to_cart_3d(cur_red,rec_vec_0,rec_vec_1,rec_vec_2)
     return (numk,kpt,wei)
+
+def get_phonon_vectors():
+    "Use these phonon vectors in the calculation."
+    # see if we want to override list of phonons
+    # by using those in this file q_list_OVERRIDE.py
+    try:
+        override=loc.PHONON_OVERRIDE
+    except:
+        override=False
+    #
+    # whether list of phonons is overriden or not
+    if override==False:
+        # if needed compute q mesh
+        if os.path.exists("run/01/phonon_mesh")==False:
+            compute_phonon_mesh()
+        # otherwise jsut use what was computed already
+        else:
+            return get_kpoints_weights("run/01/phonon_mesh/_work/pref.save/data-file.xml")
+    else:
+        print "Overriding list of phonons!"
+        ovr_data=imp.load_source("ovr_data","q_list_OVERRIDE.py")
+        return (ovr_data.NUMK,
+                np.array(ovr_data.KPT),
+                np.array(ovr_data.WEI))
 
 def cart_to_red_3d(cart,cell1,cell2,cell3):
     "Convert from cartesian to reduced coordinates"
@@ -502,6 +675,7 @@ def legend():
  Folder description:
 
   run/01    --> initial SCF run used in the phonon calculation later
+  run/01/phonon_mesh --> finds a list of phonon q-vectors to use later
 
   run/02    --> phonon calculation
 
